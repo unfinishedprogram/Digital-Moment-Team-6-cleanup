@@ -12,8 +12,8 @@ class PocketBaseClient {
     static {
         this.url = "http://localhost:8090";
         // TODO Use environment variables instead of hardcoding
-        this.username = "admin@admin.com";
-        this.password = "adminpassword";
+        this.username = process.env.DM_DB_EMAIL!;
+        this.password = process.env.DM_DB_PASSWORD!;
     }
 
 
