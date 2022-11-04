@@ -1,0 +1,23 @@
+@import 'themes.scss';
+
+#__next, .page-wrapper {
+  width: 100%;
+  min-width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-grow: 1;
+}
+
+.main {
+  flex-grow: 1;
+  // background: map-get($theme-youngest, "red");
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  background: green;
+  padding: 0.5rem;
+  gap: 0.5rem;
+}
