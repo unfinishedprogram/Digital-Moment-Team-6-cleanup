@@ -10,7 +10,7 @@ class PocketBaseClient {
 
 
     static {
-        this.url = "http://127.0.0.1:8090";
+        this.url = "http://localhost:8090";
         // TODO Use environment variables instead of hardcoding
         this.username = "admin@admin.com";
         this.password = "adminpassword";
