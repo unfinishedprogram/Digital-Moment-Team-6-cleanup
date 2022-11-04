@@ -8,16 +8,17 @@ export interface ICreateUserArgs {
 }
 
 const handler: TypedEndpoint<ICreateUserArgs, User> = async (req, res) => {
-  try {
-    const user = await pocketbase.client.users.create({
-      email: req.body.email,
-      password: req.body.password,
-      passwordConfirm: req.body.password,
-    })
-    res.status(200).json(user);
-  } catch {
-    res.status(400);
+  const data = {
+    email: req.body.email,
+    password: req.body.password,
+    passwordConfirm: req.body.password,
   }
+
+  pocketbase.client.users.create(data).then(data => {
+    res.status(200).json(data);
+  }).catch(error => {
+    res.status(400).send(error.data);
+  })
 }
 
 export default handler;
