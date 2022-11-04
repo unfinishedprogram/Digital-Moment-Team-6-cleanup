@@ -1,4 +1,3 @@
-import { json } from "stream/consumers";
 import { DemoArgs, DemoReturn } from "../pages/api/demo";
 
 type EndpointHandler<D, T> = (args: D) => T;
@@ -6,7 +5,6 @@ type EndpointHandler<D, T> = (args: D) => T;
 interface IEndpoints {
   "demo": EndpointHandler<DemoArgs, DemoReturn>,
 }
-
 
 export default class Api {
   private static baseURL = "http://localhost:3000/api"
