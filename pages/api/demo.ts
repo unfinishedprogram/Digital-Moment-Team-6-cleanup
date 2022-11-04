@@ -14,3 +14,5 @@ export interface DemoReturn {
 const handler: TypedEndpoint<DemoArgs, DemoReturn> = (req, res) => {
   res.status(200).json({ returnValue: "return" });
 }
+
+export default handler;
