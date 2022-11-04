@@ -38,3 +38,4 @@ next-env.d.ts
 # pocketbase cache
 pb_data/*.db-shm
 pb_data/*.db-wal
+pb_data/logs.db
