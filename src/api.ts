@@ -10,13 +10,6 @@ interface IEndpoints {
 export default class Api {
   private static baseURL = "http://localhost:3000/api"
 
-  public static check() {
-    const test = Api.makeRequest("demo", {
-      arg1: "string",
-      other: 5,
-    })
-  }
-
   public static async makeRequest<R extends keyof IEndpoints, D extends Parameters<IEndpoints[R]>, T extends ReturnType<IEndpoints[R]>>(route: R, ...args: D): Promise<T> {
     const res = await fetch(`${this.baseURL}/${route}`, {
       method: 'POST',
