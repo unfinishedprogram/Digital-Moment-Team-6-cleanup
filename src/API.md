@@ -20,12 +20,14 @@ The types related to this endpoing (resolved value and input data types) should 
 
 The handler must be the default export in this file
 
+The two basic types are TypedGetEndpoint and TypedPostEndpoint
+
 A basic handler might look like this
 
 ```ts
 // pages/api/demo.ts
 
-import { TypedEndpoint } from '../../src/lib/types/request';
+import { TypedGetEndpoint } from '../../src/lib/types/request';
 
 
 export interface DemoArgs {
@@ -37,19 +39,19 @@ export interface DemoReturn {
   returnValue: string,
 }
 
-const handler: TypedEndpoint<DemoArgs, DemoReturn> = (req, res) => {
+const handler: TypedGetEndpoint<DemoArgs, DemoReturn> = (req, res) => {
   res.status(200).json({ returnValue: "return" });
 }
 ```
 
 For each api route made, it must be registered in the `src/api.ts` file as well.
-This is done by adding it to the `IEndpoints` interface.
+This is done by adding it to the `I[Get/Post]Endpoints` interface.
 The key will be the string version of the route, and the value will be an `EndpointHandler` type 
 with the same generic arguments as the endpoint handler.
 
 
 ```ts
-interface IEndpoints {
+interface IGetEndpoints {
   "demo": EndpointHandler<DemoArgs, DemoReturn>,
 }
 ```
