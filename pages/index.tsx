@@ -1,4 +1,7 @@
 import Head from 'next/head'
+import ButtonBase from '../src/components/general/button/button-base'
+import ButtonConfirm from '../src/components/general/button/button-confirm'
+import ButtonDanger from '../src/components/general/button/button-danger'
 import styles from '../styles/Home.module.scss'
 
 export default function Home() {
