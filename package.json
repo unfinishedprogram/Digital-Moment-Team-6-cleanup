@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "pb": "run-script-os",
-    "pb:win32": "./pocketbase_win.exe serve",
+    "pb:win32": "start pocketbase_win.exe serve",
     "pb:darwin:linux": "./pocketbase_unx serve",
     "next-dev": "next dev",
     "build": "next build",
