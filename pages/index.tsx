@@ -41,8 +41,8 @@ export default function Home() {
         </nav>
         <section className={styles.content}>
           <section className={styles['post-content']}></section>
-          <footer>
-            <span>Made by</span>
+          <footer className={styles['footer']}>
+            <span>Source:</span>
             <a href='https://github.com/CodeToGive6/Digital-Moment-Team-6' target={'_blank'} rel="noreferrer">Github</a>
           </footer>
         </section>
