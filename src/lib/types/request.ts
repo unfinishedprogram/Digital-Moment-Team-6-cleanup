@@ -1,7 +1,17 @@
 import { NextApiRequest, NextApiResponse } from "next";
 
-export default interface TypedAPIRequest<T> extends NextApiRequest {
+export interface TypedPostRequest<T> extends NextApiRequest {
     body: T,
 }
 
-export type TypedEndpoint<D, T> = (res: TypedAPIRequest<D>, req: NextApiResponse<T>) => void;
+type QueryString =  Partial<{
+    [key: string]: string | string[];
+}>;
+
+export interface TypedGetRequest<T extends QueryString> extends NextApiRequest {
+    query: Partial<T>,
+}
+
+export type TypedPostEndpoint<D, T> = (res: TypedPostRequest<D>, req: NextApiResponse<T>) => void;
+
+export type TypedGetEndpoint<D extends QueryString, T> = (res: TypedGetRequest<D>, req: NextApiResponse<T>) => void;
