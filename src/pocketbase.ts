@@ -1,5 +1,6 @@
 import PocketBase from 'pocketbase';
 
+
 class PocketBaseClient {
     private static url: string;
     private static username: string;
@@ -32,11 +33,12 @@ class PocketBaseClient {
     }
 
 
-    private login() {
-        this._client.admins.authViaEmail(
+    private async login() {
+        const authData = await this._client.admins.authViaEmail(
             PocketBaseClient.username,
             PocketBaseClient.password
         );
+        this.client.authStore.save(authData.token, authData.admin);
     }
 
 

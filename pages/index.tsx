@@ -2,7 +2,12 @@ import Head from 'next/head'
 import Image from 'next/image'
 import styles from '../styles/Home.module.scss'
 
+import pocketbase from '../src/pocketbase'
+import { useState } from 'react';
+
 export default function Home() {
+  const [results, setResults] = useState("");
+
   return (
     <div className={styles.container}>
       <Head>
@@ -52,6 +57,18 @@ export default function Home() {
             </p>
           </a>
         </div>
+        <button onClick={
+          () =>
+          pocketbase.client.records
+            .getList('posts')
+            .then(
+              data => {
+                let json = JSON.stringify(data);
+                console.log(json)
+                setResults(json)
+              }
+            )
+        }>Click Me</button>
       </main>
 
       <footer className={styles.footer}>
