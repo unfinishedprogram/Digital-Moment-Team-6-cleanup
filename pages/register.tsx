@@ -31,7 +31,7 @@ export default function Register() {
   let usernameElement = React.useRef<HTMLInputElement>(null);
   let ageElement = React.useRef<HTMLSelectElement>(null);
   let locationElement = React.useRef<HTMLInputElement>(null);
-
+  
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let email = emailElement.current!.value;
@@ -52,22 +52,22 @@ export default function Register() {
         <h1>Register</h1>
         <form onSubmit={submit}>
           <label htmlFor="username">{strings.username}</label>
-          <input type="text" id="username" name="username" ref={usernameElement} />
+          <input type="text" id="username" name="username" ref={usernameElement} required />
           <label htmlFor="email">{strings.email}</label>
-          <input type="email" id="email" name="email" ref={emailElement} />
+          <input type="email" id="email" name="email" ref={emailElement} required />
           <label htmlFor="password">{strings.password}</label>
-          <input type="password" id="password" name="password" ref={pswdElement} />
+          <input type="password" id="password" name="password" ref={pswdElement} required />
           <label htmlFor="repeat">{strings.repeat}</label>
-          <input type="password" id="repeat" name="repeat" ref={pswdConfirmElement} />
+          <input type="password" id="repeat" name="repeat" ref={pswdConfirmElement} required />
           <label htmlFor="age">{strings.age}</label>
-          <select ref={ageElement} id="age" name="age">
-            <option>8-10</option>
-            <option>11-13</option>
-            <option>14-15</option>
-            <option>16-17</option>
+          <select ref={ageElement} id="age" name="age" required >
+            <option value="8-10">8-10</option>
+            <option value="11-13">11-13</option>
+            <option value="14-15">14-15</option>
+            <option value="16-17">16-17</option>
           </select>
           <label htmlFor="location">{strings.location}</label>
-          <input type="text" id="location" name="location" ref={locationElement}/>
+          <input type="text" id="location" name="location" ref={locationElement} required />
           <input type="submit" />
         </form>
       </main>
