@@ -11,5 +11,5 @@ export default function TagSelect(props: Props<{ value: string; label: string },
     value: tag, label: tag
   }));
 
-  return <Select isMulti {...props} options={options} className={style.dropdown} />
+  return <Select isMulti {...props} closeMenuOnSelect={false} options={options} className={style.dropdown} />
 }
