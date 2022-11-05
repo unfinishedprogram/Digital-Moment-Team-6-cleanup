@@ -19,7 +19,16 @@ let strings = new LocalizedStrings({
     password: "Password",
     repeat: "Repeat Password",
     age: "What age group are you in?",
-    location: "Where are you from ?",
+    location: "Where are you from?",
+  },
+  fr:{
+    username: "Nom d'utilisateur",
+    email: "Adresse Électronique",
+    password: "Mot de passe",
+    repeat: "Répéter votre mot de passe",
+    age: "Quel groupe d'âge fais-tu partie ?",
+    location: "D'où viens-tu",
+
   }
 })
 
