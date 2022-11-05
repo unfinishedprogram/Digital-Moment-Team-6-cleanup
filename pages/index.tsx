@@ -2,7 +2,11 @@ import Head from 'next/head'
 
 import Api from '../src/api'
 import styles from '../styles/Home.module.scss'
+import input_styles from '../styles/input.module.scss'
 import '../src/pocketbase';
+import ButtonBase from '../src/components/general/button/button-base';
+import ButtonConfirm from '../src/components/general/button/button-confirm';
+import ButtonDanger from '../src/components/general/button/button-danger';
 
 export default function Home() {
 
@@ -16,9 +20,12 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1>Home</h1>
-        <button
-          onClick={() => Api.makeGetRequest("user/get", {id: "whatever"}).then(v => console.log(v))}
-        />
+        <input type="text" className={input_styles["text-input"]}></input>
+        <div>
+          <ButtonBase>Click Me</ButtonBase>
+          <ButtonConfirm>Confirm</ButtonConfirm>
+          <ButtonDanger>Confirm</ButtonDanger>
+        </div>
       </main>
     </div>
   )

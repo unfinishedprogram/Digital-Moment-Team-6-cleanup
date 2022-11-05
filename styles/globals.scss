@@ -1,3 +1,5 @@
+@import "./theme.scss";
+
 html,
 body {
   padding: 0;
@@ -22,6 +24,6 @@ a {
 
   body {
     color: white;
-    background: black;
+    background: $color-bg
   }
 }

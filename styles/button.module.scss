@@ -1,15 +1,57 @@
+@import "./theme.scss";
+
 .button {
-    background-color: purple;
+    $button-padding-x2: calc($button-padding * 2);
+
+    cursor: pointer;
+
+    position: relative;
+    display: inline-block;
+    background: white;
+    padding: $button-padding $button-padding-x2;
+    color: $color-text-primary;
+    border-radius: $button-padding-x2;
+    margin: 0.5rem;
+    border: 1px solid $color-text-primary;
+    box-shadow: $black-shadow;
+
+    transition: transform $animation-multiplier;
 
     &.danger {
-        background-color: red;
+        background: $color-red;
     }
 
     &.confirm {
-        background-color: green;
+        background: $color-green;
+    }
+
+    // Hover Overlay
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: $button-padding-x2;
+        background-color: #fff5;
+        transform-origin: center;
+        transform: scale(0);
+        transition: transform calc($animation-multiplier * 0.5);
+    }
+
+    &:hover::before,
+    &:active::before {
+        transform: scale(1);
+    }
+
+    &:active {
+        transform: scale(1.1);
     }
 }
 
 .disabled {
     filter: saturate(0.5);
+    cursor: not-allowed;
 }

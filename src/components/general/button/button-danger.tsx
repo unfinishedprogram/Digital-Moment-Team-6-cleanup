@@ -5,7 +5,7 @@ interface IButtonProps {
   disabled?: boolean,
 }
 
-export default class ButtonConfirm extends React.Component<PropsWithChildren<IButtonProps>>{
+export default class ButtonDanger extends React.Component<PropsWithChildren<IButtonProps>>{
   render(): React.ReactNode {
     const { disabled, children } = this.props;
     return (
