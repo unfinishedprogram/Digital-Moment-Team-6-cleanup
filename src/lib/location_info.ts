@@ -6,7 +6,7 @@ type Location = {
 }
 
 async function getLocationInfo(locations: string) {
-  let apiKey: string = "170292596801184127888x39017"
+  let apiKey: string = "170292596801184127888x39017";
   let baseURL: URL = new URL("https://geocode.xyz/");
 
   let locationInfo: Location[] = [];
@@ -16,12 +16,18 @@ async function getLocationInfo(locations: string) {
     searchURL.searchParams.append('json', '1');
     searchURL.searchParams.append('auth', apiKey);
 
-    let locationResponse: Response = await fetch (searchURL);
-    let locationData = await locationResponse.json();
-    let locationString: string = JSON.parse(JSON.stringify(`{"${locationData.standard.city}": { "latt": ${locationData.latt}, "longt": ${locationData.longt}}}`));
-    locationInfo.push(JSON.parse(locationString));
+    try {
+      let locationResponse: Response = await fetch (searchURL);
+      if (locationResponse.status == 200) {
+        let locationData: any = await locationResponse.json();
+        let locationString: string = JSON.parse(JSON.stringify(`{"${locationData.standard.city}": { "latt": ${locationData.latt}, "longt": ${locationData.longt}}}`));
+        locationInfo.push(JSON.parse(locationString));
+      }
+    } catch(e: any) {
+      console.error(e);
+    }
   };
-  return locationInfo
+  return locationInfo;
 }
 
 export { getLocationInfo };
