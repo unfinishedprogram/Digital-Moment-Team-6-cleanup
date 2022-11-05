@@ -1,15 +1,51 @@
+@import "./theme.scss";
+
 .button {
-    background-color: purple;
+    @include pill;
+
+    cursor: pointer;
+    transition: transform $animation-multiplier;
+
+    position: relative;
+    display: inline-block;
+    outline: none;
 
     &.danger {
-        background-color: red;
+        background: $color-red;
     }
 
     &.confirm {
-        background-color: green;
+        background: $color-green;
+    }
+
+    // Hover Overlay
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        border-radius: 100vh;
+        background-color: #fff5;
+        transform-origin: center;
+        transform: scale(0);
+        transition: transform calc($animation-multiplier * 0.5);
+    }
+
+    &:hover::before,
+    &:focus::before,
+    &:active::before {
+        transform: scale(1);
+    }
+
+    &:active {
+        transform: scale(1.1);
     }
 }
 
 .disabled {
     filter: saturate(0.5);
+    cursor: not-allowed;
 }

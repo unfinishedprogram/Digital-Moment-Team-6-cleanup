@@ -1,0 +1,41 @@
+// All colors should be from this file
+$color-red: #FF6B6B;
+$color-yellow: #FFD93D;
+$color-green: #6BCB77;
+$color-blue: #4D96FF;
+
+$color-text-primary: #000;
+$color-text-secondary: #222;
+
+$color-bg: #DDD8CF;
+$color-fg: #EAE7E1;
+
+
+// Sizing settings
+
+$button-padding: 1rem;
+
+$std-padding: 1rem;
+
+$std-margin: 0.5rem;
+
+$black-shadow: 0.2rem 0.2rem $color-text-primary;
+
+// All animations should use this as a scaling factor so we can configure it globally
+$animation-multiplier: 0.25s;
+
+$text-container-padding: $std-padding calc($std-padding * 2);
+
+$nav-height: 4.5rem;
+
+@mixin pill {
+    font-size: medium;
+    padding: $text-container-padding;
+    color: $color-text-primary;
+    border-radius: 100vh;
+    background-color: $color-fg;
+    border: 1px solid $color-text-primary;
+    box-shadow: $black-shadow;
+    margin: $std-margin;
+    max-width: 100%;
+}

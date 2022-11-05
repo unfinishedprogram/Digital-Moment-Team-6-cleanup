@@ -9,9 +9,9 @@ export default class ButtonConfirm extends React.Component<PropsWithChildren<IBu
   render(): React.ReactNode {
     const { disabled, children } = this.props;
     return (
-      <div className={`${styles.button} ${styles.confirm} ${disabled ? styles.disabled : ""}`}>
+      <button className={`${styles.button} ${styles.confirm} ${disabled ? styles.disabled : ""}`}>
         {children}
-      </div>
+      </button>
     )
   }
 }
