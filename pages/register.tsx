@@ -3,11 +3,21 @@ import React from 'react';
 import Api from '../src/api';
 import styles from '../styles/Home.module.scss'
 import input_styles from "../styles/input.module.scss"
+import  dropdown_styles from "../styles/dropdownSelect.module.scss"
 import {useFormik} from 'formik';
 import { strings } from '../src/localization/localization-register'
 import ButtonConfirm from '../src/components/general/button/button-confirm';
 import Link from 'next/link';
+import TagSelector from "../src/components/general/tagSelector"
+import Select from "react-select"
 let lang =['English', 'French', 'Spanish']
+let preferences = ["politics", "racism", "war"]
+const ageOptions = [
+  { value: '8-10', label: '8-10'  },
+  { value: '11-13', label: '11-13' },
+  { value: '14-15', label: '14-15' },
+  { value: '16-17', label: '16-17' },
+]
 
 export default function Register() {
   const validate = (values: {
@@ -34,6 +44,7 @@ export default function Register() {
     }
     return errors
   }
+
   const formik = useFormik({
     initialValues: {
       username: "",
@@ -113,18 +124,14 @@ export default function Register() {
             required 
           />
           {formik.errors.repeat ? <label htmlFor='repeat'>{formik.errors.repeat}</label>: null}
-          <select 
+          <Select 
+            options={ageOptions}
             placeholder={strings.age} 
+            onChange={formik.handleChange} 
+            className={dropdown_styles['dropdown']}
             id="age" 
             name="age" 
-            onChange={formik.handleChange} 
-            value={formik.values.age}
-          >
-            <option>8-10</option>
-            <option>11-13</option>
-            <option>14-15</option>
-            <option>16-17</option>
-          </select>
+          />
           <input 
             placeholder={strings.location} 
             className={input_styles['text-input']} 
@@ -136,6 +143,8 @@ export default function Register() {
             required
           />
           {formik.errors.location ? <label htmlFor='location'>{formik.errors.location}</label>: null}
+          <TagSelector tags={lang} placeholder={strings.languages}></TagSelector>
+          <TagSelector tags={preferences} placeholder={strings.preferences}></TagSelector>
           <ButtonConfirm>{strings.register}</ButtonConfirm>
         </form>
         <h4>Already have an account? <Link href="/login">Login</Link></h4>
