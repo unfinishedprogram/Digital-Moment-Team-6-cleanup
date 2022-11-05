@@ -2,28 +2,10 @@ import Head from 'next/head'
 import React, { FormEvent } from 'react';
 import Api from '../src/api';
 import styles from '../styles/Home.module.scss'
-import LocalizedStrings from 'react-localization'
+import { strings } from '../src/localization/localization'
 
-let strings = new LocalizedStrings({
-  en:{
-    username: "Username",
-    email: "Email",
-    password: "Password",
-    repeat: "Repeat Password",
-    age: "What age group are you in?",
-    location: "Where are you from ?",
-  },
-  fr:{
-    username: "Nom d'utilisateur",
-    email: "Adresse Électronique",
-    password: "Mot de passe",
-    repeat: "Répéter votre mot de passe",
-    age: "Quel groupe d'âge fais-tu partie ?",
-    location: "D'où viens-tu",
-
-  }
-})
-strings.setLanguage('fr')
+// Line for testing localization;
+strings.setLanguage('fr');
 
 export default function Register() {
   let emailElement = React.useRef<HTMLInputElement>(null);
