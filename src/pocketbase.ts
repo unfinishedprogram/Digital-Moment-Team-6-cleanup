@@ -11,6 +11,7 @@ class PocketBaseInstance {
 
 
   static {
+    // TODO Use environment variables instead of hardcoding
     this.url = "http://127.0.0.1:8090";
     this.username = process.env.DM_DB_EMAIL!;
     this.password = process.env.DM_DB_PASSWORD!;

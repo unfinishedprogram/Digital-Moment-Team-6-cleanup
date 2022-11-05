@@ -1,12 +1,12 @@
-import { DemoArgs, DemoReturn } from "../pages/api/demo";
 import qs from "qs";
-import { GetUserQueryParams,  } from "../pages/api/user/get";
-import { ProfilesRecord } from "./lib/types/pocket";
+import { GetUserQueryParams } from "../pages/api/user/get";
+import { User } from "pocketbase";
+import { ICreateUserArgs } from "../pages/api/user/create";
 
 type EndpointHandler<D, T> = (args: D) => T;
 
 interface IPostEndpoints {
-  "demo": EndpointHandler<DemoArgs, DemoReturn>,
+  "user/create": EndpointHandler<ICreateUserArgs, User>,
 }
 
 interface IGetEndpoints {
@@ -34,11 +34,14 @@ export default class Api {
     });
   }
 
-  public static async makeRequest<R extends keyof IPostEndpoints, D extends Parameters<IPostEndpoints[R]>, T extends ReturnType<IPostEndpoints[R]>>(route: R, ...args: D): Promise<T> {
+  public static async makePostRequest<R extends keyof IPostEndpoints, D extends Parameters<IPostEndpoints[R]>, T extends ReturnType<IPostEndpoints[R]>>(route: R, ...args: D): Promise<T> {
     return new Promise(async (res, rej) => {
       const response = await fetch(`${this.baseURL}/${route}`, {
         method: 'POST',
-        body: JSON.stringify(args)
+        body: JSON.stringify(args),
+        headers: {
+          "content-type": "application/json"
+        }
       });
 
       if (response.status == 200) {
