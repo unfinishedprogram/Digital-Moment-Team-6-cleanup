@@ -10,7 +10,7 @@ interface IPostEndpoints {
 }
 
 interface IGetEndpoints {
-  "user/get": EndpointHandler<GetUserQueryParams, User>
+  "user/get": EndpointHandler<GetUserQueryParams, ProfilesRecord>
 }
 
 
