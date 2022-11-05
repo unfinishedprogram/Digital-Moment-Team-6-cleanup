@@ -1,15 +1,16 @@
 import React from "react";
 import styles from "../../../styles/post.module.scss"
-import { TagsRecord } from "../../lib/types/pocket";
+import { Tag } from "../../lib/types/fullPocketTypes";
 
-export default function Tag({ name }: TagsRecord) {
-  if (!name) {
+export default function TagComponent(props: { tag: Tag }) {
+  if (!props) {
+    return (<></>)
+  } else {
+    let tag = props.tag
     return (
       <>
-        <span className={styles.tag}>{name}</span>
+        <span className={styles.tag}>{tag.name}</span>
       </>
     )
-  } else {
-    return (<></>)
   }
 }
