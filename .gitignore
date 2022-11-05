@@ -39,3 +39,5 @@ next-env.d.ts
 pb_data/*.db-shm
 pb_data/*.db-wal
 pb_data/logs.db
+
+public/tiles
