@@ -511,7 +511,7 @@
     "bearing": 0,
     "sources": {
         "maplibre": {
-            "url": "https://demotiles.maplibre.org/tiles/tiles.json",
+            "url": "/tiles.json",
             "type": "vector"
         },
         "crimea": {
