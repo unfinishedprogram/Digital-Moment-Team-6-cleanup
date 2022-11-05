@@ -1,17 +1,17 @@
 import PocketBase from 'pocketbase';
+import {CollectionRecords, Collections} from './lib/types/pocket';
 
 
-class PocketBaseClient {
+class PocketBaseInstance {
   private static url: string;
   private static username: string;
   private static password: string;
 
-  private _client: PocketBase;
+  private _connection: Promise<PocketBase> | null;
 
 
   static {
-    this.url = "http://localhost:8090";
-    // TODO Use environment variables instead of hardcoding
+    this.url = "http://127.0.0.1:8090";
     this.username = process.env.DM_DB_EMAIL!;
     this.password = process.env.DM_DB_PASSWORD!;
   }
@@ -19,32 +19,42 @@ class PocketBaseClient {
 
 
   constructor() {
-    this._client = new PocketBase(PocketBaseClient.url);
-    this.login();
+    this._connection = null;
+  }
+
+  public async getOne<T extends keyof CollectionRecords>(collection: T, id: string): Promise<CollectionRecords[T]> {
+    const client = await this.getConnection();
+    return await (client.records.getOne(collection, id) as unknown as Promise<CollectionRecords[T]>);
   }
 
 
-  get client() {
-    return this._client;
+  private async connect() {
+    if (!this._connection) {
+      // Establish session
+      this._connection = this.establishConnection();
+    }
   }
 
-  get records() {
-    return this._client.records;
+  async getConnection() {
+    await this.connect();
+    return (await this._connection)!;
   }
 
 
-  private async login() {
-    const authData = await this._client.admins.authViaEmail(
-      PocketBaseClient.username,
-      PocketBaseClient.password
+  private async establishConnection() {
+    const client = new PocketBase(PocketBaseInstance.url);
+    // Get authentication data
+    console.log(PocketBaseInstance.username);
+    const authData = await client.admins.authViaEmail(
+      "admin@admin.com",
+      "adminpassword"
     );
-    this.client.authStore.save(authData.token, authData.admin);
-  }
-
-
-  logout() {
-    this._client.authStore.clear();
+    // Log in
+    client.authStore.save(authData.token, authData.admin);
+    return client;
   }
 }
 
-export default new PocketBaseClient();
+const instance = new PocketBaseInstance();
+
+export default instance;

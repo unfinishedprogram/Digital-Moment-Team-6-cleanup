@@ -1,6 +1,7 @@
 import { DemoArgs, DemoReturn } from "../pages/api/demo";
 import qs from "qs";
-import { GetUserQueryParams, User } from "../pages/api/user/get";
+import { GetUserQueryParams,  } from "../pages/api/user/get";
+import { ProfilesRecord } from "./lib/types/pocket";
 
 type EndpointHandler<D, T> = (args: D) => T;
 
@@ -9,7 +10,7 @@ interface IPostEndpoints {
 }
 
 interface IGetEndpoints {
-  "user/get": EndpointHandler<GetUserQueryParams, User>
+  "user/get": EndpointHandler<GetUserQueryParams, ProfilesRecord>
 }
 
 
@@ -25,7 +26,7 @@ export default class Api {
         method: 'GET',
       });
 
-      if (response.status != 200) {
+      if (response.status == 200) {
         res(response.json());
       } else {
         rej(response.statusText);
@@ -40,7 +41,7 @@ export default class Api {
         body: JSON.stringify(args)
       });
 
-      if (response.status != 200) {
+      if (response.status == 200) {
         res(response.json());
       } else {
         rej(response.statusText);
