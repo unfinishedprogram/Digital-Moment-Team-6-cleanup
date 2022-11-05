@@ -14,9 +14,9 @@ export default function Register() {
     repeat: any;
     location: any;
     email: any; username: any; 
-}) =>{  
-    const passwordRegex = RegExp("^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$");
-    const emailRegex = RegExp("!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i");
+    }) =>{  
+    const passwordRegex = RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
+    const emailRegex = RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
     const errors : typeof values  = {
       password: undefined,
       repeat: undefined,
@@ -24,11 +24,12 @@ export default function Register() {
       email: undefined,
       username: undefined
     };
+    console.log(passwordRegex.test(values.password));
     if(values.password && !passwordRegex.test(values.password)){
       errors.password = strings.passwordError;
     }    
     if(values.repeat  &&  values.password != values.repeat ){
-      errors.repeat = strings.passwordError;
+      errors.repeat = strings.repeatError;
     }
     if(!emailRegex.test(values.email)){
       errors.email = strings.emailError;
@@ -97,7 +98,7 @@ export default function Register() {
           <input 
             placeholder={strings.repeat}
             className={input_styles['text-input']} 
-            type="password "
+            type="password"
             id="repeat"
             name="repeat" 
             onChange={formik.handleChange} 

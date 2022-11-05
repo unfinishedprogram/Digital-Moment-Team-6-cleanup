@@ -25,7 +25,7 @@ strings = new LocalizedStrings({
     location: "Where are you from ?",
     register: "Register",
     requiredError: "Required",
-    passwordError: "Password must be at least 8 characters with 1 letter and 1 number",
+    passwordError: "Password must be at least 10 characters with 1 letter, 1 number and special character",
     repeatError: "Password must match",
     emailError: "Must be a valid email",
   },
@@ -38,7 +38,7 @@ strings = new LocalizedStrings({
     location: "D'où viens-tu",
     register: "Enregistrer",
     requiredError: "Nom d'utilisateur obligatoire",
-    passwordError: "Le mot de passe doit comporter au moins 8 caractèresd dont 1 lettre et 1 chiffre",
+    passwordError: "Le mot de passe doit comporter au moins 10 caractères dont 1 lettre, 1 chiffre et 1 caractères",
     repeatError: "Le mot de passe doit être le même",
     emailError: "L’adresse électronique doit être valide",
   }
