@@ -1,10 +1,11 @@
 import Head from 'next/head'
-import ButtonBase from '../src/components/general/button/button-base'
-import ButtonConfirm from '../src/components/general/button/button-confirm'
-import ButtonDanger from '../src/components/general/button/button-danger'
+
+import Api from '../src/api'
 import styles from '../styles/Home.module.scss'
+import '../src/pocketbase';
 
 export default function Home() {
+
   return (
     <div className={styles.container}>
       <Head>
@@ -15,6 +16,9 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1>Home</h1>
+        <button
+          onClick={() => Api.makeGetRequest("user/get", {id: "whatever"}).then(v => console.log(v))}
+        />
       </main>
     </div>
   )
