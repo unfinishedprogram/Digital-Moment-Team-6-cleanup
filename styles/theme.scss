@@ -26,6 +26,8 @@ $animation-multiplier: 0.25s;
 
 $text-container-padding: $std-padding calc($std-padding * 2);
 
+$nav-height: 4.5rem;
+
 @mixin pill {
     font-size: medium;
     padding: $text-container-padding;
@@ -35,4 +37,5 @@ $text-container-padding: $std-padding calc($std-padding * 2);
     border: 1px solid $color-text-primary;
     box-shadow: $black-shadow;
     margin: $std-margin;
+    max-width: 100%;
 }

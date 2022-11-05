@@ -1,5 +1,4 @@
 import '../styles/globals.scss'
-import styles from '../styles/Index.module.scss'
 
 import type { AppProps } from 'next/app'
 import NavBar from '../src/components/general/nav-bar'
@@ -14,7 +13,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <link rel="icon" href="/favicon.ico" />
     </Head>
     <NavBar />
-    <main className={styles.main}>
+    <main>
       <Component {...pageProps} />
       <CustomFooter />
     </main>
