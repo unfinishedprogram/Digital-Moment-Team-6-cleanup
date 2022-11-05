@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next';
 import { TypedGetEndpoint } from "../../../src/lib/types/request";
 import { ProfilesRecord } from "../../../src/lib/types/pocket";
 import pocketbase from '../../../src/pocketbase';
@@ -22,7 +21,7 @@ const handler: TypedGetEndpoint<GetUserQueryParams, ProfilesRecord> = async (req
     const profile = await pocketBaseInstance.getOne("profiles", id)
     res.status(200).json(profile as any);
   } catch (error) {
-    res.status(404).json();
+    res.status(404).json(undefined);
   }
 
 

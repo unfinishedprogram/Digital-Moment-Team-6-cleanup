@@ -8,6 +8,12 @@ npm run dev
 yarn dev
 ```
 
+Load the map tile data:
+
+```bash
+npm run tilegen
+```
+
 ## Pocketbase Admin Login
 
 |           |                 |
