@@ -23,3 +23,16 @@ $black-shadow: 0.2rem 0.2rem $color-text-primary;
 
 // All animations should use this as a scaling factor so we can configure it globally
 $animation-multiplier: 0.25s;
+
+$text-container-padding: $std-padding calc($std-padding * 2);
+
+@mixin pill {
+    font-size: medium;
+    padding: $text-container-padding;
+    color: $color-text-primary;
+    border-radius: 100vh;
+    background-color: $color-fg;
+    border: 1px solid $color-text-primary;
+    box-shadow: $black-shadow;
+    margin: $std-margin;
+}

@@ -9,9 +9,9 @@ export default class ButtonDanger extends React.Component<PropsWithChildren<IBut
   render(): React.ReactNode {
     const { disabled, children } = this.props;
     return (
-      <div className={`${styles.button} ${styles.danger} ${disabled ? styles.disabled : ""}`}>
+      <button className={`${styles.button} ${styles.danger} ${disabled ? styles.disabled : ""}`}>
         {children}
-      </div>
+      </button>
     )
   }
 }

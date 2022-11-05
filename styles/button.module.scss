@@ -1,21 +1,14 @@
 @import "./theme.scss";
 
 .button {
-    $button-padding-x2: calc($button-padding * 2);
+    @include pill;
 
     cursor: pointer;
+    transition: transform $animation-multiplier;
 
     position: relative;
     display: inline-block;
-    background: white;
-    padding: $button-padding $button-padding-x2;
-    color: $color-text-primary;
-    border-radius: $button-padding-x2;
-    margin: 0.5rem;
-    border: 1px solid $color-text-primary;
-    box-shadow: $black-shadow;
-
-    transition: transform $animation-multiplier;
+    outline: none;
 
     &.danger {
         background: $color-red;
@@ -34,7 +27,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        border-radius: $button-padding-x2;
+        border-radius: 100vh;
         background-color: #fff5;
         transform-origin: center;
         transform: scale(0);
@@ -42,6 +35,7 @@
     }
 
     &:hover::before,
+    &:focus::before,
     &:active::before {
         transform: scale(1);
     }

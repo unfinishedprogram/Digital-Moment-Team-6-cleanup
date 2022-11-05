@@ -20,11 +20,12 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1>Home</h1>
-        <input type="text" className={input_styles["text-input"]}></input>
+        <input type="username" placeholder='username' className={input_styles["text-input"]}></input>
+        <input type="email" placeholder='email' className={input_styles["text-input"]}></input>
         <div>
           <ButtonBase>Click Me</ButtonBase>
           <ButtonConfirm>Confirm</ButtonConfirm>
-          <ButtonDanger>Confirm</ButtonDanger>
+          <ButtonDanger>Cancel</ButtonDanger>
         </div>
       </main>
     </div>
