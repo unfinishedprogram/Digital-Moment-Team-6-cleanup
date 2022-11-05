@@ -14,4 +14,4 @@ export interface TypedGetRequest<T extends QueryString> extends NextApiRequest {
 
 export type TypedPostEndpoint<D, T> = (res: TypedPostRequest<D>, req: NextApiResponse<T>) => void;
 
-export type TypedGetEndpoint<D extends QueryString, T> = (res: TypedGetRequest<D>, req: NextApiResponse<T>) => void;
+export type TypedGetEndpoint<D extends QueryString, T> = (req: TypedGetRequest<D>, res: NextApiResponse<T>) => void;

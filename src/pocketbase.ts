@@ -1,4 +1,5 @@
 import PocketBase from 'pocketbase';
+import {CollectionRecords, Collections} from './lib/types/pocket';
 
 
 class PocketBaseInstance {
@@ -21,6 +22,11 @@ class PocketBaseInstance {
     this._connection = null;
   }
 
+  public async getOne<T extends keyof CollectionRecords>(collection: T, id: string): Promise<CollectionRecords[T]> {
+    const client = await this.getConnection();
+    return await (client.records.getOne(collection, id) as unknown as Promise<CollectionRecords[T]>);
+  }
+
 
   private async connect() {
     if (!this._connection) {
@@ -29,9 +35,9 @@ class PocketBaseInstance {
     }
   }
 
-  async connection() {
+  async getConnection() {
     await this.connect();
-    return (await this._connection)!.records;
+    return (await this._connection)!;
   }
 
 
@@ -49,6 +55,6 @@ class PocketBaseInstance {
   }
 }
 
-const instance = new PocketBaseInstance().connection();
+const instance = new PocketBaseInstance();
 
 export default instance;
