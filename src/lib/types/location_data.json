@@ -1,0 +1,12 @@
+{
+    "montreal":
+    {
+        "longt": -123,
+        "latt": 123
+    },
+    "laval":
+    {
+        "longt": -123,
+        "latt": 123
+    }
+}

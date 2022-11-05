@@ -1,7 +1,8 @@
 import PocketBase from 'pocketbase';
 import {CollectionRecords, Collections} from './lib/types/pocket';
 
-
+type Filter = "=" | "!=" | ">" | ">=" | "<" | "<=" | "~" | "!~"
+type FilterRule<T extends keyof CollectionRecords> = `${string & keyof CollectionRecords[T]} ${Filter} ${string}`
 class PocketBaseInstance {
   private static url: string;
   private static username: string;
@@ -26,6 +27,13 @@ class PocketBaseInstance {
   public async getOne<T extends keyof CollectionRecords>(collection: T, id: string): Promise<CollectionRecords[T]> {
     const client = await this.getConnection();
     return await (client.records.getOne(collection, id) as unknown as Promise<CollectionRecords[T]>);
+  }
+
+  public async getList<T extends keyof CollectionRecords>(collection: T, filterRule?: FilterRule<T>): Promise<CollectionRecords[T][]>{
+    const client = await this.getConnection();
+    return (await client.records.getFullList(collection, 200, {
+      filter: filterRule
+    })) as unknown as Promise<CollectionRecords[T][]>
   }
 
 
