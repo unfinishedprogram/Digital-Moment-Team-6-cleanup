@@ -1,5 +1,5 @@
 import Head from 'next/head'
-import React, { FormEvent, ChangeEvent,  useState } from 'react';
+import React from 'react';
 import Api from '../src/api';
 import styles from '../styles/Home.module.scss'
 import input_styles from "../styles/input.module.scss"
@@ -7,22 +7,20 @@ import {useFormik} from 'formik';
 import { strings } from '../src/localization/localization-register'
 import ButtonConfirm from '../src/components/general/button/button-confirm';
 import Link from 'next/link';
+let lang =['English', 'French', 'Spanish']
 
 export default function Register() {
   const validate = (values: {
     password: any;
     repeat: any;
-    location: any;
-    email: any; username: any; 
+    email: any;
     }) =>{  
     const passwordRegex = RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
     const emailRegex = RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
     const errors : typeof values  = {
       password: undefined,
       repeat: undefined,
-      location: undefined,
       email: undefined,
-      username: undefined
     };
     console.log(passwordRegex.test(values.password));
     if(values.password && !passwordRegex.test(values.password)){
@@ -44,10 +42,19 @@ export default function Register() {
       repeat: "",
       age: "",
       location: "",
+      preferences: [],
+      languages: [],
     },
     validate,
     onSubmit: values=>{
-      console.log(values);
+      Api.makePostRequest("user/create",{
+        email: formik.values.email,
+        password: formik.values.password,
+        location: formik.values.location,
+        age: formik.values.age,
+        preferences: formik.values.preferences,
+        languages: formik.values.languages,
+      })
     }
   });
 
