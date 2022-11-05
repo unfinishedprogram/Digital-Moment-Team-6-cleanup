@@ -7,7 +7,7 @@ import Link from 'next/link'
 export default class NavBar extends React.Component {
   render() {
     return <nav className={styles.nav}>
-      <Link href="/register"><Image src="/img/logo.svg" width="50" height="50" alt="logo-placeholder" /></Link>
+      <Link href="/explorer"><Image src="/img/logo.svg" width="50" height="50" alt="logo-placeholder" /></Link>
       <input className={input_style["text-input"]} type="search" placeholder="Search"></input>
       <Link href="/user"><Image src="/img/avatar.svg" width="50" height="50" alt="avatar-placeholder" /></Link>
     </nav>;
