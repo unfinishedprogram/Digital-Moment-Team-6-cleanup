@@ -1,0 +1,15 @@
+.button {
+    background-color: purple;
+
+    &.danger {
+        background-color: red;
+    }
+
+    &.confirm {
+        background-color: green;
+    }
+}
+
+.disabled {
+    filter: saturate(0.5);
+}
