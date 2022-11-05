@@ -1,0 +1,49 @@
+@import "./theme.scss";
+
+
+.dropdown {
+    border: none;
+
+    height: fit-content;
+    border-radius: 2rem;
+
+    div[class$="control"] {
+        width: 100%;
+        height: 2em;
+        outline: none !important;
+        background-color: $color-fg;
+        border-radius: 1.5rem;
+        outline: none;
+        z-index: 500;
+
+        border: none;
+        box-shadow: none;
+        border: 1px solid $color-text-primary;
+        box-shadow: $black-shadow;
+        transition: box-shadow 0s;
+
+        &:not(&:last-child) {
+            box-shadow: none;
+        }
+    }
+
+
+    div[class$="menu"] {
+        color: $color-text-secondary;
+        padding-top: 2rem;
+        transform: translateY(-2.3rem);
+        margin-top: 0px;
+        border: none;
+        background-color: $color-fg;
+        border-radius: 100px;
+        border-radius: 1rem;
+        z-index: 450;
+        border: 1px solid black;
+        padding-bottom: 0px;
+        box-shadow: $black-shadow;
+
+        * {
+            border-radius: 1.5rem;
+        }
+    }
+}
