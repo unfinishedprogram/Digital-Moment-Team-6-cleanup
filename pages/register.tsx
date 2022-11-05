@@ -33,19 +33,14 @@ let strings = new LocalizedStrings({
 })
 
 export default function Register() {
-  let emailElement = React.useRef<HTMLInputElement>(null);
-  let pswdElement = React.useRef<HTMLInputElement>(null);
-  let pswdConfirmElement = React.useRef<HTMLInputElement>(null);
-  let usernameElement = React.useRef<HTMLInputElement>(null);
-  let ageElement = React.useRef<HTMLSelectElement>(null);
-  let locationElement = React.useRef<HTMLInputElement>(null);
-  
+  let formElement = React.useRef<HTMLFormElement>(null);
+
   const submit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    let email = emailElement.current!.value;
-    let password = pswdElement.current!.value;
+    // let email = formElement.current!.
+    // let password = pswdElement.current!.value;
 
-    Api.makePostRequest("user/create", { email, password }).then(console.log)
+    // Api.makePostRequest("user/create", { email, password }).then(console.log)
   }
 
   return (
