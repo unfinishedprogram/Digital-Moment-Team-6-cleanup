@@ -6,6 +6,7 @@ import ButtonDanger from '../src/components/general/button/button-danger';
 
 import React from 'react'
 import Select from 'react-select'
+import TagSelect from '../src/components/general/tagSelector';
 
 
 
@@ -22,6 +23,8 @@ export default function Home() {
     <input type="email" placeholder='email' className={input_styles["text-input"]}></input>
     <input type="checkbox" className={input_styles["checkbox-input"]}></input>
     <Select className={select_styles.dropdown} options={options}></Select>
+    <TagSelect tags={['tag1', "tag2", "other tag"]} />
+
     <div>
       <ButtonBase>Click Me</ButtonBase>
       <ButtonConfirm>Confirm</ButtonConfirm>
