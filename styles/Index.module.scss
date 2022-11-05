@@ -1,32 +1,40 @@
 @import 'themes.scss';
 
-#__next, .page-wrapper {
-  width: 100%;
-  min-width: 100%;
-  height: 100vh;
-  min-height: 100vh;
-  display: flex;
-  flex-grow: 1;
-}
+$nav-height: 60px;
 
 .main {
-  flex-grow: 1;
-  display: inherit;
-  flex-direction: column;
+  overflow-y: scroll;
+  margin-top: $nav-height;
 }
 
 .nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $nav-height;
+  background: $nav-color;
   display: flex;
   justify-content: space-between;
-  background: $nav-color;
   padding: 0.5rem;
   gap: 0.5rem;
 
   @mixin placeholder {
-    &::-webkit-input-placeholder {@content}
-    &::-moz-placeholder {@content}
-    &:-moz-placeholder {@content}
-    &:-ms-input-placeholder {@content}
+    &::-webkit-input-placeholder {
+      @content
+    }
+
+    &::-moz-placeholder {
+      @content
+    }
+
+    &:-moz-placeholder {
+      @content
+    }
+
+    &:-ms-input-placeholder {
+      @content
+    }
   }
 
   input[type='search'] {
@@ -37,9 +45,11 @@
     border-radius: 8px;
     font-size: large;
     background: $nav-input-color;
+
     &:focus {
       outline: none;
     }
+
     @include placeholder {
       color: white;
     }
