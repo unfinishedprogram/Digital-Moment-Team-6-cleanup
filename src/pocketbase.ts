@@ -1,4 +1,4 @@
-import PocketBase from 'pocketbase';
+import PocketBase, { Record } from 'pocketbase';
 import {CollectionRecords, Collections} from './lib/types/pocket';
 
 
@@ -21,6 +21,11 @@ class PocketBaseInstance {
 
   constructor() {
     this._connection = null;
+  }
+
+  public async add<T extends keyof CollectionRecords>(collection: T, obj: CollectionRecords[T]): Promise<CollectionRecords[T] & Record> {
+    const client = await this.getConnection();
+    return await client.records.create(collection, obj) as any;
   }
 
   public async getOne<T extends keyof CollectionRecords>(collection: T, id: string): Promise<CollectionRecords[T]> {
