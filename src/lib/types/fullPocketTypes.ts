@@ -1,4 +1,8 @@
-import { PostsRecord, PostInfosRecord, TagsRecord } from "./pocket";
+import { PostsRecord, PostInfosRecord, ProfilesRecord, CommentsRecord } from "./pocket";
+import { User } from 'pocketbase';
 
 export type Post = PostInfosRecord & Omit<PostsRecord, "post_info">;
-export type Tag = TagsRecord;
+
+export type Comment = PostInfosRecord & Omit<CommentsRecord, "post_info">;
+
+export type UserProfile = Omit<ProfilesRecord, "userId"> & User;
