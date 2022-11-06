@@ -100,9 +100,6 @@ export default function Register(){
 
   const [isChecked, setIsChecked] = React.useState(false);
   const handleChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e.target.checked);
-    console.log(isChecked);
-    
     setIsChecked(e.target.checked);
   };
 
@@ -136,7 +133,6 @@ export default function Register(){
               isSubmitting = true;
               validateForm()
               handleSubmit(e)}}
-              
             >
               <input 
                 placeholder={strings.username} 
@@ -150,7 +146,7 @@ export default function Register(){
               />
               {errors.username ? <label htmlFor='username'>{errors.username}</label>: null}
               <input 
-                placeholder={strings.email}
+                placeholder={isChecked ? strings.emailAdult : strings.email}
                 className={input_styles['text-input']} 
                 type="text"
                 id="email"
@@ -205,8 +201,7 @@ export default function Register(){
                   e.forEach(el=> langs.push(el.value))
                   values.languages = langs
                   validateForm()
-                }
-                }
+                }}
               />
               {errors.languages ? <label htmlFor='languages'>{errors.languages}</label>: null}
               <TagSelector 
@@ -220,8 +215,7 @@ export default function Register(){
                   e.forEach(el=> prefs.push(el.value))
                   values.preferences = prefs
                   validateForm()
-                }  
-                }
+                }}
               />
               {errors.preferences ? <label htmlFor='pref'>{errors.preferences}</label>: null}
               <ButtonConfirm type='submit'>{strings.register}</ButtonConfirm>
