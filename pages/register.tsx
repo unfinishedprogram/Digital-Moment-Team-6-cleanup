@@ -112,16 +112,14 @@ export default function Register(){
           validate={validate}
           onSubmit={(values, actions) => {
             actions.setSubmitting(false)
-            Api.makePostRequest("user/create",{
-              email: values.email,
-              password: values.password,
-              location: values.location,
-              age: values.age,
-              preferences: values.preferences,
-              languages: values.languages,
-            })
-            console.log("done");
-            
+            // Api.makePostRequest("user/add-user-profile",{
+            //   email: values.email,
+            //   password: values.password,
+            //   location: values.location,
+            //   age: values.age,
+            //   preferences: values.preferences,
+            //   languages: values.languages,
+            // })            
           }}
         >
           {({handleSubmit, handleChange, values, errors, validateForm}) =>(

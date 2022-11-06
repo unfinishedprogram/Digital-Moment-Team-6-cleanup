@@ -41,3 +41,6 @@ pb_data/*.db-wal
 pb_data/logs.db
 
 public/tiles
+
+# ide stuff
+.vscode
