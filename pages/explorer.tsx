@@ -3,7 +3,8 @@ import PostComponent from '../src/components/general/post';
 import { Post } from '../src/lib/types/fullPocketTypes';
 
 export default function Explorer() {
-  let posts: Array<Post> = []
+  // This array needs to be populated
+  let posts: Post[] = [];
   return (<>
     <div className={'post-of-the-day'}>
       <h1>Post of the day</h1>
