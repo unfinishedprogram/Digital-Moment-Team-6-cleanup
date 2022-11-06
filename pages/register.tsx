@@ -7,13 +7,13 @@ import  dropdown_styles from "../styles/dropdownSelect.module.scss"
 import {Formik, FormikHelpers, FormikProps, Form, Field, FieldProps} from 'formik';
 import { strings } from '../src/localization/localization-register'
 import ButtonConfirm from '../src/components/general/button/button-confirm';
+import Checkbox from '../src/components/general/button/checkbox';
 import Link from 'next/link';
 import TagSelector from "../src/components/general/tagSelector"
 import Select from "react-select"
 let lang =['English', 'French', 'Spanish']
 let pref = ["politics", "racism", "war"]
 const ageOptions = [
-  { value: '8-10', label: '8-10'  },
   { value: '11-13', label: '11-13' },
   { value: '14-15', label: '14-15' },
   { value: '16-17', label: '16-17' },
@@ -98,6 +98,14 @@ export default function Register(){
     languages: [],
   }
 
+  const [isChecked, setIsChecked] = React.useState(false);
+  const handleChangeCheckBox = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log(e.target.checked);
+    console.log(isChecked);
+    
+    setIsChecked(e.target.checked);
+  };
+
   return(
     <div className={styles.container}>
       <Head>
@@ -174,17 +182,7 @@ export default function Register(){
                 required 
               />
               {errors.repeat ? <label htmlFor='repeat'>{errors.repeat}</label>: null}
-              <Select 
-                options={ageOptions}
-                placeholder={strings.age} 
-                onChange={ e =>{
-                  hasAgeBeenSelected = true;
-                  values.age =  e!["value"];
-                }} 
-                className={dropdown_styles.dropdown}
-                instanceId="age" 
-                name="age" 
-              />
+              <Checkbox id="age" value={values.age} label='Are you under 16?' handleChange={handleChangeCheckBox} isChecked={isChecked}></Checkbox>
               {errors.age ? <label htmlFor='age'>{errors.age}</label>: null}
               <input 
                 placeholder={strings.location} 
