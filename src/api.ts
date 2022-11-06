@@ -1,8 +1,7 @@
 import qs from "qs";
 import { GetUserQueryParams } from "../pages/api/user/get";
-import { User } from "pocketbase";
 import { AddUserProfileParams, AddUserProfileReturns } from "../pages/api/user/add-user-profile";
-import { PostsRecord, ProfilesRecord } from "./lib/types/pocket";
+import { ProfilesRecord } from "./lib/types/pocket";
 import { AddPostBodyParams, AddPostReturnParams } from "../pages/api/post/add-post";
 import { GetPostQueryParams, GetPostReturnParams } from "../pages/api/post/get-post";
 
