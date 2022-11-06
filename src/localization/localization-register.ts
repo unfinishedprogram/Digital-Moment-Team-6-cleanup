@@ -16,6 +16,7 @@ export interface IStrings extends LocalizedStringsMethods {
     emailError: string;
     existingAccount: string;
     login: string;
+    emailAdult: string;
 }
 
 let strings: IStrings;
@@ -23,6 +24,7 @@ strings = new LocalizedStrings({
   en:{
     username: "Username",
     email: "Email",
+    emailAdult: "Parent's email",
     password: "Password",
     repeat: "Repeat Password",
     age: "What age group are you in?",
@@ -40,6 +42,7 @@ strings = new LocalizedStrings({
   fr:{
     username: "Nom d'utilisateur",
     email: "Adresse Électronique",
+    emailAdult: "Adresse Électronique du parent",
     password: "Mot de passe",
     repeat: "Répéter votre mot de passe",
     age: "Quel groupe d'âge fais-tu partie ?",
