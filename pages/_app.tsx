@@ -2,7 +2,6 @@ import '../styles/globals.scss'
 
 import type { AppProps } from 'next/app'
 import NavBar from '../src/components/general/nav-bar'
-import CustomFooter from '../src/components/general/custom-footer'
 import Head from 'next/head'
 import { useRouter } from 'next/router'
 import ProfileNavBar from '../src/components/general/profile-nav-bar'

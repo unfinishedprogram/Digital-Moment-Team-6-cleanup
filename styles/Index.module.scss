@@ -1,7 +1,6 @@
 @import "./theme.scss";
 
 .nav {
-
     z-index: 9999;
 
     @include pill;
@@ -39,9 +38,9 @@
         outline: none;
     }
 
+    background-color: #FFFA;
+    backdrop-filter: blur(8px);
 }
-
-
 
 .footer {
     padding: 1rem;
