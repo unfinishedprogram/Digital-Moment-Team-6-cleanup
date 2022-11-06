@@ -4,17 +4,21 @@ import { AddUserProfileParams, AddUserProfileReturns } from "../pages/api/user/a
 import { ProfilesRecord } from "./lib/types/pocket";
 import { AddPostBodyParams, AddPostReturnParams } from "../pages/api/post/add-post";
 import { GetPostQueryParams, GetPostReturnParams } from "../pages/api/post/get-post";
+import { AddCommentBodyParams, AddCommentReturnParams } from "../pages/api/comment/add-comment";
+import { GetCommentQueryParams, GetCommentReturnParams } from "../pages/api/comment/get-comment";
 
 type EndpointHandler<D, T> = (args: D) => T;
 
 interface IPostEndpoints {
-  "user/add-user-profile": EndpointHandler<AddUserProfileParams, AddUserProfileReturns>,
+  "user/add-user-profile": EndpointHandler<AddUserProfileParams, AddUserProfileReturns>
   "post/add-post": EndpointHandler<AddPostBodyParams, AddPostReturnParams>
+  "comment/add-comment": EndpointHandler<AddCommentBodyParams, AddCommentReturnParams>
 }
 
 interface IGetEndpoints {
   "user/get": EndpointHandler<GetUserQueryParams, ProfilesRecord>
   "post/get-post": EndpointHandler<GetPostQueryParams, GetPostReturnParams>
+  "comment/get-post": EndpointHandler<GetCommentQueryParams, GetCommentReturnParams>
 }
 
 
@@ -55,4 +59,4 @@ export default class Api {
       }
     });
   }
-}
+}E

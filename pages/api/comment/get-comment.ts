@@ -3,13 +3,13 @@ import { TypedGetEndpoint } from "../../../src/lib/types/request";
 import { Comment } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
 
-export type GetPostQueryParams = {
+export type GetCommentQueryParams = {
   postId: string;
 }
 
-export type GetPostReturnParams = Comment | undefined;
+export type GetCommentReturnParams = Comment | undefined;
 
-const handler: TypedGetEndpoint<GetPostQueryParams, Comment | undefined> = async (req, res) => {
+const handler: TypedGetEndpoint<GetCommentQueryParams, Comment | undefined> = async (req, res) => {
   const { postId: commentId } = req.query;
   if (commentId == undefined) {
     res.status(400);

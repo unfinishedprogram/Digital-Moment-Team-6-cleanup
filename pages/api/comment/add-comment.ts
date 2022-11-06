@@ -2,10 +2,10 @@ import { TypedPostEndpoint } from "../../../src/lib/types/request";
 import { Comment } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
 
-export type AddCommentParams = Comment;
+export type AddCommentBodyParams = Comment;
 export type AddCommentReturnParams = {id: string};
 
-const handler: TypedPostEndpoint<AddCommentParams, AddCommentReturnParams> = async (req, res) => {
+const handler: TypedPostEndpoint<AddCommentBodyParams, AddCommentReturnParams> = async (req, res) => {
   const pocketBaseInstance = pocketbase;
   try {
     const postInfo = await pocketBaseInstance.add(
