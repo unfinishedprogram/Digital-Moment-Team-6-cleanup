@@ -1,14 +1,6 @@
-import input_styles from '../styles/input.module.scss'
-import select_styles from '../styles/dropdownSelect.module.scss'
-import ButtonBase from '../src/components/general/button/button-base';
-import ButtonConfirm from '../src/components/general/button/button-confirm';
-import ButtonDanger from '../src/components/general/button/button-danger';
-
 import React from 'react'
-import Select from 'react-select'
-import TagSelect from '../src/components/general/tagSelector';
-
-
+import Image from 'next/image'
+import style from "../styles/Home.module.scss";
 
 export default function Home() {
   const options = [
@@ -18,6 +10,8 @@ export default function Home() {
   ]
 
   return (<>
+    <Image draggable={false} width={50} height={50} className={style.blobsBL} alt="blob" src="/img/blobsBL.svg" />
+    <Image draggable={false} width={50} height={50} className={style.blobsTR} alt="blob" src="/img/blobsTR.svg" />
     <h1>Home</h1>
   </>)
 }

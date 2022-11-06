@@ -1,0 +1,28 @@
+<!ELEMENT svg (g+,defs)>
+<!ATTLIST svg width NMTOKEN #REQUIRED>
+<!ATTLIST svg height NMTOKEN #REQUIRED>
+<!ATTLIST svg viewBox CDATA #REQUIRED>
+<!ATTLIST svg fill NMTOKEN #REQUIRED>
+<!ELEMENT g (path)>
+<!ATTLIST g filter CDATA #REQUIRED>
+<!ELEMENT path EMPTY>
+<!ATTLIST path d CDATA #REQUIRED>
+<!ATTLIST path fill CDATA #REQUIRED>
+<!ELEMENT defs (filter+)>
+<!ELEMENT filter (feFlood,feColorMatrix+,feOffset,feGaussianBlur,feComposite,feBlend+)>
+<!ATTLIST filter id NMTOKEN #REQUIRED>
+<!ATTLIST filter x NMTOKEN #REQUIRED>
+<!ATTLIST filter y NMTOKEN #REQUIRED>
+<!ATTLIST filter width NMTOKEN #REQUIRED>
+<!ATTLIST filter height NMTOKEN #REQUIRED>
+<!ATTLIST filter filterUnits NMTOKEN #REQUIRED>
+<!ATTLIST filter color-interpolation-filters NMTOKEN #REQUIRED>
+<!ELEMENT feFlood EMPTY>
+<!ATTLIST feFlood flood-opacity NMTOKEN #REQUIRED>
+<!ATTLIST feFlood result NMTOKEN #REQUIRED>
+<!ELEMENT feColorMatrix EMPTY>
+<!ATTLIST feColorMatrix in NMTOKEN #IMPLIED>
+<!ATTLIST feColorMatrix type NMTOKEN #FIXED "matrix"><!ATTLIST feColorMatrix values CDATA #REQUIRED><!ATTLIST feColorMatrix result NMTOKEN #IMPLIED><!ELEMENT feOffset EMPTY><!ATTLIST feOffset dx NMTOKEN #REQUIRED><!ATTLIST feOffset dy NMTOKEN #REQUIRED><!ELEMENT feGaussianBlur EMPTY><!ATTLIST feGaussianBlur stdDeviation NMTOKEN #REQUIRED><!ELEMENT feComposite EMPTY><!ATTLIST feComposite in2 NMTOKEN #REQUIRED><!ATTLIST feComposite operator NMTOKEN #REQUIRED><!ELEMENT feBlend EMPTY><!ATTLIST feBlend mode NMTOKEN #FIXED "normal">
+<!ATTLIST feBlend in2 NMTOKEN #REQUIRED>
+<!ATTLIST feBlend result NMTOKEN #REQUIRED>
+<!ATTLIST feBlend in NMTOKEN #IMPLIED>
