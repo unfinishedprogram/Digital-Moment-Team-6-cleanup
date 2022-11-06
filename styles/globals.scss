@@ -34,11 +34,33 @@ a {
 }
 
 main {
-  margin-top: $nav-height;
+  // margin-top: $nav-height;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
   overflow: visible;
-  min-height: calc(100vh - $nav-height);
+  // min-height: calc(100vh - $nav-height);
+  min-height: 100vh;
+}
+
+.maplibregl-marker {
+  transform: translate(100, 100);
+  background-color: white;
+  color: black;
+  height: fit-content;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 7px 14px;
+  border-radius: 16px 16px 16px 0px;
+  display: block;
+
+  filter: drop-shadow(2px 2px 2px #0005);
+
+  &::after {
+    position: absolute;
+    bottom: -16px;
+    left: 0px;
+    content: url("../public/img/corner.svg");
+  }
 }

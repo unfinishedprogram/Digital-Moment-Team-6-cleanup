@@ -30,7 +30,6 @@ export default function App({ Component, pageProps }: AppProps) {
     {navBar}
     <main>
       <Component {...pageProps} />
-      <CustomFooter />
     </main>
   </>
   )

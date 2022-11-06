@@ -1,11 +1,7 @@
 @import "./theme.scss";
 
-
 .map {
-    width: calc(100% - $std-margin * 2);
-    height: calc(100% - $std-margin * 2);
-    border-radius: $std-margin;
-    margin: $std-margin;
-
-    box-shadow: $black-shadow;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
 }
