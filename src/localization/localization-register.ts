@@ -14,6 +14,8 @@ export interface IStrings extends LocalizedStringsMethods {
     passwordError: string;
     repeatError: string;
     emailError: string;
+    existingAccount: string;
+    login: string;
 }
 
 let strings: IStrings;
@@ -32,7 +34,8 @@ strings = new LocalizedStrings({
     passwordError: "Password must be at least 10 characters with 1 letter, 1 number and special character",
     repeatError: "Password must match",
     emailError: "Must be a valid email",
-
+    existingAccount: "Already have an account?",
+    login: "Login",
   },
   fr:{
     username: "Nom d'utilisateur",
@@ -48,6 +51,8 @@ strings = new LocalizedStrings({
     passwordError: "Le mot de passe doit comporter au moins 10 caractères dont 1 lettre, 1 chiffre et 1 caractères",
     repeatError: "Le mot de passe doit être le même",
     emailError: "L’adresse électronique doit être valide",
+    existingAccount: "Vous avez déjà un compte ?",
+    login: "Connexion",
   }
 });
 
