@@ -17,7 +17,7 @@ interface IPostEndpoints {
 interface IGetEndpoints {
   "user/get-user-profile": EndpointHandler<GetUserQueryParams, GetUserReturnParams>
   "post/get-post": EndpointHandler<GetPostQueryParams, GetPostReturnParams>
-  "comment/get-post": EndpointHandler<GetCommentQueryParams, GetCommentReturnParams>
+  "comment/get-comment": EndpointHandler<GetCommentQueryParams, GetCommentReturnParams>
 }
 
 
