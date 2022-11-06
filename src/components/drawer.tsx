@@ -32,21 +32,10 @@ const Drawer: React.FunctionComponent<IDrawerProps> = props => {
     divRef.current?.setAttribute("style", `--delta: ${delta}px`);
   })
 
-  const open = () => {
-    setOpen("open");
-    props.stateChange("open");
+  const setDrawerState = (state: DrawerStates) => {
+    setOpen(state);
+    props.stateChange(state);
   }
-
-  const close = () => {
-    setOpen("closed");
-    props.stateChange("closed");
-  }
-
-  const half = () => {
-    setOpen("half");
-    props.stateChange("half");
-  }
-
 
   const onTouchStart: React.TouchEventHandler<HTMLDivElement> = event => {
     if (isOpen == "open" && contentRef.current!.scrollTop != 0) return;
@@ -60,8 +49,8 @@ const Drawer: React.FunctionComponent<IDrawerProps> = props => {
     if (!isDragging) return;
     let deltaY = touchStartPos![1] - touchPos![1];
 
-    if (deltaY > 5) open();
-    else if (deltaY < -5) close();
+    if (deltaY > 5) setDrawerState("open");
+    else if (deltaY < -5) setDrawerState("closed");
 
     setDragging(false);
     setTouchStartPos(null);
