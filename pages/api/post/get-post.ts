@@ -1,7 +1,7 @@
 import { TypedGetEndpoint } from "../../../src/lib/types/request";
 import { Post, Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
-import { getTags } from "../helper";
+import { getTags } from "../../../src/lib/types/type-mapper";
 import { RecordIdString } from "../../../src/lib/types/pocket";
 import Api from "../../../src/api";
 

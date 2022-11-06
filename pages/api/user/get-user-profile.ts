@@ -1,7 +1,7 @@
 import { TypedGetEndpoint } from "../../../src/lib/types/request";
 import pocketbase from '../../../src/pocketbase';
 import { Profile } from "../../../src/lib/types/fullPocketTypes";
-import { getTags } from "../helper";
+import { getTags } from "../../../src/lib/types/type-mapper";
 import { RecordIdString } from "../../../src/lib/types/pocket";
 
 export type GetUserQueryParams = {

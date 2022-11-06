@@ -1,6 +1,7 @@
 import { TypedPostEndpoint } from "../../../src/lib/types/request";
-import { Comment } from "../../../src/lib/types/fullPocketTypes";
+import { Comment, Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
+import { BaseConverter } from "../../../src/lib/types/type-mapper";
 
 export type AddCommentBodyParams = Comment;
 export type AddCommentReturnParams = {id: string};
@@ -11,7 +12,7 @@ const handler: TypedPostEndpoint<AddCommentBodyParams, AddCommentReturnParams> =
     const postInfo = await pocketBaseInstance.add(
       "post_infos",
       {
-        author: req.body.author,
+        author: (req.body.author as BaseConverter<Profile>).id,
         body: req.body.body
       }
     );
@@ -26,7 +27,6 @@ const handler: TypedPostEndpoint<AddCommentBodyParams, AddCommentReturnParams> =
   } catch (error) {
     res.status(404).json(undefined);
   }
-
 }
 
 export default handler;

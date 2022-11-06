@@ -1,5 +1,5 @@
-import { BaseRecord, CollectionRecords, RecordIdString, TagsRecord } from "../../src/lib/types/pocket";
-import pocketbase from "../../src/pocketbase";
+import { BaseRecord, CollectionRecords, RecordIdString, TagsRecord } from "./pocket";
+import pocketbase from "../../pocketbase";
 
 export async function getTags(tags: RecordIdString[]): Promise<TagsRecord[]> {
   const pocketBaseInstance = pocketbase;
