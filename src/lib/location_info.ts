@@ -1,12 +1,5 @@
 import * as fs from 'fs/promises';
 
-type Location = {
-  "location": {
-    "longt": number
-    "latt": number
-  }
-}
-
 async function getLocationInfo(locations: string[]) {
   let apiKey: string = "170292596801184127888x39017";
   let baseURL: URL = new URL("https://geocode.xyz/");
@@ -41,5 +34,20 @@ async function writeLocations(locations: string[]) {
     console.error(e);
   }
 }
+import locationData from './types/location_data.json'
+import pocketbaseInstance from '../pocketbase'
+export type LocationTag = {
+  longt: number,
+  latt: number
+}
 
+export type CityLocation = keyof typeof locationData
+
+export function getTagLocation(location: CityLocation): LocationTag {
+  return locationData[location]
+}
+
+export async function getLocationTagsFromDb(){
+  return pocketbaseInstance.getList("tags", "(type = 'location')")
+}
 export { writeLocations };

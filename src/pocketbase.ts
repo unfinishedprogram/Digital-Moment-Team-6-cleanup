@@ -2,7 +2,7 @@ import PocketBase from 'pocketbase';
 import {CollectionRecords, Collections} from './lib/types/pocket';
 
 type Filter = "=" | "!=" | ">" | ">=" | "<" | "<=" | "~" | "!~"
-type FilterRule<T extends keyof CollectionRecords> = `${string & keyof CollectionRecords[T]} ${Filter} ${string}`
+type FilterRule<T extends keyof CollectionRecords> = `(${string & keyof CollectionRecords[T]} ${Filter} '${string}')`
 class PocketBaseInstance {
   private static url: string;
   private static username: string;

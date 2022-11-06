@@ -13,7 +13,8 @@
     "prepare": "husky install",
     "typegen": "pocketbase-typegen --db ./pb_data/data.db --out ./src/lib/types/pocket.ts",
     "pre-commit": "run-p lint typegen",
-    "dev": "run-p next-dev pb"
+    "dev": "run-p next-dev pb",
+    "location:gen": "ts-node ./src/lib/types/fullPocketTypes.ts"
   },
   "dependencies": {
     "@types/node": "18.11.9",
