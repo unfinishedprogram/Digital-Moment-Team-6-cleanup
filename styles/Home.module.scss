@@ -108,6 +108,16 @@
   margin-left: 0.5rem;
 }
 
+.innerFormStyle {
+  display: flex;
+  flex-direction: column;
+  width: 80vw;
+
+  .options {
+    display: flex;
+  }
+}
+
 @media (max-width: 600px) {
   .grid {
     width: 100%;

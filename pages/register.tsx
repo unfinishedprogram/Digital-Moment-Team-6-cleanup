@@ -10,6 +10,7 @@ import ButtonConfirm from '../src/components/general/button/button-confirm';
 import Link from 'next/link';
 import TagSelector from "../src/components/general/tagSelector"
 import Select from "react-select"
+import TextInput, { UsernameProps } from '../src/components/registration/text-input';
 let lang =['English', 'French', 'Spanish']
 let pref = ["politics", "racism", "war"]
 const ageOptions = [
@@ -86,7 +87,18 @@ const validate = (values: FormValues) => {
   return errors
 }
 
+enum Steps {
+  USERNAME,
+  LOCATION,
+  LANGUAGES,
+  TOPICS,
+  AGE,
+}
+
 export default function Register(){
+
+  const [step, setStep] = React.useState<Steps>(Steps.USERNAME);
+
   const initialValues: FormValues = {
     username: "",
     email: "",
@@ -97,6 +109,69 @@ export default function Register(){
     preferences: [],
     languages: [],
   }
+
+  function getStepComponent(handleChange: React.ChangeEventHandler<HTMLInputElement>, values: FormValues) {
+    switch (step) {
+      case Steps.USERNAME:
+        return (<>
+          <TextInput handleChange={handleChange} value={values.username} input_style={input_styles["text-input"]} />
+          </>)
+      case Steps.LOCATION:
+        return (
+              <TagSelector 
+                tags={["Canada", "Russia", "America"]} 
+                placeholder={strings.location}
+                instanceId="location" 
+                onChange={e => {
+                  hasLangBeenSelected = true;
+                  let langs: string[] = []
+                  e.forEach(el=> langs.push(el.value))
+                  values.languages = langs // validateForm()
+                  }
+                }
+              />)
+      case Steps.LANGUAGES:
+        return (
+              <TagSelector 
+                tags={lang} 
+                placeholder={strings.languages}
+                instanceId="languages" 
+                onChange={e => {
+                  hasLangBeenSelected = true;
+                  let langs: string[] = []
+                  e.forEach(el=> langs.push(el.value))
+                  values.languages = langs
+                }}
+              />)
+      case Steps.TOPICS:
+        return (
+            <TagSelector 
+              tags={pref}
+              placeholder={strings.preferences}
+              instanceId="pref" 
+              name='pref'
+              onChange={e => {
+                hasPrefBeenSelected = true;
+                let prefs: string[] = []
+                e.forEach(el=> prefs.push(el.value))
+                values.preferences = prefs
+              }}
+            />)
+      case Steps.AGE:
+              return (<Select 
+                options={ageOptions}
+                placeholder={strings.age} 
+                onChange={ e =>{
+                  hasAgeBeenSelected = true;
+                  values.age =  e!["value"];
+                }} 
+                className={dropdown_styles.dropdown}
+                instanceId="age" 
+                name="age" 
+              />)
+    }
+  }
+
 
   return(
     <div className={styles.container}>
@@ -128,105 +203,15 @@ export default function Register(){
               isSubmitting = true;
               validateForm()
               handleSubmit(e)}}
-              
             >
-              <input 
-                placeholder={strings.username} 
-                className={input_styles['text-input']} 
-                type="text" 
-                id="username"
-                name="username" 
-                onChange={handleChange} 
-                value={values.username} 
-                required 
-              />
-              {errors.username ? <label htmlFor='username'>{errors.username}</label>: null}
-              <input 
-                placeholder={strings.email}
-                className={input_styles['text-input']} 
-                type="text"
-                id="email"
-                name="email" 
-                onChange={handleChange} 
-                value={values.email} 
-                required 
-              />
-              {errors.email ? <label htmlFor='email'>{errors.email}</label>: null}
-              <input 
-                placeholder={strings.password}
-                className={input_styles['text-input']} 
-                type="password"
-                id="password"
-                name="password" 
-                onChange={handleChange} 
-                value={values.password} 
-                required 
-              />
-              {errors.password ? <label htmlFor='password'>{errors.password}</label>: null}
-              <input 
-                placeholder={strings.repeat}
-                className={input_styles['text-input']} 
-                type="password"
-                id="repeat"
-                name="repeat" 
-                onChange={handleChange} 
-                value={values.repeat} 
-                required 
-              />
-              {errors.repeat ? <label htmlFor='repeat'>{errors.repeat}</label>: null}
-              <Select 
-                options={ageOptions}
-                placeholder={strings.age} 
-                onChange={ e =>{
-                  hasAgeBeenSelected = true;
-                  values.age =  e!["value"];
-                }} 
-                className={dropdown_styles.dropdown}
-                instanceId="age" 
-                name="age" 
-              />
-              {errors.age ? <label htmlFor='age'>{errors.age}</label>: null}
-              <input 
-                placeholder={strings.location} 
-                className={input_styles['text-input']} 
-                type="text" 
-                id="location" 
-                name="location" 
-                onChange={handleChange} 
-                value={values.location}
-                required
-              />
-              {errors.location ? <label htmlFor='location'>{errors.location}</label>: null}
-              <TagSelector 
-                tags={lang} 
-                placeholder={strings.languages}
-                instanceId="languages" 
-                onChange={e => {
-                  hasLangBeenSelected = true;
-                  let langs: string[] = []
-                  e.forEach(el=> langs.push(el.value))
-                  values.languages = langs
-                  validateForm()
-                }
-                }
-              />
-              {errors.languages ? <label htmlFor='languages'>{errors.languages}</label>: null}
-              <TagSelector 
-                tags={pref}
-                placeholder={strings.preferences}
-                instanceId="pref" 
-                name='pref'
-                onChange={e => {
-                  hasPrefBeenSelected = true;
-                  let prefs: string[] = []
-                  e.forEach(el=> prefs.push(el.value))
-                  values.preferences = prefs
-                  validateForm()
-                }  
-                }
-              />
-              {errors.preferences ? <label htmlFor='pref'>{errors.preferences}</label>: null}
-              <ButtonConfirm type='submit'>{strings.register}</ButtonConfirm>
+              <div className={styles.innerFormStyle}>
+                <div className={styles.options}>
+                  <> 
+                    {getStepComponent(handleChange, values)}
+                  </>
+                </div>
+              <ButtonConfirm type='button' onClick={() => setStep(step + 1)}> Next </ButtonConfirm>
+              </div>
             </Form>
           )}
         </Formik>
