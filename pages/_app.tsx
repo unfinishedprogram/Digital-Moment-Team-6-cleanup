@@ -26,6 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Head>
       <title>Title</title>
       <meta name="description" content="" />
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
     {navBar}

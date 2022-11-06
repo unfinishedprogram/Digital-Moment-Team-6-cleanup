@@ -10,8 +10,12 @@ export default function Home() {
   ]
 
   return (<>
-    <Image draggable={false} width={50} height={50} className={style.blobsBL} alt="blob" src="/img/blobsBL.svg" />
-    <Image draggable={false} width={50} height={50} className={style.blobsTR} alt="blob" src="/img/blobsTR.svg" />
+    <div className={style.blob_container}>
+      <Image draggable={false} width={50} height={50} className={style.blobsBL} alt="blob" src="/img/circle.svg" />
+      <Image draggable={false} width={50} height={50} className={style.blobsTR} alt="blob" src="/img/circle.svg" />
+    </div>
+
+
     <div className={style.container}>
       <h1 className={style.logo}>WAVE</h1>
       <div className={style.buttons_container}>
