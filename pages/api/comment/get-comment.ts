@@ -30,7 +30,6 @@ const handler: TypedGetEndpoint<GetCommentQueryParams, GetCommentReturnParams> =
   } catch (error) {
     res.status(404).send(undefined);
   }
-
 }
 
 export default handler;

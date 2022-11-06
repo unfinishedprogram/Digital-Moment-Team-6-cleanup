@@ -2,7 +2,6 @@ import { TypedPostEndpoint } from "../../../src/lib/types/request";
 import { AgeGroup, Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from "../../../src/pocketbase";
 import { User } from "pocketbase";
-import { TagsRecord } from "../../../src/lib/types/pocket";
 import { BaseConverter, getTagIds } from "../../../src/lib/types/type-mapper";
 
 export type AddUserProfileParams =
