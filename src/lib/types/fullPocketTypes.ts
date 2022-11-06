@@ -1,6 +1,7 @@
 import * as pocket from "./pocket";
 import { User } from "pocketbase";
 
+export type Tag = pocket.TagsRecord;
 
 // TODO remove "name" from age group from DB
 export type AgeGroup =
@@ -10,7 +11,7 @@ export type Post =
   pocket.PostInfosRecord
   & Omit<pocket.PostsRecord, "post_info" | "tags">
   & {
-    "tags": pocket.TagsRecord[]
+    "tags": Tag[]
   };
 
 export type Comment =
@@ -21,6 +22,7 @@ export type Profile =
   Omit<pocket.ProfilesRecord, "userId" | "age_group" | "preferences" | "location">
   & {
     "age_group": Omit<pocket.AgeGroupsRecord, "name">,
-    "preferences": pocket.TagsRecord[],
-    "location": pocket.TagsRecord
+    "preferences": Tag[],
+    "location": Tag
   };
+
