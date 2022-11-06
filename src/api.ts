@@ -59,4 +59,4 @@ export default class Api {
       }
     });
   }
-}E
+}
