@@ -2,14 +2,15 @@ import React, { useEffect, useRef, useState } from "react"
 import styles from "../../styles/drawer.module.scss"
 
 export interface IDrawerProps extends React.PropsWithChildren {
-
+  stateChange: (state: DrawerStates) => void,
 }
+type DrawerStates = "open" | "closed" | "half";
 
 const touchCords = (event: React.TouchEvent<HTMLDivElement>): [number, number] =>
   [event.changedTouches[0].clientX, event.changedTouches[0].clientY];
 
 const Drawer: React.FunctionComponent<IDrawerProps> = props => {
-  const [isOpen, setOpen] = useState(false);
+  const [isOpen, setOpen] = useState<DrawerStates>("closed");
   const [isDragging, setDragging] = useState(false);
   const [touchStartPos, setTouchStartPos] = useState<[number, number] | null>(null);
   const [touchPos, setTouchPos] = useState<[number, number] | null>(null);
@@ -21,8 +22,10 @@ const Drawer: React.FunctionComponent<IDrawerProps> = props => {
     let delta = 0;
     if (isDragging) {
       delta = -Math.round(touchStartPos![1] - touchPos![1]);
-      if (isOpen) {
+      if (isOpen == "open") {
         delta = Math.max(delta, 0);
+      } else if (isOpen == "closed") {
+        delta = Math.min(delta, 0);
       }
     }
 
@@ -30,15 +33,23 @@ const Drawer: React.FunctionComponent<IDrawerProps> = props => {
   })
 
   const open = () => {
-    setOpen(true);
+    setOpen("open");
+    props.stateChange("open");
   }
 
   const close = () => {
-    setOpen(false);
+    setOpen("closed");
+    props.stateChange("closed");
   }
 
+  const half = () => {
+    setOpen("half");
+    props.stateChange("half");
+  }
+
+
   const onTouchStart: React.TouchEventHandler<HTMLDivElement> = event => {
-    if (isOpen && contentRef.current!.scrollTop != 0) return;
+    if (isOpen == "open" && contentRef.current!.scrollTop != 0) return;
 
     setDragging(true);
     setTouchStartPos(touchCords(event))
@@ -65,7 +76,7 @@ const Drawer: React.FunctionComponent<IDrawerProps> = props => {
 
   return <div
     ref={divRef}
-    data-open={isOpen}
+    data-state={isOpen}
     data-dragging={isDragging}
     className={styles.drawer}
     onTouchStart={onTouchStart}

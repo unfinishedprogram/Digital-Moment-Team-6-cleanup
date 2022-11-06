@@ -7,33 +7,44 @@
     top: 0px;
     transition: top 0.5s;
     background: $color-bg;
-    transition: transform 0.25s ease-out;
+    --offset: 100vh;
 
-    &[data-open="false"] {
-        --offset: calc(100vh - 15%);
-    }
-
-    &[data-open="true"] {
+    &[data-state="open"] {
         --offset: 0px;
 
         .content {
             padding-top: $nav-height;
         }
+
+        transition: transform 0.25s ease-out;
+
     }
+
+
+    &[data-state="half"] {
+        --offset: calc(100vh - 50%);
+        transition: transform 0.25s ease-out;
+
+    }
+
+    &[data-state="closed"] {
+        --offset: calc(100vh - 15%);
+        transition: transform 0.25s ease-out;
+
+    }
+
 
     &[data-dragging="true"] {
         transition: transform 0s ease-out;
     }
 
     transform: translateY(calc(var(--offset) + var(--delta)));
+    transition: transform 0.25s ease-out;
 
-    &::before {
-        content: var(--delta);
-    }
 }
 
 
-.drawer[data-open="true"] {
+.drawer[data-state="open"] {
     .content {
         overflow-y: scroll;
     }

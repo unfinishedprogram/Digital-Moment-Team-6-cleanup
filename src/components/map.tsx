@@ -1,5 +1,5 @@
 import styles from '../../styles/map.module.scss'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 
 import maplibregl from "maplibre-gl"
 
@@ -17,7 +17,7 @@ let words = [
 
 let locations: [number, number][] = [];
 
-for (let i = 0; i < 100; i++) {
+for (let i = 0; i < 10; i++) {
   locations.push([Math.random() * 180 - 90, Math.random() * 180 - 90])
 }
 
@@ -37,20 +37,21 @@ const randomPost = (): IPost => {
     tags.push(tag);
   })
 
-
   return {
     tags,
     location: randLoc(),
   }
 }
 
-interface ITagGroups {
-  [index: string]: {
-    location: [number, number],
-    tags: {
-      [index: string]: number,
-    }
+export interface ITagGroup {
+  location: [number, number],
+  tags: {
+    [index: string]: number,
   }
+}
+
+interface ITagGroups {
+  [index: string]: ITagGroup
 }
 
 function groupByLocation(posts: IPost[]): ITagGroups {
@@ -93,16 +94,28 @@ const tagElms = (tags: { [index: string]: number }) => {
   return arr;
 }
 
-export default function Map() {
+interface IMapProps {
+  enabled: boolean,
+  height: number,
+  tagClicked: (group: ITagGroup) => void
+}
+
+const Map: React.FunctionComponent<IMapProps> = props => {
   const [getMap, setMap] = useState<maplibregl.Map | null>(null);
 
   let arr = [];
 
-  for (let i = 0; i < 500; i++) {
+  for (let i = 0; i < 50; i++) {
     arr.push(randomPost());
   }
 
   let groups = groupByLocation(arr);
+
+  let mapElmRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    mapElmRef.current?.setAttribute("style", `--size: ${props.height}vh`);
+  })
 
   useEffect(() => {
     if (!getMap) {
@@ -114,7 +127,6 @@ export default function Map() {
         zoom: 0
       });
 
-      console.log(groups)
       for (let locKey in groups) {
         var marker = new maplibregl.Marker({
           anchor: "bottom-left",
@@ -126,7 +138,8 @@ export default function Map() {
           let elm = document.createElement("div");
           elm.innerText = `${tag.tag} x${tag.count}`;
           return elm;
-        }))
+        }));
+        marker.getElement().onclick = () => props.tagClicked(groups[locKey]);
       }
       map.dragRotate.disable();
       map.touchPitch.disable();
@@ -136,8 +149,10 @@ export default function Map() {
 
   return (<>
     <link rel="stylesheet" href="style/maplibregl.css" />
-    <div className={styles.map} id="map">
+    <div ref={mapElmRef} className={styles.map} id="map">
     </div>
   </>
   );
 }
+
+export default Map;
