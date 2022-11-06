@@ -25,7 +25,7 @@ export default function MapPage() {
   }
 
   return <>
-    <Map height={height} enabled tagClicked={onTagClicked} />
+    <Map height={100} enabled tagClicked={onTagClicked} />
     <Drawer stateChange={drawerChange} >
       {getTags.map((tag, index) => <div key={index}>{JSON.stringify(tag)}</div>)}
     </Drawer>
