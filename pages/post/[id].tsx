@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import CommentComponent from '../../src/components/post/comment'
 import styles from '../../styles/Home.module.scss'
 
 export default function Post() {
@@ -12,6 +13,7 @@ export default function Post() {
 
       <main className={styles.main}>
         <h1>Post</h1>
+        <CommentComponent/>
       </main>
     </div>
   )
