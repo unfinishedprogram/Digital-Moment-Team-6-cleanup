@@ -127,10 +127,6 @@ export default function Map() {
           elm.innerText = `${tag.tag} x${tag.count}`;
           return elm;
         }))
-
-        // let offset: [number, number] = [marker.getElement().clientWidth / 2, -marker.getElement().clientHeight / 2];
-
-        // marker.setOffset(offset)
       }
       map.dragRotate.disable();
       map.touchPitch.disable();
