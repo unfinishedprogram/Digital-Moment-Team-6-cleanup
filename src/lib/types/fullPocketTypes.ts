@@ -10,15 +10,19 @@ export type AgeGroup =
   Omit<pocket.AgeGroupsRecord, "name">
 
 export type Post =
-  pocket.PostInfosRecord
+  Omit<pocket.PostInfosRecord, "author">
   & Omit<pocket.PostsRecord, "post_info" | "tags">
   & {
-    "tags": Tag[]
+    "tags": Tag[],
+    "author": Profile
   };
 
 export type Comment =
-  pocket.PostInfosRecord
-  & Omit<pocket.CommentsRecord, "post_info">;
+  Omit<pocket.PostInfosRecord, "author">
+  & Omit<pocket.CommentsRecord, "post_info">
+  & {
+    "author": Profile
+  };
 
 export type Profile =
   Omit<pocket.ProfilesRecord, "userId" | "age_group" | "preferences" | "location">
