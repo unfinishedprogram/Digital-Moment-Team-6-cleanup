@@ -4,7 +4,7 @@ import Api from '../src/api';
 import styles from '../styles/Home.module.scss'
 import input_styles from "../styles/input.module.scss"
 import  dropdown_styles from "../styles/dropdownSelect.module.scss"
-import {useFormik, Formik, FormikHelpers, FormikProps, Form, Field, FieldProps} from 'formik';
+import {Formik, FormikHelpers, FormikProps, Form, Field, FieldProps} from 'formik';
 import { strings } from '../src/localization/localization-register'
 import ButtonConfirm from '../src/components/general/button/button-confirm';
 import Link from 'next/link';
@@ -29,7 +29,64 @@ interface FormValues{
   preferences: string[];
   languages: string[];
 }
-export default function MyApp(){
+let hasLangBeenSelected: boolean = false;
+let hasPrefBeenSelected: boolean = false;
+let hasAgeBeenSelected: boolean = false;
+let isSubmitting: boolean = false;
+
+const validate = (values: FormValues) => {
+  const passwordRegex = RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
+  const emailRegex = RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
+  const errors :{
+    password?: string;
+    repeat?: string;
+    email?: string;
+    preferences?: string;
+    languages?: string;
+    age?: string;
+  } = {
+    password: undefined,
+    repeat: undefined,
+    email: undefined,
+    preferences: undefined,
+    languages: undefined,
+    age: undefined,
+  };
+  
+  if(values.password && !passwordRegex.test(values.password)){
+    errors.password = strings.passwordError;
+  }else{
+    delete errors.password
+  } 
+  if(values.repeat  &&  values.password != values.repeat ){
+    errors.repeat = strings.repeatError;
+  }else{
+    delete errors.repeat
+  } 
+  if(values.email && !emailRegex.test(values.email)){
+    errors.email = strings.emailError;
+  }else{
+    delete errors.email
+  } 
+  if(hasLangBeenSelected && values.languages.length == 0 || values.languages.length == 0 && isSubmitting ){      
+    errors.languages = strings.requiredError;
+  }else{
+    delete errors.languages
+  } 
+  if(hasPrefBeenSelected && values.preferences.length == 0 || values.preferences.length == 0 && isSubmitting ){
+    errors.preferences = strings.requiredError;
+  }else{
+    delete errors.preferences
+  } 
+  if(hasAgeBeenSelected && !values.age || !values.age && isSubmitting){
+    errors.age = strings.requiredError;
+  }else{
+    delete errors.age
+  } 
+  return errors
+}
+
+export default function Register(){
   const initialValues: FormValues = {
     username: "",
     email: "",
@@ -37,8 +94,8 @@ export default function MyApp(){
     repeat: "",
     age: "",
     location: "",
-    preferences: [""],
-    languages: [""],
+    preferences: [],
+    languages: [],
   }
 
   return(
@@ -48,52 +105,32 @@ export default function MyApp(){
         <meta name="description" content="Register" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <main className={styles.main}>
         <h1>Register</h1>
         <Formik
-          initialValues={initialValues}
-          // validate = {values =>{
-          //   const passwordRegex = RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
-          //   const emailRegex = RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-          //   const errors :{
-          //     password: any;
-          //     repeat: any;
-          //     email: any;
-          //     preferences: any;
-          //     languages: any;
-          //   } = {
-          //     password: undefined,
-          //     repeat: undefined,
-          //     email: undefined,
-          //     preferences: undefined,
-          //     languages: undefined,
-          //   };
-          //   if(values.password && !passwordRegex.test(values.password)){
-          //     errors.password = strings.passwordError;
-          //   }    
-          //   if(values.repeat  &&  values.password != values.repeat ){
-          //     errors.repeat = strings.repeatError;
-          //   }
-          //   if(!emailRegex.test(values.email)){
-          //     errors.email = strings.emailError;
-          //   }
-          //   if(values.preferences.length == 0){
-          //     errors.preferences = strings.requiredError;
-          //   }
-          //   if(values.languages.length == 0){      
-          //     errors.languages = strings.requiredError;
-          //   }
-          // }}
+          initialValues={initialValues} 
+          validate={validate}
           onSubmit={(values, actions) => {
-            console.log({values, actions})
             actions.setSubmitting(false)
+            Api.makePostRequest("user/create",{
+              email: values.email,
+              password: values.password,
+              location: values.location,
+              age: values.age,
+              preferences: values.preferences,
+              languages: values.languages,
+            })
+            console.log("done");
+            
           }}
         >
-          {({handleSubmit, handleChange, values, errors}) =>(
+          {({handleSubmit, handleChange, values, errors, validateForm}) =>(
             <Form onSubmit={(e) => {
               e.preventDefault()
+              isSubmitting = true;
+              validateForm()
               handleSubmit(e)}}
+              
             >
               <input 
                 placeholder={strings.username} 
@@ -142,11 +179,15 @@ export default function MyApp(){
               <Select 
                 options={ageOptions}
                 placeholder={strings.age} 
-                onChange={ e =>{values.age =  e!["value"]}} 
+                onChange={ e =>{
+                  hasAgeBeenSelected = true;
+                  values.age =  e!["value"];
+                }} 
                 className={dropdown_styles.dropdown}
                 instanceId="age" 
                 name="age" 
               />
+              {errors.age ? <label htmlFor='age'>{errors.age}</label>: null}
               <input 
                 placeholder={strings.location} 
                 className={input_styles['text-input']} 
@@ -163,9 +204,11 @@ export default function MyApp(){
                 placeholder={strings.languages}
                 instanceId="languages" 
                 onChange={e => {
+                  hasLangBeenSelected = true;
                   let langs: string[] = []
                   e.forEach(el=> langs.push(el.value))
                   values.languages = langs
+                  validateForm()
                 }
                 }
               />
@@ -176,9 +219,11 @@ export default function MyApp(){
                 instanceId="pref" 
                 name='pref'
                 onChange={e => {
+                  hasPrefBeenSelected = true;
                   let prefs: string[] = []
                   e.forEach(el=> prefs.push(el.value))
                   values.preferences = prefs
+                  validateForm()
                 }  
                 }
               />
