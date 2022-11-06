@@ -230,7 +230,7 @@ export default function Register(){
             </Form>
           )}
         </Formik>
-        <h4>Already have an account? <Link href="/login">Login</Link></h4>
+        <h4>{strings.existingAccount} <Link href="/login">{strings.login}</Link></h4>
       </main>
     </div>
   )
