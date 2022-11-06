@@ -112,63 +112,63 @@ export default function Register(){
 
   function getStepComponent(handleChange: React.ChangeEventHandler<HTMLInputElement>, values: FormValues) {
     switch (step) {
-      case Steps.USERNAME:
-        return (<>
-          <TextInput handleChange={handleChange} value={values.username} input_style={input_styles["text-input"]} />
-          </>)
-      case Steps.LOCATION:
-        return (
-              <TagSelector 
-                tags={["Canada", "Russia", "America"]} 
-                placeholder={strings.location}
-                instanceId="location" 
-                onChange={e => {
-                  hasLangBeenSelected = true;
-                  let langs: string[] = []
-                  e.forEach(el=> langs.push(el.value))
-                  values.languages = langs // validateForm()
-                  }
-                }
-              />)
-      case Steps.LANGUAGES:
-        return (
-              <TagSelector 
-                tags={lang} 
-                placeholder={strings.languages}
-                instanceId="languages" 
-                onChange={e => {
-                  hasLangBeenSelected = true;
-                  let langs: string[] = []
-                  e.forEach(el=> langs.push(el.value))
-                  values.languages = langs
-                }}
-              />)
-      case Steps.TOPICS:
-        return (
-            <TagSelector 
-              tags={pref}
-              placeholder={strings.preferences}
-              instanceId="pref" 
-              name='pref'
-              onChange={e => {
-                hasPrefBeenSelected = true;
-                let prefs: string[] = []
-                e.forEach(el=> prefs.push(el.value))
-                values.preferences = prefs
-              }}
-            />)
-      case Steps.AGE:
-              return (<Select 
-                options={ageOptions}
-                placeholder={strings.age} 
-                onChange={ e =>{
-                  hasAgeBeenSelected = true;
-                  values.age =  e!["value"];
-                }} 
-                className={dropdown_styles.dropdown}
-                instanceId="age" 
-                name="age" 
-              />)
+    case Steps.USERNAME:
+      return (<>
+        <TextInput handleChange={handleChange} value={values.username} input_style={input_styles["text-input"]} />
+      </>)
+    case Steps.LOCATION:
+      return (
+        <TagSelector 
+          tags={["Canada", "Russia", "America"]} 
+          placeholder={strings.location}
+          instanceId="location" 
+          onChange={e => {
+            hasLangBeenSelected = true;
+            let langs: string[] = []
+            e.forEach(el=> langs.push(el.value))
+            values.languages = langs // validateForm()
+          }
+          }
+        />)
+    case Steps.LANGUAGES:
+      return (
+        <TagSelector 
+          tags={lang} 
+          placeholder={strings.languages}
+          instanceId="languages" 
+          onChange={e => {
+            hasLangBeenSelected = true;
+            let langs: string[] = []
+            e.forEach(el=> langs.push(el.value))
+            values.languages = langs
+          }}
+        />)
+    case Steps.TOPICS:
+      return (
+        <TagSelector 
+          tags={pref}
+          placeholder={strings.preferences}
+          instanceId="pref" 
+          name='pref'
+          onChange={e => {
+            hasPrefBeenSelected = true;
+            let prefs: string[] = []
+            e.forEach(el=> prefs.push(el.value))
+            values.preferences = prefs
+          }}
+        />)
+    case Steps.AGE:
+      return (<Select 
+        options={ageOptions}
+        placeholder={strings.age} 
+        onChange={ e =>{
+          hasAgeBeenSelected = true;
+          values.age =  e!["value"];
+        }} 
+        className={dropdown_styles.dropdown}
+        instanceId="age" 
+        name="age" 
+      />)
     }
   }
 
@@ -210,7 +210,7 @@ export default function Register(){
                     {getStepComponent(handleChange, values)}
                   </>
                 </div>
-              <ButtonConfirm type='button' onClick={() => setStep(step + 1)}> Next </ButtonConfirm>
+                <ButtonConfirm type='button' onClick={() => setStep(step + 1)}> Next </ButtonConfirm>
               </div>
             </Form>
           )}
