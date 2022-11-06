@@ -17,6 +17,7 @@ export type Comment =
   pocket.PostInfosRecord
   & Omit<pocket.CommentsRecord, "post_info">;
 
+/*
 export type Profile =
   Omit<pocket.ProfilesRecord, "userId" | "age_group" | "preferences" | "location">
   & {
@@ -24,3 +25,7 @@ export type Profile =
     "preferences": Tag[],
     "location": Tag
   };
+*/
+
+export type Profile =
+  Omit<pocket.ProfilesRecord, "userId">;

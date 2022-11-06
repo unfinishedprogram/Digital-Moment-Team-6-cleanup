@@ -1,8 +1,12 @@
 import { TypedPostEndpoint } from "../../../src/lib/types/request";
-import { UserProfile } from "../../../src/lib/types/fullPocketTypes";
+import { Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from "../../../src/pocketbase";
+import { User } from "pocketbase";
 
-export type AddUserProfileParams = UserProfile & { password: string };
+export type AddUserProfileParams =
+  Profile
+  & Pick<User, "email">
+  & { password: string };
 export type AddUserProfileReturns = {id: string};
 
 const handler: TypedPostEndpoint<AddUserProfileParams, AddUserProfileReturns> = async (req, res) => {
