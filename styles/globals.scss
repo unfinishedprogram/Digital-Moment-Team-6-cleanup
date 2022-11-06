@@ -10,9 +10,11 @@ body {
   width: 100%;
   display: flex;
   flex-direction: column;
-  color: white;
-  background: $color-bg;
   overflow: hidden;
+}
+
+html {
+  background: $color-bg;
 }
 
 a {

@@ -19,14 +19,16 @@
   height: min(50vw, 50vh);
   user-select: none;
   filter: drop-shadow(4px 4px 4px #0005);
+  z-index: -1;
 }
 
 .logo {
   align-self: center;
   justify-self: center;
   color: black;
-  font-size: 10rem;
+  font-size: 6rem;
   text-shadow: $shadow-rainbow;
+  z-index: 2;
 }
 
 .container {
@@ -60,8 +62,7 @@
 
 .buttons_container {
   font-weight: bold;
-  font-size: 2rem;
-
+  font-size: 1.5rem;
 
   width: 100%;
   display: grid;
@@ -95,7 +96,7 @@
 
 .login,
 .register {
-  border-radius: 3rem;
+  border-radius: 2rem;
   color: $color-blue;
   background-color: $color-ffg;
   color: black;
