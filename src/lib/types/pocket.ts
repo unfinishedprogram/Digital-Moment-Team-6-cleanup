@@ -17,6 +17,7 @@ export type BaseRecord = {
 export enum Collections {
 	AgeGroups = "age_groups",
 	Comments = "comments",
+	Messages = "messages",
 	PostInfos = "post_infos",
 	Posts = "posts",
 	Profiles = "profiles",
@@ -36,6 +37,13 @@ export type CommentsRecord = {
 	parent_post_info: RecordIdString
 }
 
+export type MessagesRecord = {
+	sender: UserIdString
+	receiver: UserIdString
+	body: string
+	seen?: boolean
+}
+
 export type PostInfosRecord = {
 	author: UserIdString
 	body: string
@@ -44,6 +52,7 @@ export type PostInfosRecord = {
 export type PostsRecord = {
 	post_info: RecordIdString
 	title: string
+	tags: RecordIdString
 }
 
 export type ProfilesRecord = {
@@ -52,6 +61,7 @@ export type ProfilesRecord = {
 	avatar?: string
 	age_group: RecordIdString
 	preferences: RecordIdString
+	location: RecordIdString
 }
 
 export type ReactionsRecord = {
@@ -73,6 +83,7 @@ export type TagsRecord = {
 export type CollectionRecords = {
 	age_groups: AgeGroupsRecord
 	comments: CommentsRecord
+	messages: MessagesRecord
 	post_infos: PostInfosRecord
 	posts: PostsRecord
 	profiles: ProfilesRecord
