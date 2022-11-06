@@ -1,15 +1,14 @@
 import qs from "qs";
 import { GetUserQueryParams } from "../pages/api/user/get";
-import { User } from "pocketbase";
-import { ICreateUserArgs } from "../pages/api/user/create";
-import { PostsRecord, ProfilesRecord } from "./lib/types/pocket";
+import { AddUserProfileParams, AddUserProfileReturns } from "../pages/api/user/add-user-profile";
+import { ProfilesRecord } from "./lib/types/pocket";
 import { AddPostBodyParams, AddPostReturnParams } from "../pages/api/post/add-post";
 import { GetPostQueryParams, GetPostReturnParams } from "../pages/api/post/get-post";
 
 type EndpointHandler<D, T> = (args: D) => T;
 
 interface IPostEndpoints {
-  "user/create": EndpointHandler<ICreateUserArgs, User>,
+  "user/add-user-profile": EndpointHandler<AddUserProfileParams, AddUserProfileReturns>,
   "post/add-post": EndpointHandler<AddPostBodyParams, AddPostReturnParams>
 }
 
