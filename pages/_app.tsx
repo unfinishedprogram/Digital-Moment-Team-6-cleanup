@@ -16,6 +16,8 @@ export default function App({ Component, pageProps }: AppProps) {
     navBar = <ProfileNavBar />
   } else if (router.pathname == '/explorer') {
     navBar = <ExplorerNavBar />
+  } else if (router.pathname == "/") {
+    navBar = <></>
   } else {
     navBar = <NavBar />
   }
