@@ -2,7 +2,8 @@ Features in **bold** are `Extra Features`.
 ## Feed
 Admins/moderators will browse the feed with the ability to remove posts.
 
-The admins/moderators should be able to:
+The admins/moderators should be able to: 
+- [ ] Options **⋮** that will allow admins to remove posts
 - [ ] Remove a post from the feed
 - [ ] **Sort posts by flagged status**
 ## Tags
