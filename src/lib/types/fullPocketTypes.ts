@@ -1,5 +1,4 @@
 import * as pocket from "./pocket";
-import { User } from "pocketbase";
 
 export type Tag = pocket.TagsRecord;
 
@@ -25,4 +24,3 @@ export type Profile =
     "preferences": Tag[],
     "location": Tag
   };
-
