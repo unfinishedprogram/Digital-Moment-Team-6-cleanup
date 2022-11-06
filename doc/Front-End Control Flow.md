@@ -5,7 +5,8 @@ Features in **bold** are `Extra Features`.
 ## Feed
 The entry point of the application.  
 
-The visitors/users should be able to:
+The visitors/users should be able to: 
+- [ ] Options **⋮** that will allow users to share posts
 - [ ] View posts
 - [ ] Click on tags
 - [ ] Sort/Find by (search)
