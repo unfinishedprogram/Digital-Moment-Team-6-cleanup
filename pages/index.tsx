@@ -19,16 +19,5 @@ export default function Home() {
 
   return (<>
     <h1>Home</h1>
-    <input type="username" placeholder='username' className={input_styles["text-input"]}></input>
-    <input type="email" placeholder='email' className={input_styles["text-input"]}></input>
-    <input type="checkbox" className={input_styles["checkbox-input"]}></input>
-    <Select className={select_styles.dropdown} options={options}></Select>
-    <TagSelect tags={['tag1', "tag2", "other tag"]} />
-
-    <div>
-      <ButtonBase>Click Me</ButtonBase>
-      <ButtonConfirm>Confirm</ButtonConfirm>
-      <ButtonDanger>Cancel</ButtonDanger>
-    </div>
   </>)
 }
