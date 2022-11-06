@@ -1,7 +1,9 @@
 import { TypedPostEndpoint } from "../../../src/lib/types/request";
-import { Profile } from "../../../src/lib/types/fullPocketTypes";
+import { AgeGroup, Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from "../../../src/pocketbase";
 import { User } from "pocketbase";
+import { TagsRecord } from "../../../src/lib/types/pocket";
+import { getTagIds, BaseConverter } from "../helper";
 
 export type AddUserProfileParams =
   Profile
@@ -23,9 +25,9 @@ const handler: TypedPostEndpoint<AddUserProfileParams, AddUserProfileReturns> = 
       {
         userId: userRecord.id,
         username: req.body.username,
-        age_group: req.body.age_group,
-        preferences: req.body.preferences,
-        location: req.body.location
+        age_group: (req.body.age_group as BaseConverter<AgeGroup>).id,
+        preferences: getTagIds(req.body.preferences) as unknown as string,
+        location: getTagIds(req.body.preferences) as unknown as string
       }
     );
     res.status(200).json({id: userRecord.id});
