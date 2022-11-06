@@ -1,6 +1,9 @@
-import * as pocket from "./pocket";
+import { PostsRecord, PostInfosRecord, ProfilesRecord, CommentsRecord, TagsRecord } from "./pocket";
+import { User } from 'pocketbase';
 
-export type Tag = pocket.TagsRecord;
+export type Post = PostInfosRecord & Omit<PostsRecord, "post_info" | 'tags'> & {
+    "tags": TagsRecord[];
+}
 
 // TODO remove "name" from age group from DB
 export type AgeGroup =
