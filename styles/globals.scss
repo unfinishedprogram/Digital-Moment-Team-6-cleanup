@@ -34,18 +34,15 @@ a {
 }
 
 main {
-  // margin-top: $nav-height;
   display: flex;
   flex-direction: column;
   align-items: center;
   overflow-y: auto;
   overflow: visible;
-  // min-height: calc(100vh - $nav-height);
   min-height: 100vh;
 }
 
 .maplibregl-marker {
-  transform: translate(100, 100);
   background-color: white;
   color: black;
   height: fit-content;
@@ -53,9 +50,9 @@ main {
   line-height: 18px;
   padding: 7px 14px;
   border-radius: 16px 16px 16px 0px;
-  display: block;
 
   filter: drop-shadow(2px 2px 2px #0005);
+  transform: translateY(-16);
 
   &::after {
     position: absolute;

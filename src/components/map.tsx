@@ -13,7 +13,6 @@ let words = [
   "refuse",
   "lazy",
   "bomber",
-
 ]
 
 let locations: [number, number][] = [];
@@ -52,9 +51,7 @@ interface ITagGroups {
       [index: string]: number,
     }
   }
-
 }
-
 
 function groupByLocation(posts: IPost[]): ITagGroups {
   let groups: ITagGroups = {};
@@ -119,8 +116,9 @@ export default function Map() {
 
       console.log(groups)
       for (let locKey in groups) {
-        var marker = new maplibregl.Marker()
-          .setLngLat(groups[locKey].location)
+        var marker = new maplibregl.Marker({
+          anchor: "bottom-left",
+        }).setLngLat(groups[locKey].location)
           .addTo(map);
 
         marker.getElement().innerHTML = "";
@@ -130,9 +128,9 @@ export default function Map() {
           return elm;
         }))
 
-        let offset: [number, number] = [marker.getElement().clientWidth / 2, -marker.getElement().clientHeight / 2];
+        // let offset: [number, number] = [marker.getElement().clientWidth / 2, -marker.getElement().clientHeight / 2];
 
-        marker.setOffset(offset)
+        // marker.setOffset(offset)
       }
       map.dragRotate.disable();
       map.touchPitch.disable();
