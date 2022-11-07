@@ -31,12 +31,8 @@ const handler: TypedGetEndpoint<GetPostCommentsQueryParams, GetPostCommentsRetur
 
 async function getChildComments(postInfoId: RecordIdString): Promise<CommentWithComments[]> {
   const pocketBaseInstance = pocketbase;
-  const comments =
-    (await pocketBaseInstance.getList("comments"))
-      .filter(
-        comment =>
-          comment.parent_post_info == postInfoId
-      );
+  const comments = 
+    await pocketBaseInstance.getList("comments", `(parent_post_info = '${postInfoId}')`);
   const commentsWithComments: CommentWithComments[] = await Promise.all(
     comments.map(
       async (comment) => {
