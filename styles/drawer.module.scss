@@ -42,6 +42,18 @@
     transform: translateY(calc(var(--offset) + var(--delta)));
     transition: transform 0.25s ease-out;
 
+    .post-button-container {
+        position: absolute;
+        top: -8%;
+        right: $std-margin;
+        background: $color-bg;
+        border-radius: 100%;
+        
+        .post-button{
+            position: relative;
+            transform: scale(1.4);
+        }   
+    }
 }
 
 .content {

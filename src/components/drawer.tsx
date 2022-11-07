@@ -1,5 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import styles from "../../styles/drawer.module.scss"
+import Image from "next/image";
+import Link from "next/link";
 
 export interface IDrawerProps extends React.PropsWithChildren {
   stateChange: (state: DrawerStates) => void,
@@ -72,10 +74,13 @@ const Drawer: React.FunctionComponent<IDrawerProps> = props => {
     onTouchMove={onTouchMove}
     onTouchEnd={onTouchEnd}
   >
+    <div className={styles['post-button-container']}>
+      <Link href="/create-post"><Image className={styles['post-button']} src="/img/add-button.svg" width="50" height="50" alt="add-post-placeholder"></Image></Link>
+    </div>
     <div ref={contentRef} className={styles.content}>
       {props.children}
     </div>
-  </div >
+  </div>
 }
 
 export default Drawer;
