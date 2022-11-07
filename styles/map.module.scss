@@ -1,0 +1,8 @@
+@import "./theme.scss";
+
+.map {
+    width: 100vw;
+    position: absolute;
+    height: var(--size);
+    transition: height $animation-multiplier;
+}

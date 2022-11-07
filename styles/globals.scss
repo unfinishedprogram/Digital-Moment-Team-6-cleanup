@@ -1,9 +1,20 @@
+@import "./theme.scss";
+
 html,
 body {
   padding: 0;
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+html {
+  background: $color-bg;
 }
 
 a {
@@ -15,13 +26,41 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
+#__next {
+  width: 100%;
+  min-width: 100%;
+  height: 100vh;
+  min-height: 100vh;
+  display: flex;
+  flex-grow: 1;
+  flex-direction: column;
+}
 
-  body {
-    color: white;
-    background: black;
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  overflow: visible;
+  min-height: 100vh;
+}
+
+.maplibregl-marker {
+  background-color: white;
+  color: black;
+  height: fit-content;
+  font-size: 18px;
+  line-height: 18px;
+  padding: 7px 14px;
+  border-radius: 16px 16px 16px 0px;
+
+  filter: drop-shadow(2px 2px 2px #0005);
+  transform: translateY(-16);
+
+  &::after {
+    position: absolute;
+    bottom: -16px;
+    left: 0px;
+    content: url("../public/img/corner.svg");
   }
 }

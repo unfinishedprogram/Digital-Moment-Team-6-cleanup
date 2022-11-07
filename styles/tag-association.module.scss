@@ -1,0 +1,25 @@
+.associationRow {
+  display: flex;
+  width: 100%;
+  flex-direction: row;
+  gap: 6%;
+  align-content: center;
+  justify-content: center;
+  align-items: center;
+
+  .leftCol {
+    display: flex;
+    flex-direction: row;
+    width: 48%;
+    justify-content: space-between;
+  }
+
+  .rightCol {
+    width: 40%;
+  }
+
+  p {
+    // margin: 0;
+  }
+
+}

@@ -1,0 +1,65 @@
+@import "./theme.scss";
+
+.drawer {
+    position: absolute;
+    width: 100vw;
+    height: 100vh;
+    top: 0px;
+    transition: top 0.5s;
+    background: $color-bg;
+    --offset: 100vh;
+
+    &[data-state="open"] {
+        --offset: 0px;
+
+        .content {
+            padding-top: $nav-height;
+            overflow-y: scroll;
+        }
+
+        transition: transform 0.25s ease-out;
+
+    }
+
+
+    &[data-state="half"] {
+        --offset: calc(100vh - 50%);
+        transition: transform 0.25s ease-out;
+
+    }
+
+    &[data-state="closed"] {
+        --offset: calc(100vh - 15%);
+        transition: transform 0.25s ease-out;
+
+    }
+
+
+    &[data-dragging="true"] {
+        transition: transform 0s ease-out;
+    }
+
+    transform: translateY(calc(var(--offset) + var(--delta)));
+    transition: transform 0.25s ease-out;
+
+    .post-button-container {
+        position: absolute;
+        right: $std-margin;
+        background: $color-bg;
+        border-radius: 100%;
+        top: calc(-42px *1.4);
+        right: 1.2rem;
+        
+        .post-button{
+            position: relative;
+            transform: scale(1.4);
+        }   
+    }
+}
+
+.content {
+    padding: $std-padding;
+    transition: padding-top $animation-multiplier;
+    max-height: 100%;
+    overflow-y: hidden;
+}
