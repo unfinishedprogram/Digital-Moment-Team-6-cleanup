@@ -9,31 +9,25 @@ import CommentSection from "./comment-section";
 
 export default function InDepthPostComponent(props: { post: Post, hide: () => void, visibile: boolean }) {
   let post = props.post
-  return (
-    <>
-      {
-        post && props.visibile ?
-          <>
-            <div className={postStyles['post-info']}>
-              <div>
-                <div className={postStyles['post-info-title-section']}>
-                  <h1>{post.title}</h1>
-                  <Image onClick={(e) => { e.stopPropagation(); props.hide() }} className={postStyles['close-icon']} src="/img/close.svg" width="50" height="50" alt="close-placeholder" />
-                </div>
-                <h3>Made by: {post.author}</h3>
-              </div>
-              <p>{post.body}</p>
-              <div className={styles['tags-container']}>
-                {post.tags.map((tag: TagsRecord, index: number) => {
-                  return <TagComponent tag={tag} key={index} />
-                })}
-              </div>
-              <CommentSection comments={post.comments} />
-            </div>
-          </>
-          :
-          null
-      }
-    </>
-  )
+
+  if (!props.visibile) return <></>;
+
+  return <div className={postStyles['post-info']}>
+    <div>
+      <div className={postStyles['post-info-title-section']}>
+        <h1>{post.title}</h1>
+        <Image onClick={(e) => { e.stopPropagation(); props.hide() }} className={postStyles['close-icon']} src="/img/close.svg" width="50" height="50" alt="close-placeholder" />
+      </div>
+      <h3>Made by: {post.author} </h3>
+
+    </div>
+
+    <p>{post.body}</p>
+
+    <div className={styles['tags-container']}>
+      {post.tags.map((tag: TagsRecord, index: number) => <TagComponent tag={tag} key={index} />)}
+    </div>
+
+    <CommentSection comments={post.comments} />
+  </div>
 }
