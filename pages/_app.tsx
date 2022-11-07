@@ -14,8 +14,6 @@ export default function App({ Component, pageProps }: AppProps) {
   // Changing navbar depending on page
   if (router.pathname == '/user') {
     navBar = <ProfileNavBar />
-  } else if (router.pathname == '/explorer') {
-    navBar = <ExplorerNavBar />
   } else if (router.pathname == "/") {
     navBar = <></>
   } else {
@@ -27,7 +25,7 @@ export default function App({ Component, pageProps }: AppProps) {
       <title>Title</title>
       <meta name="description" content="" />
       <meta name="viewport" content="width=device-width, user-scalable=no" />
-      <link rel="icon" href="/favicon.ico" />
+      <link rel="icon" href="/img/logo.svg" type="image/svg+xml"></link>
     </Head>
     {navBar}
     <main>
