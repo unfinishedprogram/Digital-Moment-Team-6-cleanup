@@ -7,7 +7,11 @@ export type GetTagLocReturnParams = { loc: [number, number] } | undefined;
 const handler: TypedGetEndpoint<GetTagLocQueryParams, GetTagLocReturnParams> = async (req, res) => {
   let raw = getTagLocation(req.query.location as any);
 
-  if (!raw) res.status(200).json({ loc: [0, 0] });
+  console.log(req.query.location);
+  console.log(raw);
+
+  if (!raw) return res.status(200).json({ loc: [90, 90] })
+
   res.status(200).json({ loc: [parseFloat(raw.latt), parseFloat(raw.longt)] });
 }
 

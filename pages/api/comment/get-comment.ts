@@ -1,7 +1,7 @@
 import { TypedGetEndpoint } from "../../../src/lib/types/request";
 import { Comment, Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
-import Api from "../../../src/api";
+import Api from "../../../src/api_backend";
 import { PostInfosRecord, ReactionsRecord, RecordIdString } from "../../../src/lib/types/pocket";
 import { BaseConverter } from "../../../src/lib/types/type-mapper";
 
@@ -22,8 +22,8 @@ const handler: TypedGetEndpoint<GetCommentQueryParams, GetCommentReturnParams> =
     const postRecord = await pocketBaseInstance.getOne("comments", commentId);
     const postInfo = await pocketBaseInstance.getOne("post_infos", postRecord.post_info);
 
-    const {post_info, author, ...response} = { ...postInfo, ...postRecord };
-    const responseAuthor = await Api.makeGetRequest("user/get-user-profile", {userId: postInfo.author}) as Profile;
+    const { post_info, author, ...response } = { ...postInfo, ...postRecord };
+    const responseAuthor = await Api.makeGetRequest("user/get-user-profile", { userId: postInfo.author }) as Profile;
     const responseReactions = await getReactions((postInfo as BaseConverter<PostInfosRecord>).id);
 
     res.status(200).json({

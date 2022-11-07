@@ -25,11 +25,16 @@ const groupTags = async (posts: PostWithComments[]): Promise<ITagGroups> => {
 
   for (let post of posts) {
     for (let tag of post.tags) {
-      console.log(tag);
       if (tag.type == "location") {
-        const v2loc: [number, number] = (await Api.makeGetRequest("tag/get-tag-loc", { location: tag.name }))?.loc.map(i => parseFloat(i as unknown as string)) as [number, number];
-        v2loc[0] -= 180;
-        v2loc[1] -= 180;
+        const v2loc: [number, number] = (await Api.makeGetRequest("tag/get-tag-loc", { location: tag.name }))?.loc as [number, number];
+        v2loc[0] += 90;
+        v2loc[1] += 90;
+
+        [v2loc[0], v2loc[1]] = [v2loc[1], v2loc[0]]
+
+        v2loc[0] = Math.min(90, Math.max(v2loc[0], -90));
+        v2loc[1] = Math.min(90, Math.max(v2loc[1], -90));
+
         if (tagGroups[tag.name]) {
           tagGroups[tag.name].tags.push(...post.tags.filter(t => t.type != location as any).map(t => t.name));
         } else {
@@ -75,12 +80,10 @@ const Map: React.FunctionComponent<IMapProps> = props => {
 
   useEffect(() => {
     groupTags(props.posts).then(groups => {
-      // setTagGroups(s => groups);
+      setTagGroups(s => groups);
 
-      console.log(Object.keys({ ...groups }))
-      console.log(Object.values({ ...groups }))
-      console.log({ ...groups })
 
+      console.log(groups);
       for (let locKey in { ...groups }) {
         var marker = new maplibregl.Marker({
           anchor: "bottom-left",
@@ -90,8 +93,6 @@ const Map: React.FunctionComponent<IMapProps> = props => {
 
         marker.getElement().onclick = () => props.tagClicked(groups[locKey]);
       }
-
-
     })
   }, [props.posts])
 

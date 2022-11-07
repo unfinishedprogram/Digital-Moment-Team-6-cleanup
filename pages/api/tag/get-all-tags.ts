@@ -1,7 +1,7 @@
 import { TypedGetEndpoint } from "../../../src/lib/types/request";
 import { Tag } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
-import Api from "../../../src/api";
+import Api from "../../../src/api_backend";
 import { TagsRecord } from "../../../src/lib/types/pocket";
 import { BaseConverter } from "../../../src/lib/types/type-mapper";
 
@@ -16,7 +16,7 @@ const handler: TypedGetEndpoint<GetTagQueryParams, GetTagReturnParams> = async (
     const tags = (await Promise.all(tagsRecord
       .map(
         tag =>
-          Api.makeGetRequest("tag/get-tag", {tagId: (tag as BaseConverter<TagsRecord>).id})
+          Api.makeGetRequest("tag/get-tag", { tagId: (tag as BaseConverter<TagsRecord>).id })
       ))
     ).map(
       tag => tag!
@@ -24,7 +24,7 @@ const handler: TypedGetEndpoint<GetTagQueryParams, GetTagReturnParams> = async (
 
     res.status(200).json(tags);
   } catch (error) {
-    res.status(404).send(undefined);
+    res.status(500).send(undefined);
   }
 
 }
