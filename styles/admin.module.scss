@@ -1,0 +1,144 @@
+/* CSS */
+.button {
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 14px;
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+
+}
+
+.button:hover,
+.button:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
+
+.button:active {
+  opacity: .5;
+}
+
+.green {
+  background: #407A52;
+  border: 1px solid #407A52;
+}
+
+.green:hover,
+.green:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #407A52;
+}
+
+
+.adminWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-top: 20%;
+  height: 100%;
+  justify-content: space-between;
+}
+.postReview {
+  display: flex;
+  flex-direction: column;
+  padding: 0 10%;
+
+
+  .row {
+    display: flex;
+    flex-direction: column;
+    // border: 1px solid #ccc;
+    // border-radius: 16px;
+    padding: 0 0.5em;
+    border-bottom: none;
+    background-color: #eeeee4;
+    margin-bottom: 3%;
+
+    border: 1px solid;
+    border-top-right-radius: 5px;
+    border-top-left-radius: 5px;
+
+    p {
+      margin: 0.2rem;
+    }
+  }
+
+  .opened {
+    padding: 0 5%;
+    padding-bottom: 5%;
+    // margin-bottom: 5%;
+    background-color: #eeeedf;
+    transform: translate(0, -15%);
+    border: 1px solid;
+    border-top: 0;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+  }
+
+  .removeRow {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+
+    .button {
+      padding: 0.2rem 0.5rem;
+      width: 35%;
+    }
+  }
+}
+
+
+.tagsWrapper {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+
+  width: 100%;
+  background-color: white;
+  height: 7vh;
+
+  .entry {
+    display: flex;
+    flex-direction: column;
+
+    justify-content: space-around;
+    align-items: center;
+    height: 100%;
+    width: 5rem;
+
+    p {
+      margin: 0;
+    }
+  }
+  
+  .active {
+    // background-color: grey;
+  }
+
+}
+

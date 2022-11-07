@@ -1,8 +1,13 @@
 import { TypedPostEndpoint } from "../../../src/lib/types/request";
-import { UserProfile } from "../../../src/lib/types/fullPocketTypes";
+import { AgeGroup, Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from "../../../src/pocketbase";
+import { User } from "pocketbase";
+import { BaseConverter, getTagIds } from "../../../src/lib/types/type-mapper";
 
-export type AddUserProfileParams = UserProfile & { password: string };
+export type AddUserProfileParams =
+  Profile
+  & Pick<User, "email">
+  & { password: string };
 export type AddUserProfileReturns = {id: string};
 
 const handler: TypedPostEndpoint<AddUserProfileParams, AddUserProfileReturns> = async (req, res) => {
@@ -19,9 +24,9 @@ const handler: TypedPostEndpoint<AddUserProfileParams, AddUserProfileReturns> = 
       {
         userId: userRecord.id,
         username: req.body.username,
-        age_group: req.body.age_group,
-        preferences: req.body.preferences,
-        location: req.body.location
+        age_group: (req.body.age_group as BaseConverter<AgeGroup>).id,
+        preferences: getTagIds(req.body.preferences) as unknown as string,
+        location: getTagIds(req.body.preferences) as unknown as string
       }
     );
     res.status(200).json({id: userRecord.id});
