@@ -13,7 +13,7 @@ export type GetPostReturnParams = Post | undefined;
 const handler: TypedGetEndpoint<GetPostQueryParams, GetPostReturnParams> = async (req, res) => {
   const { postId } = req.query;
   if (postId == undefined) {
-    res.status(400);
+    res.status(400).send(undefined);
     return;
   }
   const pocketBaseInstance = pocketbase;

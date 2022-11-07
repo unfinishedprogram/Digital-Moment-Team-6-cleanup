@@ -12,7 +12,7 @@ export type GetUserReturnParams = Profile | undefined;
 const handler: TypedGetEndpoint<GetUserQueryParams, GetUserReturnParams> = async (req, res) => {
   const { userId } = req.query;
   if (userId == undefined) {
-    res.status(400);
+    res.status(400).send(undefined);
     return;
   }
   const pocketBaseConnection = await pocketbase.getConnection();
