@@ -1,14 +1,54 @@
 @import "./theme.scss";
 
-.post{
-    background: white;
-    border: 8px solid black;
-}
+.tags-container{
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px;
 
-.tags-container {
-    
+    .tag-type-location{
+        background-color: $color-location-tag;
+    }
+
+    .tag-type-topic{
+        background-color: $color-topic-tag;
+    }
+
+    .tag-type-language{
+        background-color: $color-language-tag;
+    }
 }
 
 .tag {
     font-size: 1.1em;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    border-radius: 3px;
+    color: white;
+}
+
+.comment-section{
+    display: flex;
+    flex-direction: column;
+
+    .comment-container{
+        display: inherit;
+        flex-direction: inherit;
+
+
+        .comment-top-section{
+            display: inherit;        
+            flex-direction: row;
+            padding: calc($std-margin * 0.5);
+            align-items: baseline;
+
+            h4  , h4{
+                margin: 0;
+                padding: 0;
+            }
+            h4 {
+                margin-right: $std-margin;
+            }
+        }
+    }
 }

@@ -4,7 +4,7 @@ import pocketbase from '../../../src/pocketbase';
 import { RecordIdString } from "../../../src/lib/types/pocket";
 
 export type AddCommentBodyParams =
-  Omit<Comment, "author">
+  Omit<Comment, "author" | "reactions">
   & {
     "author": RecordIdString
   };
