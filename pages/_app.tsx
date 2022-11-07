@@ -16,6 +16,8 @@ export default function App({ Component, pageProps }: AppProps) {
     navBar = <ProfileNavBar />
   } else if (router.pathname == '/explorer') {
     navBar = <ExplorerNavBar />
+  } else if (router.pathname == "/") {
+    navBar = <></>
   } else {
     navBar = <NavBar />
   }
@@ -24,6 +26,7 @@ export default function App({ Component, pageProps }: AppProps) {
     <Head>
       <title>Title</title>
       <meta name="description" content="" />
+      <meta name="viewport" content="width=device-width, user-scalable=no" />
       <link rel="icon" href="/favicon.ico" />
     </Head>
     {navBar}

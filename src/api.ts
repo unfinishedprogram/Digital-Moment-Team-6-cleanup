@@ -1,11 +1,11 @@
 import qs from "qs";
-import { GetUserQueryParams } from "../pages/api/user/get";
+import { GetUserQueryParams, GetUserReturnParams } from "../pages/api/user/get-user-profile";
 import { AddUserProfileParams, AddUserProfileReturns } from "../pages/api/user/add-user-profile";
-import { ProfilesRecord } from "./lib/types/pocket";
 import { AddPostBodyParams, AddPostReturnParams } from "../pages/api/post/add-post";
 import { GetPostQueryParams, GetPostReturnParams } from "../pages/api/post/get-post";
 import { AddCommentBodyParams, AddCommentReturnParams } from "../pages/api/comment/add-comment";
 import { GetCommentQueryParams, GetCommentReturnParams } from "../pages/api/comment/get-comment";
+import { GetPostCommentsQueryParams, GetPostCommentsReturnParams } from "../pages/api/post-comments/get-post-comments";
 
 type EndpointHandler<D, T> = (args: D) => T;
 
@@ -16,9 +16,10 @@ interface IPostEndpoints {
 }
 
 interface IGetEndpoints {
-  "user/get": EndpointHandler<GetUserQueryParams, ProfilesRecord>
+  "user/get-user-profile": EndpointHandler<GetUserQueryParams, GetUserReturnParams>
   "post/get-post": EndpointHandler<GetPostQueryParams, GetPostReturnParams>
-  "comment/get-post": EndpointHandler<GetCommentQueryParams, GetCommentReturnParams>
+  "comment/get-comment": EndpointHandler<GetCommentQueryParams, GetCommentReturnParams>
+  "post-comments/get-post-comments": EndpointHandler<GetPostCommentsQueryParams, GetPostCommentsReturnParams>
 }
 
 
@@ -59,4 +60,4 @@ export default class Api {
       }
     });
   }
-}E
+}

@@ -1,8 +1,13 @@
 import { TypedPostEndpoint } from "../../../src/lib/types/request";
 import { Comment } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
+import { RecordIdString } from "../../../src/lib/types/pocket";
 
-export type AddCommentBodyParams = Comment;
+export type AddCommentBodyParams =
+  Omit<Comment, "author">
+  & {
+    "author": RecordIdString
+  };
 export type AddCommentReturnParams = {id: string};
 
 const handler: TypedPostEndpoint<AddCommentBodyParams, AddCommentReturnParams> = async (req, res) => {
@@ -26,7 +31,6 @@ const handler: TypedPostEndpoint<AddCommentBodyParams, AddCommentReturnParams> =
   } catch (error) {
     res.status(404).json(undefined);
   }
-
 }
 
 export default handler;
