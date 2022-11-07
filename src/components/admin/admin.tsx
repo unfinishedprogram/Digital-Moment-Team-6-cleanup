@@ -1,5 +1,6 @@
 import { useState } from "react";
 import style from "../../../styles/admin.module.scss";
+import AdminData from "./admin-data"
 import Footer, { PagesOptions } from "./footer";
 import PostValidationMenu from "./post-validation";
 import TagAssociation from "./tag-row";
@@ -40,7 +41,7 @@ export default function Admin() {
   return (
     <div className={style.adminWrapper}>
 
-      {currentPage == PagesOptions.Stats && (
+      {currentPage == PagesOptions.Tags && (
         <div className={style.tagsWrapper}>
           { TAGS.map((tag, index) =>
             <TagAssociation sdgIssueList={SDGS} tagName={tag} occurrences={10} selectedSdgIssue={""} key={index}/>
@@ -48,6 +49,10 @@ export default function Admin() {
         </div>
       )
       }
+
+      {currentPage == PagesOptions.Stats && (
+        <AdminData/>
+      )}
 
       {currentPage == PagesOptions.Review && (
         <PostValidationMenu post={posts}/>
