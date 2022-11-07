@@ -80,7 +80,7 @@ export default function adminGeneral() {
           options={line.options}
           series={line.series}
           type="line"
-          width="500"
+          width="380"
         />
       </div>
       <div>
