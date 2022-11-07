@@ -18,7 +18,7 @@ const handler: TypedGetEndpoint<GetPostCommentsQueryParams, GetPostCommentsRetur
   }
 
   try {
-    const post = (await Api.makeGetRequest("post/get-post", {postId}))!;
+    const post = (await Api.makeGetRequest("post/get-post", { postId }))!;
     const childComments = await getChildComments((post as BaseConverter<Post>).id);
     res.status(200).json({
       "child_comments": childComments,
@@ -31,16 +31,16 @@ const handler: TypedGetEndpoint<GetPostCommentsQueryParams, GetPostCommentsRetur
 
 async function getChildComments(postInfoId: RecordIdString): Promise<CommentWithComments[]> {
   const pocketBaseInstance = pocketbase;
-  const comments = 
+  const comments =
     await pocketBaseInstance.getList("comments", `(parent_post_info = '${postInfoId}')`);
   const commentsWithComments: CommentWithComments[] = await Promise.all(
     comments.map(
       async (comment) => {
         const commentInfo = (await Api.makeGetRequest(
           "comment/get-comment",
-          {commentId: (comment as BaseConverter<CommentsRecord>).id}
+          { commentId: (comment as BaseConverter<CommentsRecord>).id }
         ))!;
-        const {parent_post_info, ...strippedCommentInfo} = {...commentInfo};
+        const { parent_post_info, ...strippedCommentInfo } = { ...commentInfo };
         const childComments = await getChildComments(comment.post_info);
         return ({
           "child_comments": childComments,

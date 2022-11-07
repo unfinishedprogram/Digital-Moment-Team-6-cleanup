@@ -3,6 +3,9 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import maplibregl from "maplibre-gl"
 
+import Api from "../api";
+import { Post } from '../lib/types/fullPocketTypes';
+
 interface IPost {
   tags: string[],
   location: [number, number]
@@ -94,6 +97,8 @@ const tagElms = (tags: { [index: string]: number }) => {
   return arr;
 }
 
+// Api.makeGetRequest("post/get-post-comments",)
+
 interface IMapProps {
   enabled: boolean,
   height: number,
@@ -102,6 +107,8 @@ interface IMapProps {
 
 const Map: React.FunctionComponent<IMapProps> = props => {
   const [getMap, setMap] = useState<maplibregl.Map | null>(null);
+
+
 
   let arr = [];
 
@@ -139,6 +146,7 @@ const Map: React.FunctionComponent<IMapProps> = props => {
           elm.innerText = `${tag.tag} x${tag.count}`;
           return elm;
         }));
+
         marker.getElement().onclick = () => props.tagClicked(groups[locKey]);
       }
       map.dragRotate.disable();
