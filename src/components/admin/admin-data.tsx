@@ -1,6 +1,7 @@
 import dynamic from 'next/dynamic'
 import styles from '../../../styles/charts.module.scss';
 import Donut from './charts/donut-chart';
+import Line from './charts/line-chart'
 import React from 'react';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
@@ -10,19 +11,6 @@ interface IData {
     name: string;
     data: number[];
   }
-
-// Interface for use with line chart.
-interface ILine {
-  options: {
-    title: {
-      text: string;
-      style: {
-        fontSize: string;
-      }}
-    colors: string[];
-  }
-  series: IData[];
-}
 
 // Interface for use with bar chart.
 interface IBar {
@@ -60,32 +48,6 @@ interface IBar {
 
 export default function AdminData() {
   // Constants used in chart options.
-  const titleSize: string = '14px';
-  const colorPalette: string[] = ['#00D8B6','#008FFB',  '#FEB019', '#FF4560', '#775DD0'];
-
-
-  let line: ILine = {
-    options: {
-      title: { 
-        text: 'Posts per Day',
-        style: {
-          fontSize: titleSize
-        }
-      },
-      colors: colorPalette,
-    },
-    series: [
-      {
-        name: 'Amount of Challenge Posts',
-        data: [10, 20, 15, 2, 6, 21]
-      },
-      {
-        name: 'Amount of Idea Posts',
-        data: [5, 3, 14, 7, 2, 10]
-      }
-    ]
-  }
-
   let bar: IBar = {
     series: [
       {
@@ -140,14 +102,7 @@ export default function AdminData() {
           width="340"
         />
       </div>
-      <div>
-        <Chart
-          options={line.options}
-          series={line.series}
-          type="line"
-          width="340"
-        />
-      </div>
+      <Line/>
       <Donut/>
     </div>
   );
