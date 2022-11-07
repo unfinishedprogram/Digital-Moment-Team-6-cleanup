@@ -28,14 +28,14 @@ const TAGS = [
 export default function Admin() {
   const [currentPage, setCurrentPage] = useState<PagesOptions>(PagesOptions.Stats);
   const [posts, setPosts] = useState([
-    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
-    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
-    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
-    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
-    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
-    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
-    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
-    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+    {title: "Hackathons at my School", author: "John", body: "I'd like to host a hackathon at my school!"},
+    {title: "Abuse at Home", author: "Jane", body: "My home situation is hostile."},
+    {title: "Refused by Local", author: "Jeremy", body: "A man discriminated against me in my community today."},
+    {title: "Garden", author: "William", body: "I would like to start a garden in my neighbourhood!"},
+    {title: "New Space", author: "Alex", body: "I have a space that can be used for group projects."},
+    {title: "Hungry before School", author: "Din", body: "I often go to school hungry. I feel like it affects my ability to learn."},
+    {title: "Flood", author: "Ravneet", body: "There has been a big flood near me and we lost our house."},
+    {title: "No Friends", author: "Tony", body: "I find it very hard to make friends in this new place."},
   ]);
 
   return (

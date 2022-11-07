@@ -1,14 +1,11 @@
-import Head from 'next/head'
 import * as React from 'react';
-import Api from '../src/api';
-import styles from '../styles/Home.module.scss'
 import input_styles from "../styles/input.module.scss"
 import { Formik, Form } from 'formik';
 import { strings } from '../src/localization/localization-login'
 import ButtonConfirm from '../src/components/general/button/button-confirm';
 import Link from 'next/link';
-
 import style from "../styles/login.module.scss";
+
 interface LoginFormValues {
   username: string;
   password: string;
@@ -25,7 +22,6 @@ export default function Login() {
       <Formik
         initialValues={initialValues}
         onSubmit={(values, actions) => {
-          // Add login API call here
         }}
       >
         {({ handleSubmit, handleChange, values, errors }) => (
@@ -50,7 +46,7 @@ export default function Login() {
               value={values.password}
               required
             />
-            <ButtonConfirm>{strings.login}</ButtonConfirm>
+            <ButtonConfirm><Link style={{"color": "black"}} href="/map">{strings.login}</Link></ButtonConfirm>
           </Form>
         )}
       </Formik>
