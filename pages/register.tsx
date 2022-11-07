@@ -98,6 +98,7 @@ enum Steps {
 export default function Register(){
 
   const [step, setStep] = React.useState<Steps>(Steps.USERNAME);
+  const [isSubmited, setIsSubmited] = React.useState<boolean>(false);
 
   const initialValues: FormValues = {
     username: "",
@@ -182,40 +183,53 @@ export default function Register(){
       </Head>
       <main className={styles.main}>
         <h1>Register</h1>
-        <Formik
-          initialValues={initialValues} 
-          validate={validate}
-          onSubmit={(values, actions) => {
-            actions.setSubmitting(false)
-            // Api.makePostRequest("user/add-user-profile",{
-            //   email: values.email,
-            //   password: values.password,
-            //   location: values.location,
-            //   age: values.age,
-            //   preferences: values.preferences,
-            //   languages: values.languages,
-            // })            
-          }}
-        >
-          {({handleSubmit, handleChange, values, errors, validateForm}) =>(
-            <Form onSubmit={(e) => {
-              e.preventDefault()
-              isSubmitting = true;
-              validateForm()
-              handleSubmit(e)}}
+        {isSubmited ?
+          <h2>Registered</h2>
+          :
+          <div>
+            <Formik
+              initialValues={initialValues} 
+              // validate={validate}
+              onSubmit={(values, actions) => {
+                console.log("submit");
+                setIsSubmited(true)
+                actions.setSubmitting(false)
+                // Api.makePostRequest("user/add-user-profile",{
+                //   email: values.email,
+                //   password: values.password,
+                //   location: values.location,
+                //   age: values.age,
+                //   preferences: values.preferences,
+                //   languages: values.languages,
+                // })            
+              }}
             >
-              <div className={styles.innerFormStyle}>
-                <div className={styles.options}>
-                  <> 
-                    {getStepComponent(handleChange, values)}
-                  </>
-                </div>
-                <ButtonConfirm type='button' onClick={() => setStep(step + 1)}> Next </ButtonConfirm>
-              </div>
-            </Form>
-          )}
-        </Formik>
-        <h4>{strings.existingAccount} <Link href="/login">{strings.login}</Link></h4>
+              {({handleSubmit, handleChange, values, errors, validateForm}) =>(
+                <Form onSubmit={(e) => {
+                  e.preventDefault()
+                  isSubmitting = true;
+                  // validateForm()
+                  handleSubmit(e)}}
+                >
+                  <div className={styles.innerFormStyle}>
+                    <div className={styles.options}>
+                      <> 
+                        {getStepComponent(handleChange, values)}
+                      </>
+                    </div>
+                    { step > 4 ?
+                      <ButtonConfirm type='submit' onClick={() => {setStep(step + 1); console.log(step);}}> Next </ButtonConfirm>
+                      :
+                      <ButtonConfirm type='button' onClick={() => {setStep(step + 1); console.log(step);}}> Next </ButtonConfirm>
+                    }
+                  </div>
+                </Form>
+              )}
+            </Formik>
+            <h4>{strings.existingAccount} <Link href="/login">{strings.login}</Link></h4>
+          </div>
+        }
+        
       </main>
     </div>
   )
