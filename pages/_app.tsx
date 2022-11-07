@@ -22,7 +22,7 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (<>
     <Head>
-      <title>Title</title>
+      <title>WAVE</title>
       <meta name="description" content="" />
       <meta name="viewport" content="width=device-width, user-scalable=no" />
       <link rel="icon" href="/img/logo.svg" type="image/svg+xml"></link>
