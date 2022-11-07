@@ -10,7 +10,6 @@ import { BaseConverter } from '../src/lib/types/type-mapper';
 const fetchPostWithComments = async () => {
   let posts = await Api.makeGetRequest("post/get-all-posts", {});
   let withComments = posts!.map(async post => await Api.makeGetRequest("post/get-post-comments", { postId: (post as BaseConverter<Post>).id }));
-  console.log(await withComments);
   return await Promise.all(withComments);
 }
 

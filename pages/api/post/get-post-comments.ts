@@ -16,12 +16,13 @@ const handler: TypedGetEndpoint<GetPostCommentsQueryParams, GetPostCommentsRetur
     res.status(400).send(undefined);
     return;
   }
+  const pocketBaseInstance = pocketbase;
 
   try {
     const post = (await Api.makeGetRequest("post/get-post", { postId }))!;
-    console.log("Post:", post);
 
-    const childComments = await getChildComments((post as BaseConverter<Post>).id);
+    const postInfoId = (await pocketBaseInstance.getOne("posts", postId)).post_info;
+    const childComments = await getChildComments(postInfoId);
     res.status(200).json({
       "child_comments": childComments,
       ...post
