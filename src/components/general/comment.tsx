@@ -9,23 +9,13 @@ export default function CommentComponent(props: { comment: Comment }) {
     return `${date.getMinutes()}:${date.getHours()} ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
   }
   return (
-    comment ?
-      <>
-        <div className={styles['comment-container']}>
-          <div className={styles['comment-top-section']}>
-            <h4>{comment.author.username}
-              {/* {`at ${printifyDate(comment.time)}`} */}
-
-            </h4>
-          </div>
-          <p>{comment.body}</p>
-        </div>
-      </>
-      :
-      <>
-        <div className={styles['comment-container']}>
-          {"Something went wrong. There's not comment to display"}
-        </div>
-      </>
+    <div className={styles['comment-container']}>
+      <div className={styles['comment-top-section']}>
+        <h4>{comment.author.username}
+          {/* {`at ${printifyDate(comment.time)}`} */}
+        </h4>
+      </div>
+      <p>{comment.body}</p>
+    </div>
   )
 }
