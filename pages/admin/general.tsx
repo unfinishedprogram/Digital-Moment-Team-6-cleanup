@@ -3,7 +3,8 @@ import styles from '../../styles/charts.module.scss';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-import React from 'react'
+import React from 'react';
+import ReactApexChart from 'react-apexcharts';
 
 interface IDonut {
   options: {
@@ -19,23 +20,60 @@ interface IDonut {
   series: number[];
 }
 
-interface ILineData {
+interface IData {
   name: string;
   data: number[];
 }
 
-interface ILineTitle {
-  text: string;
-}
-
 interface ILine {
   options: {
-    title: ILineTitle;
+    title: {
+      text: string;
+      style: {
+        fontSize: string;
+      }}
     colors: string[];
   }
-  series: ILineData[];
+  series: IData[];
 }
 
+interface IBar {
+  series: IData[];
+  options: {
+    plotOptions: {
+      bar: {
+        horizontal: boolean;
+        dataLabels: {
+          total: {
+            enabled: boolean;
+            offsetX: number;
+            style: {
+              fontSize: string;
+            }
+          }
+        }
+      },
+    },
+    stroke: {
+      width: number;
+      colors: string[];
+    },
+    title: {
+      text: string;
+    },
+    xaxis: {
+      categories: string[];
+    },
+    fill: {
+      opacity: number;
+    }
+  }
+}
+
+
+
+
+const titleSize: string = '14px';
 const colorPalette: string[] = ['#00D8B6','#008FFB',  '#FEB019', '#FF4560', '#775DD0'];
 
 export default function adminGeneral() {
@@ -45,7 +83,7 @@ export default function adminGeneral() {
       title: {
         text: 'Amount of Tags per SDG',
         style: {
-          fontSize: '18px'
+          fontSize: titleSize
         }
       },
       name: "# of Tags per SDG",
@@ -57,7 +95,10 @@ export default function adminGeneral() {
   let line: ILine = {
     options: {
       title: { 
-        text: 'Posts per Day'
+        text: 'Posts per Day',
+        style: {
+          fontSize: titleSize
+        }
       },
       colors: colorPalette,
     },
@@ -73,14 +114,66 @@ export default function adminGeneral() {
     ]
   }
 
+  let bar: IBar = {
+    series: [
+      {
+        name: 'Challenge Posts',
+        data: [41, 67, 21, 54]
+      },
+      {
+        name: 'Idea Posts',
+        data: [24, 19, 34, 13]
+      }
+    ],
+    options: {
+      plotOptions: {
+        bar: {
+          horizontal: true,
+          dataLabels: {
+            total: {
+              enabled: true,
+              offsetX: 0,
+              style: {
+                fontSize: '13px'
+              }
+            }
+          }
+        },
+      },
+      stroke: {
+        width: 1,
+        colors: ['#fff']
+      },
+      title: {
+        text: 'Posts per Region'
+      },
+      xaxis: {
+        categories: ['Americas', 'Asia Pacific', 'Europe', 'Middle East/Africa']
+      },
+      fill: {
+        opacity: 1
+      }
+    }
+  }
+
   return (
     <div className={styles.charts}>
+      <h1>Data & Statistics</h1>
+      <div>
+        <Chart 
+          options={bar.options} 
+          series={bar.series} 
+          type="bar"
+          height="500"
+          width="340"
+        />
+      </div>
       <div>
         <Chart
           options={line.options}
           series={line.series}
           type="line"
-          width="380"
+          width="340"
         />
       </div>
       <div>
@@ -88,7 +181,7 @@ export default function adminGeneral() {
           options={donut.options} 
           series={donut.series} 
           type="donut" 
-          width="380" 
+          width="340" 
         />
       </div>
     </div>

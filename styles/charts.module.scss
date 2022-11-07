@@ -12,5 +12,10 @@
 }
 
 .charts > div {
-    padding: 1rem;
+    margin: 1rem;
+    padding: 0.5rem;
+    background: white;
+    border-radius: 5% 5% 5% 5%;
+    border: 1px solid black;
+    box-shadow: 5px 5px 5px gray;
 }
