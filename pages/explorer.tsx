@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import PostComponent from '../src/components/general/post';
 import { Post } from '../src/lib/types/fullPocketTypes';
 
@@ -58,22 +58,5 @@ export default function Explorer() {
     return posts
   })
 
-  return (
-    <>
-      {
-        posts.length > 0 ?
-          <>
-            <div>
-              {
-                posts.map((post, index) => {
-                  return <PostComponent post={post} key={index} />
-                })
-              }
-            </div>
-          </>
-          :
-          <h1>{"There's no posts to display!"}</h1>
-      }
-    </>
-  );
+  return <>{posts.map((post, index) => <PostComponent post={post} key={index} />)}</>
 }
