@@ -14,8 +14,6 @@ export default function App({ Component, pageProps }: AppProps) {
   // Changing navbar depending on page
   if (router.pathname == '/user') {
     navBar = <ProfileNavBar />
-  } else if (router.pathname == '/explorer') {
-    navBar = <ExplorerNavBar />
   } else if (router.pathname == "/") {
     navBar = <></>
   } else {
