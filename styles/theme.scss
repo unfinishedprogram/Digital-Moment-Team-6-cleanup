@@ -9,7 +9,12 @@ $color-text-secondary: #222;
 
 $color-bg: #DDD8CF;
 $color-fg: #EAE7E1;
+$color-ffg: white;
 
+$shadow-rainbow: 0.2rem 0.2rem 0px $color-green,
+    0.4rem 0.4rem 0px $color-red,
+    0.6rem 0.6rem 0px $color-yellow,
+    0.8rem 0.8rem 0px $color-blue;
 
 // Sizing settings
 
