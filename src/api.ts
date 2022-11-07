@@ -7,7 +7,7 @@ import { AddCommentBodyParams, AddCommentReturnParams } from "../pages/api/comme
 import { GetCommentQueryParams, GetCommentReturnParams } from "../pages/api/comment/get-comment";
 import { GetTagQueryParams, GetTagReturnParams } from "../pages/api/tag/get-tag";
 import { GetPostCommentsQueryParams, GetPostCommentsReturnParams } from "../pages/api/post/get-post-comments";
-import { GetTagQueryParams, GetTagReturnParams } from "../pages/api/tag/get-tag";
+import { GetAllPostsQueryParams, GetAllPostsReturnParams } from "../pages/api/post/get-all-posts";
 
 type EndpointHandler<D, T> = (args: D) => T;
 
@@ -23,8 +23,7 @@ interface IGetEndpoints {
   "comment/get-comment": EndpointHandler<GetCommentQueryParams, GetCommentReturnParams>
   "tag/get-tag": EndpointHandler<GetTagQueryParams, GetTagReturnParams>
   "post/get-post-comments": EndpointHandler<GetPostCommentsQueryParams, GetPostCommentsReturnParams>
-  "post-comments/get-post-comments": EndpointHandler<GetPostCommentsQueryParams, GetPostCommentsReturnParams>
-  "tag/get-tag": EndpointHandler<GetTagQueryParams, GetTagReturnParams>
+  "post/get-all-posts": EndpointHandler<GetAllPostsQueryParams, GetAllPostsReturnParams>
 }
 
 
