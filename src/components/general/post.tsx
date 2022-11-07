@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from '../../../styles/Index.module.scss'
+import styles from '../../../styles/post.module.scss'
 import TagComponent from "./tag";
 import { Post } from '../../lib/types/fullPocketTypes'
 import { TagsRecord } from "../../lib/types/pocket";

@@ -9,27 +9,50 @@ export default function Explorer() {
     for (let i = 0; i < 10; i++) {
       posts.push({
         author: "Bob",
-        body: "This is my problem",
+        body: "This is my problem.".repeat(100),
         title: "Mega problem",
-        tags: [{
-          name: "mega",
-          type: "topic"
-        }, {
-          name: "mega",
-          type: "topic"
-        }, {
-          name: "mega",
-          type: "topic"
-        }, {
-          name: "mega",
-          type: "topic"
-        }, {
-          name: "mega",
-          type: "topic"
-        }, {
-          name: "mega",
-          type: "topic"
-        }]
+        tags: [
+          {
+            name: "mega",
+            type: "language"
+          }, {
+            name: "mega",
+            type: "topic"
+          }, {
+            name: "mega",
+            type: "location"
+          }, {
+            name: "mega",
+            type: "topic"
+          }, {
+            name: "mega",
+            type: "topic"
+          }, {
+            name: "mega",
+            type: "topic"
+          }
+        ],
+        comments: [
+          {
+            author: "Joe",
+            body: "This is a great post.",
+            time: new Date(),
+            reactions: [
+              {
+                author: "Bob",
+                type: "happy"
+              }
+            ]
+          }
+          ,
+          {
+            author: "Guilherme",
+            "body": "I don't like this comment.",
+            time: new Date(),
+            reactions: null
+          }
+        ]
+        // comments: null //sumilating no comments
       })
     }
     return posts
@@ -40,11 +63,13 @@ export default function Explorer() {
       {
         posts.length > 0 ?
           <>
-            {
-              posts.map((post, index) => {
-                return <PostComponent post={post} key={index} />
-              })
-            }
+            <div>
+              {
+                posts.map((post, index) => {
+                  return <PostComponent post={post} key={index} />
+                })
+              }
+            </div>
           </>
           :
           <h1>{"There's no posts to display!"}</h1>
