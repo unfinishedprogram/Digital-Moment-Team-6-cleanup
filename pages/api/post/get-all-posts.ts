@@ -13,18 +13,16 @@ const handler: TypedGetEndpoint<GetAllPostsQueryParams, GetAllPostsReturnParams>
 
   try {
     const postsRecord = await pocketBaseInstance.getList("posts");
-    const posts = (await Promise.all(postsRecord
-      .map(
-        post =>
-          Api.makeGetRequest("post/get-post", { postId: (post as BaseConverter<PostsRecord>).id })
-      ))
-    ).map(
-      post => post!
-    );
+
+    let posts: Post[] = [];
+
+    for (let record of postsRecord) {
+      posts.push(await Api.makeGetRequest("post/get-post", { postId: (record as BaseConverter<PostsRecord>).id }));
+    }
 
     res.status(200).json(posts);
   } catch (error) {
-    res.status(404).send(undefined);
+    res.status(500).send(undefined);
   }
 
 }
