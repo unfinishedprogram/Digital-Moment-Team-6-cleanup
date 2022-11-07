@@ -4,6 +4,7 @@ import Drawer from '../src/components/drawer';
 import Explorer from '../src/components/explorer';
 
 import Map, { ITagGroup } from '../src/components/map';
+import SettingsButton, { FilterChange } from '../src/components/overlay/settingsButton';
 import { Post, PostWithComments } from '../src/lib/types/fullPocketTypes';
 import { BaseConverter } from '../src/lib/types/type-mapper';
 
@@ -15,8 +16,9 @@ const fetchPostWithComments = async () => {
 
 export default function MapPage() {
   const [height, setHeight] = useState(100);
-  const [getTags, setTags] = useState<ITagGroup[]>([]);
   const [posts, setPosts] = useState<PostWithComments[]>([]);
+  const [tags, setTags] = useState<string[]>([]);
+  const [filter, setFilter] = useState<FilterChange>();
 
   if (posts.length < 1) {
     fetchPostWithComments().then(posts => {
@@ -32,17 +34,13 @@ export default function MapPage() {
     }[newState])
   }
 
-  useEffect(() => {
-    setTags(getTags)
-  }, [getTags]);
-
-
-  const onTagClicked = (tag: ITagGroup) => {
-    setTags((tags) => [tag, ...tags]);
-  }
+  setTags(
+    posts.flatMap(post => post.tags.map(tag => tag.name))
+  );
 
   return <>
-    <Map height={100} posts={posts} enabled tagClicked={onTagClicked} />
+    <Map height={100} posts={posts} enabled tagClicked={() => {}} />
+    <SettingsButton tags={tags} onFilterChange={(filter) => setFilter(filter)}/>
     <Drawer stateChange={drawerChange} >
       <Explorer posts={posts}></Explorer>
     </Drawer>
