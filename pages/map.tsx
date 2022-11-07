@@ -34,15 +34,15 @@ export default function MapPage() {
     }[newState])
   }
 
-  setTags(
-    posts.flatMap(post => post.tags.map(tag => tag.name))
-  );
+  useEffect(() => {
+    setTags(posts.flatMap(post => post.tags.map(tag => tag.name)));
+  }, [posts])
 
   return <>
-    <Map height={100} posts={posts} enabled tagClicked={() => {}} />
-    <SettingsButton tags={tags} onFilterChange={(filter) => setFilter(filter)}/>
+    <Map height={100} posts={posts} enabled tagClicked={() => { }} />
+    <SettingsButton tags={tags} onFilterChange={(filter) => setFilter(filter)} />
     <Drawer stateChange={drawerChange} >
-      <Explorer posts={posts}></Explorer>
+      <Explorer posts={posts} filter={filter?.filteredTags}></Explorer>
     </Drawer>
   </>;
 }
