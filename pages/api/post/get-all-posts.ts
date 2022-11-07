@@ -3,7 +3,7 @@ import { Post, Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
 import { BaseConverter, getTags } from "../../../src/lib/types/type-mapper";
 import { PostsRecord, RecordIdString } from "../../../src/lib/types/pocket";
-import Api from "../../../src/api";
+import Api from "../../../src/api_backend";
 
 export type GetAllPostsQueryParams = {}
 export type GetAllPostsReturnParams = Post[] | undefined;
@@ -17,7 +17,7 @@ const handler: TypedGetEndpoint<GetAllPostsQueryParams, GetAllPostsReturnParams>
     let posts: Post[] = [];
 
     for (let record of postsRecord) {
-      posts.push(await Api.makeGetRequest("post/get-post", { postId: (record as BaseConverter<PostsRecord>).id }));
+      posts.push(await Api.makeGetRequest("post/get-post", { postId: (record as BaseConverter<PostsRecord>).id }) as any);
     }
 
     res.status(200).json(posts);

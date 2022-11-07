@@ -1,4 +1,4 @@
-import Api from "../../../src/api";
+import Api from "../../../src/api_backend";
 import { CommentWithComments, Post, PostWithComments } from "../../../src/lib/types/fullPocketTypes";
 import { CommentsRecord, RecordIdString } from "../../../src/lib/types/pocket";
 import { TypedGetEndpoint } from "../../../src/lib/types/request";
@@ -36,21 +36,25 @@ async function getChildComments(postInfoId: RecordIdString): Promise<CommentWith
   const pocketBaseInstance = pocketbase;
   const comments =
     await pocketBaseInstance.getList("comments", `(parent_post_info = '${postInfoId}')`);
-  const commentsWithComments: CommentWithComments[] = await Promise.all(
-    comments.map(
-      async (comment) => {
-        const commentInfo = (await Api.makeGetRequest(
-          "comment/get-comment",
-          { commentId: (comment as BaseConverter<CommentsRecord>).id }
-        ))!;
-        const { parent_post_info, ...strippedCommentInfo } = { ...commentInfo };
-        const childComments = await getChildComments(comment.post_info);
-        return ({
-          "child_comments": childComments,
-          ...strippedCommentInfo
-        });
-      }
-    ));
+
+
+  let commentsWithComments: CommentWithComments[] = [];
+
+  for (let comment of comments) {
+    const commentInfo = (await Api.makeGetRequest(
+      "comment/get-comment",
+      { commentId: (comment as BaseConverter<CommentsRecord>).id }
+    ))!;
+
+    const { parent_post_info, ...strippedCommentInfo } = { ...commentInfo };
+    const childComments = await getChildComments(comment.post_info);
+
+    commentsWithComments.push({
+      "child_comments": childComments,
+      ...strippedCommentInfo
+    });
+  }
+
   return commentsWithComments;
 }
 
