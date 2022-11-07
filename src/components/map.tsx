@@ -3,103 +3,67 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import maplibregl from "maplibre-gl"
 
-import Api from "../api";
-import { Post } from '../lib/types/fullPocketTypes';
+import { PostWithComments } from '../../src/lib/types/fullPocketTypes';
+import Api from '../api';
 
 interface IPost {
   tags: string[],
   location: [number, number]
 }
 
-let words = [
-  "widen",
-  "refuse",
-  "lazy",
-  "bomber",
-]
-
-let locations: [number, number][] = [];
-
-for (let i = 0; i < 10; i++) {
-  locations.push([Math.random() * 180 - 90, Math.random() * 180 - 90])
-}
-
-const randWord = () => {
-  return words[Math.floor(Math.random() * words.length)];
-};
-
-const randLoc = () => {
-  return locations[Math.floor(Math.random() * locations.length)] as [number, number];
-}
-
-const randomPost = (): IPost => {
-  const tagsSet = new Set([randWord(), randWord(), randWord(), randWord(), randWord(), randWord()]);
-  const tags: string[] = [];
-
-  tagsSet.forEach(tag => {
-    tags.push(tag);
-  })
-
-  return {
-    tags,
-    location: randLoc(),
-  }
-}
-
 export interface ITagGroup {
   location: [number, number],
-  tags: {
-    [index: string]: number,
-  }
+  tags: string[],
 }
 
 interface ITagGroups {
   [index: string]: ITagGroup
 }
 
-function groupByLocation(posts: IPost[]): ITagGroups {
-  let groups: ITagGroups = {};
+const groupTags = async (posts: PostWithComments[]): Promise<ITagGroups> => {
+  let tagGroups: ITagGroups = {};
 
-  posts.forEach(post => {
-    let key = post.location.toString();
-    if (!groups[key]) {
-
-      let tags: { [index: string]: number } = {};
-
-      post.tags.forEach(tag => {
-        tags[tag] = 1;
-      })
-
-      groups[key] = {
-        location: post.location,
-        tags,
-      }
-    } else {
-      post.tags.forEach(tag => {
-        if (groups[key].tags[tag]) {
-          groups[key].tags[tag]++;
+  for (let post of posts) {
+    for (let tag of post.tags) {
+      console.log(tag);
+      if (tag.type == "location") {
+        const v2loc: [number, number] = (await Api.makeGetRequest("tag/get-tag-loc", { location: tag.name }))?.loc.map(i => parseFloat(i as unknown as string)) as [number, number];
+        v2loc[0] -= 180;
+        v2loc[1] -= 180;
+        if (tagGroups[tag.name]) {
+          tagGroups[tag.name].tags.push(...post.tags.filter(t => t.type != location as any).map(t => t.name));
         } else {
-          groups[key].tags[tag] = 1;
+          console.log("New Location")
+
+          tagGroups[tag.name] = { location: v2loc, tags: [...post.tags.filter(t => t.type != location as any).map(t => t.name)] };
         }
-      })
+      }
     }
-  });
-
-  return groups;
-}
-
-const tagElms = (tags: { [index: string]: number }) => {
-  let arr = [];
-  for (let tag in tags) {
-    arr.push({ tag, count: tags[tag] });
   }
-  arr.sort((a, b) => a.count - b.count);
-  return arr;
+
+  return tagGroups;
 }
 
-// Api.makeGetRequest("post/get-post-comments",)
+const mapTag = (tagGroup: ITagGroup): HTMLDivElement => {
+  const elm = document.createElement("div");
+
+  if (!tagGroup) {
+    elm.innerText = "This is a problem";
+    return elm;
+  }
+
+  for (let tag in tagGroup.tags) {
+    const tagElm = document.createElement("span");
+    tagElm.textContent = tag;
+    tagElm.classList.add("map-tag", tag);
+    elm.append(tagElm);
+  }
+
+  return elm;
+}
 
 interface IMapProps {
+  posts: PostWithComments[],
   enabled: boolean,
   height: number,
   tagClicked: (group: ITagGroup) => void
@@ -107,16 +71,30 @@ interface IMapProps {
 
 const Map: React.FunctionComponent<IMapProps> = props => {
   const [getMap, setMap] = useState<maplibregl.Map | null>(null);
+  const [getTagGroups, setTagGroups] = useState<ITagGroups | null>(null);
+
+  useEffect(() => {
+    groupTags(props.posts).then(groups => {
+      // setTagGroups(s => groups);
+
+      console.log(Object.keys({ ...groups }))
+      console.log(Object.values({ ...groups }))
+      console.log({ ...groups })
+
+      for (let locKey in { ...groups }) {
+        var marker = new maplibregl.Marker({
+          anchor: "bottom-left",
+          element: mapTag(groups[locKey]),
+        }).setLngLat(groups[locKey].location)
+          .addTo(getMap!);
+
+        marker.getElement().onclick = () => props.tagClicked(groups[locKey]);
+      }
 
 
+    })
+  }, [props.posts])
 
-  let arr = [];
-
-  for (let i = 0; i < 50; i++) {
-    arr.push(randomPost());
-  }
-
-  let groups = groupByLocation(arr);
 
   let mapElmRef = useRef<HTMLDivElement>(null);
 
@@ -134,21 +112,6 @@ const Map: React.FunctionComponent<IMapProps> = props => {
         zoom: 0
       });
 
-      for (let locKey in groups) {
-        var marker = new maplibregl.Marker({
-          anchor: "bottom-left",
-        }).setLngLat(groups[locKey].location)
-          .addTo(map);
-
-        marker.getElement().innerHTML = "";
-        marker.getElement().append(...tagElms(groups[locKey].tags).map(tag => {
-          let elm = document.createElement("div");
-          elm.innerText = `${tag.tag} x${tag.count}`;
-          return elm;
-        }));
-
-        marker.getElement().onclick = () => props.tagClicked(groups[locKey]);
-      }
       map.dragRotate.disable();
       map.touchPitch.disable();
       setMap(map);

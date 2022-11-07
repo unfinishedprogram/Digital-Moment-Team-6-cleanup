@@ -18,10 +18,6 @@ export default function MapPage() {
   const [getTags, setTags] = useState<ITagGroup[]>([]);
   const [posts, setPosts] = useState<PostWithComments[]>([]);
 
-  fetchPostWithComments()
-    .then(posts => console.log("Posts fetched:", posts))
-    .catch(err => console.error("Post error:", err));
-
   if (posts.length < 1) {
     fetchPostWithComments().then(posts => {
       setPosts(state => posts as PostWithComments[]);
@@ -46,7 +42,7 @@ export default function MapPage() {
   }
 
   return <>
-    <Map height={100} enabled tagClicked={onTagClicked} />
+    <Map height={100} posts={posts} enabled tagClicked={onTagClicked} />
     <Drawer stateChange={drawerChange} >
       <Explorer posts={posts}></Explorer>
     </Drawer>
