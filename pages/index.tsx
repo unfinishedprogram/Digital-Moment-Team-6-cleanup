@@ -1,6 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import style from "../styles/Home.module.scss";
+import Link from 'next/link';
 
 export default function Home() {
   const options = [
@@ -20,12 +21,14 @@ export default function Home() {
       <h1 className={style.logo}>WAVE</h1>
       <div className={style.buttons_container}>
         <div className={style.explore}>
-          <div>
-            <span>Explore</span>
-          </div>
+          <Link href="/map">Explore</Link>
         </div>
-        <div className={`${style.button} ${style.register}`}><span>Register</span></div>
-        <div className={`${style.button} ${style.login}`}><span>Login</span></div>
+        <Link href="/register" className={style.register}>
+          Register
+        </Link>
+        <Link href="/login" className={style.login}>
+          Login
+        </Link>
       </div>
     </div>
   </>)

@@ -27,11 +27,8 @@
   justify-self: center;
   color: black;
   font-size: 6rem;
-  // text-shadow: $shadow-rainbow;
   text-shadow: 0.2rem 0.2rem $color-blue;
   z-index: 2;
-  font-family: 'Fredoka One';
-  font-weight: 100;
 }
 
 .container {
@@ -53,7 +50,7 @@
   background-position: center center;
 
 
-  div {
+  a {
     width: 100%;
     height: 100%;
     backdrop-filter: blur(5px);
@@ -94,6 +91,12 @@
   .explore {
     grid-column-start: 1;
     grid-column-end: 3;
+  }
+
+  a {
+    z-index: 100;
+    width: 100%;
+    height: 100%;
   }
 }
 
