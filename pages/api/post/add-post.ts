@@ -31,7 +31,7 @@ const handler: TypedPostEndpoint<AddPostBodyParams, AddPostReturnParams> = async
     );
     res.status(200).json({id: postRecord.id});
   } catch (error) {
-    res.status(404).json(undefined);
+    res.status(400).json(undefined);
   }
 }
 

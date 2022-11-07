@@ -13,13 +13,13 @@ export type GetPostCommentsReturnParams = PostWithComments | undefined;
 const handler: TypedGetEndpoint<GetPostCommentsQueryParams, GetPostCommentsReturnParams> = async (req, res) => {
   const { postId } = req.query;
   if (postId == undefined) {
-    res.status(400);
+    res.status(400).send(undefined);
     return;
   }
 
   try {
     const post = (await Api.makeGetRequest("post/get-post", {postId}))!;
-    const childComments = await getChildComments((post! as BaseConverter<Post>).id);
+    const childComments = await getChildComments((post as BaseConverter<Post>).id);
     res.status(200).json({
       "child_comments": childComments,
       ...post
@@ -31,18 +31,14 @@ const handler: TypedGetEndpoint<GetPostCommentsQueryParams, GetPostCommentsRetur
 
 async function getChildComments(postInfoId: RecordIdString): Promise<CommentWithComments[]> {
   const pocketBaseInstance = pocketbase;
-  const commentIds =
+  const comments =
     (await pocketBaseInstance.getList("comments"))
       .filter(
         comment =>
           comment.parent_post_info == postInfoId
       );
-  if (!commentIds) {
-    return [];
-  }
-  // I'm really sorry for whoever reviews my code
   const commentsWithComments: CommentWithComments[] = await Promise.all(
-    commentIds.map(
+    comments.map(
       async (comment) => {
         const commentInfo = (await Api.makeGetRequest(
           "comment/get-comment",
