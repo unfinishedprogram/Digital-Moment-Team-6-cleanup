@@ -5,7 +5,7 @@ import { AddPostBodyParams, AddPostReturnParams } from "../pages/api/post/add-po
 import { GetPostQueryParams, GetPostReturnParams } from "../pages/api/post/get-post";
 import { AddCommentBodyParams, AddCommentReturnParams } from "../pages/api/comment/add-comment";
 import { GetCommentQueryParams, GetCommentReturnParams } from "../pages/api/comment/get-comment";
-import { GetPostCommentsQueryParams, GetPostCommentsReturnParams } from "../pages/api/post-comments/get-post-comments";
+import { GetPostCommentsQueryParams, GetPostCommentsReturnParams } from "../pages/api/post/get-post-comments";
 
 type EndpointHandler<D, T> = (args: D) => T;
 
@@ -19,7 +19,7 @@ interface IGetEndpoints {
   "user/get-user-profile": EndpointHandler<GetUserQueryParams, GetUserReturnParams>
   "post/get-post": EndpointHandler<GetPostQueryParams, GetPostReturnParams>
   "comment/get-comment": EndpointHandler<GetCommentQueryParams, GetCommentReturnParams>
-  "post-comments/get-post-comments": EndpointHandler<GetPostCommentsQueryParams, GetPostCommentsReturnParams>
+  "post/get-post-comments": EndpointHandler<GetPostCommentsQueryParams, GetPostCommentsReturnParams>
 }
 
 
