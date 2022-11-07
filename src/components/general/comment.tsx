@@ -13,8 +13,10 @@ export default function CommentComponent(props: { comment: Comment }) {
       <>
         <div className={styles['comment-container']}>
           <div className={styles['comment-top-section']}>
-            <h4>{comment.author} {`at ${printifyDate(comment.time)}`}</h4>
-            {/* <h4>{`at ${comment.time}`}</h5> */}
+            <h4>{comment.author.username}
+              {/* {`at ${printifyDate(comment.time)}`} */}
+
+            </h4>
           </div>
           <p>{comment.body}</p>
         </div>

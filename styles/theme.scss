@@ -9,10 +9,18 @@ $color-text-secondary: #222;
 
 $color-bg: #DDD8CF;
 $color-fg: #EAE7E1;
+$color-ffg: white;
 
+<<<<<<< HEAD
 $color-location-tag: #8ece96;
 $color-topic-tag: #ff8f8f;
 $color-language-tag: #93bffc;
+=======
+$shadow-rainbow: 0.2rem 0.2rem 0px $color-green,
+    0.4rem 0.4rem 0px $color-red,
+    0.6rem 0.6rem 0px $color-yellow,
+    0.8rem 0.8rem 0px $color-blue;
+>>>>>>> 46d229f32fcbfcdd4777df49e2c976e629a0047f
 
 // Sizing settings
 

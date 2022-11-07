@@ -1,14 +1,6 @@
-import input_styles from '../styles/input.module.scss'
-import select_styles from '../styles/dropdownSelect.module.scss'
-import ButtonBase from '../src/components/general/button/button-base';
-import ButtonConfirm from '../src/components/general/button/button-confirm';
-import ButtonDanger from '../src/components/general/button/button-danger';
-
 import React from 'react'
-import Select from 'react-select'
-import TagSelect from '../src/components/general/tagSelector';
-
-
+import Image from 'next/image'
+import style from "../styles/Home.module.scss";
 
 export default function Home() {
   const options = [
@@ -18,17 +10,23 @@ export default function Home() {
   ]
 
   return (<>
-    <h1>Home</h1>
-    <input type="username" placeholder='username' className={input_styles["text-input"]}></input>
-    <input type="email" placeholder='email' className={input_styles["text-input"]}></input>
-    <input type="checkbox" className={input_styles["checkbox-input"]}></input>
-    <Select className={select_styles.dropdown} options={options}></Select>
-    <TagSelect tags={['tag1', "tag2", "other tag"]} />
+    <div className={style.blob_container}>
+      <Image draggable={false} width={50} height={50} className={style.blobsBL} alt="blob" src="/img/circle.svg" />
+      <Image draggable={false} width={50} height={50} className={style.blobsTR} alt="blob" src="/img/circle.svg" />
+    </div>
 
-    <div>
-      <ButtonBase>Click Me</ButtonBase>
-      <ButtonConfirm>Confirm</ButtonConfirm>
-      <ButtonDanger>Cancel</ButtonDanger>
+
+    <div className={style.container}>
+      <h1 className={style.logo}>WAVE</h1>
+      <div className={style.buttons_container}>
+        <div className={style.explore}>
+          <div>
+            <span>Explore</span>
+          </div>
+        </div>
+        <div className={`${style.button} ${style.register}`}><span>Register</span></div>
+        <div className={`${style.button} ${style.login}`}><span>Login</span></div>
+      </div>
     </div>
   </>)
 }

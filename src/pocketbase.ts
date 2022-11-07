@@ -1,8 +1,10 @@
 import PocketBase, { Record } from 'pocketbase';
-import {CollectionRecords, Collections} from './lib/types/pocket';
+import {CollectionRecords, BaseRecord} from './lib/types/pocket';
 
 type Filter = "=" | "!=" | ">" | ">=" | "<" | "<=" | "~" | "!~"
-type FilterRule<T extends keyof CollectionRecords> = `(${string & keyof CollectionRecords[T]} ${Filter} '${string}')`
+type FilterRule<T extends keyof CollectionRecords> = `(${string & keyof (CollectionRecords[T] & BaseRecord)} ${Filter} '${string}')`
+type Sort = "+" | "-"
+type SortRule<T extends keyof CollectionRecords> = `${Sort}${string & keyof (CollectionRecords[T] & BaseRecord)}`
 class PocketBaseInstance {
   private static url: string;
   private static username: string;
@@ -34,11 +36,14 @@ class PocketBaseInstance {
     return await (client.records.getOne(collection, id) as unknown as Promise<CollectionRecords[T]>);
   }
 
-  public async getList<T extends keyof CollectionRecords>(collection: T, filterRule?: FilterRule<T>): Promise<CollectionRecords[T][]>{
+  public async getList<T extends keyof CollectionRecords>(collection: T, filterRule?: FilterRule<T>, sortBy?: SortRule<T>): Promise<CollectionRecords[T][]>{
     const client = await this.getConnection();
-    return (await client.records.getFullList(collection, 200, {
-      filter: filterRule
-    })) as unknown as Promise<CollectionRecords[T][]>
+    const options:any = {}
+    if(filterRule)
+      options.filter = filterRule
+    if(sortBy)
+      options.sort = sortBy
+    return (await client.records.getFullList(collection, 200, options)) as unknown as Promise<CollectionRecords[T][]>;
   }
 
 

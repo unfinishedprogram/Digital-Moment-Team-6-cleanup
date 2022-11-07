@@ -1,8 +1,14 @@
 import { TypedPostEndpoint } from "../../../src/lib/types/request";
 import { Post } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
+import { getTagIds } from "../../../src/lib/types/type-mapper";
+import { RecordIdString } from "../../../src/lib/types/pocket";
 
-export type AddPostBodyParams = Post;
+export type AddPostBodyParams =
+  Omit<Post, "author">
+  & {
+    "author": RecordIdString
+  };
 export type AddPostReturnParams = {id: string};
 
 const handler: TypedPostEndpoint<AddPostBodyParams, AddPostReturnParams> = async (req, res) => {
@@ -20,12 +26,12 @@ const handler: TypedPostEndpoint<AddPostBodyParams, AddPostReturnParams> = async
       {
         post_info: postInfo.id,
         title: req.body.title,
-        tags: req.body.tags
+        tags: getTagIds(req.body.tags) as unknown as string
       }
     );
     res.status(200).json({id: postRecord.id});
   } catch (error) {
-    res.status(404).json(undefined);
+    res.status(400).json(undefined);
   }
 }
 
