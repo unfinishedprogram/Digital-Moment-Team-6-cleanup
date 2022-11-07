@@ -1,8 +1,8 @@
 import { TypedGetEndpoint } from "../../../src/lib/types/request";
 import { Post, Profile } from "../../../src/lib/types/fullPocketTypes";
 import pocketbase from '../../../src/pocketbase';
-import { getTags } from "../../../src/lib/types/type-mapper";
-import { RecordIdString } from "../../../src/lib/types/pocket";
+import { BaseConverter, getTags } from "../../../src/lib/types/type-mapper";
+import { PostInfosRecord, PostsRecord, RecordIdString } from "../../../src/lib/types/pocket";
 import Api from "../../../src/api";
 
 export type GetPostQueryParams = {
@@ -22,9 +22,9 @@ const handler: TypedGetEndpoint<GetPostQueryParams, GetPostReturnParams> = async
     const postRecord = await pocketBaseInstance.getOne("posts", postId);
     const postInfo = await pocketBaseInstance.getOne("post_infos", postRecord.post_info);
 
-    const {post_info, tags, author, ...response} = {...postRecord, ...postInfo};
+    const { post_info, tags, author, ...response } = { ...postInfo, ...postRecord };
     const responseTags = await getTags(tags as unknown as RecordIdString[]);
-    const responseAuthor = await Api.makeGetRequest("user/get-user-profile", {userId: postInfo.author}) as Profile;
+    const responseAuthor = await Api.makeGetRequest("user/get-user-profile", { userId: postInfo.author }) as Profile;
 
     res.status(200).json({
       "tags": responseTags,

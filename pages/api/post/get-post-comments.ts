@@ -19,6 +19,8 @@ const handler: TypedGetEndpoint<GetPostCommentsQueryParams, GetPostCommentsRetur
 
   try {
     const post = (await Api.makeGetRequest("post/get-post", { postId }))!;
+    console.log("Post:", post);
+
     const childComments = await getChildComments((post as BaseConverter<Post>).id);
     res.status(200).json({
       "child_comments": childComments,

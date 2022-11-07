@@ -9,17 +9,9 @@ import { BaseConverter } from '../src/lib/types/type-mapper';
 
 const fetchPostWithComments = async () => {
   let posts = await Api.makeGetRequest("post/get-all-posts", {});
-
-  let withComments = await Promise.all(posts!.map(async post => {
-    try {
-      return await Api.makeGetRequest("post/get-post-comments", { postId: (post as BaseConverter<Post>).id })
-    } catch {
-      return post;
-    }
-  }));
-
-  console.log(withComments);
-  return withComments as PostWithComments[];
+  let withComments = posts!.map(async post => await Api.makeGetRequest("post/get-post-comments", { postId: (post as BaseConverter<Post>).id }));
+  console.log(await withComments);
+  return await Promise.all(withComments);
 }
 
 export default function MapPage() {
@@ -27,9 +19,13 @@ export default function MapPage() {
   const [getTags, setTags] = useState<ITagGroup[]>([]);
   const [posts, setPosts] = useState<PostWithComments[]>([]);
 
+  fetchPostWithComments()
+    .then(posts => console.log("Posts fetched:", posts))
+    .catch(err => console.error("Post error:", err));
+
   if (posts.length < 1) {
     fetchPostWithComments().then(posts => {
-      setPosts(state => posts);
+      setPosts(state => posts as PostWithComments[]);
     })
   }
 

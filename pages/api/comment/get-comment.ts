@@ -20,8 +20,8 @@ const handler: TypedGetEndpoint<GetCommentQueryParams, GetCommentReturnParams> =
     const postRecord = await pocketBaseInstance.getOne("comments", commentId);
     const postInfo = await pocketBaseInstance.getOne("post_infos", postRecord.post_info);
 
-    const {post_info, author, ...response} = {...postRecord, ...postInfo};
-    const responseAuthor = await Api.makeGetRequest("user/get-user-profile", {userId: postInfo.author}) as Profile;
+    const { post_info, author, ...response } = { ...postInfo, ...postRecord };
+    const responseAuthor = await Api.makeGetRequest("user/get-user-profile", { userId: postInfo.author }) as Profile;
 
     res.status(200).json({
       "author": responseAuthor,

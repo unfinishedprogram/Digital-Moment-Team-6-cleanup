@@ -16,7 +16,7 @@ const handler: TypedGetEndpoint<GetAllPostsQueryParams, GetAllPostsReturnParams>
     const posts = (await Promise.all(postsRecord
       .map(
         post =>
-          Api.makeGetRequest("post/get-post", {postId: (post as BaseConverter<PostsRecord>).id})
+          Api.makeGetRequest("post/get-post", { postId: (post as BaseConverter<PostsRecord>).id })
       ))
     ).map(
       post => post!
