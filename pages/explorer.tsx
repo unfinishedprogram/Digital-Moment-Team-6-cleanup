@@ -1,62 +1,19 @@
 import React, { useEffect, useState } from 'react';
+import Api from '../src/api';
+import ButtonBase from '../src/components/general/button/button-base';
 import PostComponent from '../src/components/general/post';
-import { Post } from '../src/lib/types/fullPocketTypes';
+import { PostWithComments } from '../src/lib/types/fullPocketTypes';
 
 export default function Explorer() {
   // This array needs to be populated with the API
-  const [posts, setPosts] = useState<Post[]>((): Post[] => {
-    let posts: Post[] = []
-    for (let i = 0; i < 10; i++) {
-      posts.push({
-        author: "Bob",
-        body: "This is my problem.".repeat(100),
-        title: "Mega problem",
-        tags: [
-          {
-            name: "mega",
-            type: "language"
-          }, {
-            name: "mega",
-            type: "topic"
-          }, {
-            name: "mega",
-            type: "location"
-          }, {
-            name: "mega",
-            type: "topic"
-          }, {
-            name: "mega",
-            type: "topic"
-          }, {
-            name: "mega",
-            type: "topic"
-          }
-        ],
-        comments: [
-          {
-            author: "Joe",
-            body: "This is a great post.",
-            time: new Date(),
-            reactions: [
-              {
-                author: "Bob",
-                type: "happy"
-              }
-            ]
-          }
-          ,
-          {
-            author: "Guilherme",
-            "body": "I don't like this comment.",
-            time: new Date(),
-            reactions: null
-          }
-        ]
-        // comments: null //sumilating no comments
-      })
-    }
-    return posts
-  })
+  const [posts, setPosts] = useState<PostWithComments[]>([]);
+  (async () => {
+    let posts: PostWithComments[] = []
+    let data = await Api.makeGetRequest("post-comments/get-post-comments", { postId: "6qpoc6knshk5k8h" })
+    console.log(data);
+    
+    setPosts([data!])
+  })()
 
   return (
     <>

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import styles from '../../../styles/post.module.scss'
 import TagComponent from "./tag";
-import { Post } from '../../lib/types/fullPocketTypes'
+import { PostWithComments } from '../../lib/types/fullPocketTypes'
 import { TagsRecord } from "../../lib/types/pocket";
 import InDepthPostComponent from "./in-depth-post";
 
-export default function PostComponent(props: { post: Post }) {
+export default function PostComponent(props: { post: PostWithComments }) {
   let [isInDepthPostVisible, setIsInDepthPostVisible] = useState(false)
   let post = props.post
   return (

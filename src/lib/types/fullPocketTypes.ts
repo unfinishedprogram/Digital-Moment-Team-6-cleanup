@@ -36,7 +36,6 @@ export type Post =
     & {
         "tags": Tag[],
         "author": Profile,
-        "comments": Comment[]
     };
 
 export type Comment =

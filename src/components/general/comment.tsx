@@ -1,9 +1,9 @@
 import React from "react";
 import styles from "../../../styles/post.module.scss"
-import { Comment } from "../../lib/types/fullPocketTypes";
+import { CommentWithComments } from "../../lib/types/fullPocketTypes";
 
-export default function CommentComponent(props: { comment: Comment }) {
-  let comment: Comment = props.comment
+export default function CommentComponent(props: { comment: CommentWithComments }) {
+  let comment: CommentWithComments = props.comment
 
   const printifyDate = (date: Date): string => {
     return `${date.getMinutes()}:${date.getHours()} ${date.getDate()}/${date.getMonth()}/${date.getFullYear()}`
@@ -20,6 +20,13 @@ export default function CommentComponent(props: { comment: Comment }) {
           </div>
           <p>{comment.body}</p>
         </div>
+        <>
+          {
+            comment.child_comments.map((comment: CommentWithComments, index: number) => {
+              return <CommentComponent comment={comment} key={index} />
+            })
+          }
+        </>
       </>
       :
       <>

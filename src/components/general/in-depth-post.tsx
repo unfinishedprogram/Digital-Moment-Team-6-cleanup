@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from '../../../styles/post.module.scss'
 import TagComponent from "./tag";
-import { Post } from '../../lib/types/fullPocketTypes'
+import { PostWithComments } from '../../lib/types/fullPocketTypes'
 import { TagsRecord } from "../../lib/types/pocket";
 import postStyles from '../../../styles/postInfo.module.scss'
 import Image from "next/image";
 import CommentSection from "./comment-section";
 
-export default function InDepthPostComponent(props: { post: Post, hide: () => void, visibile: boolean }) {
+export default function InDepthPostComponent(props: { post: PostWithComments, hide: () => void, visibile: boolean }) {
   let post = props.post
   return (
     <>
@@ -20,7 +20,7 @@ export default function InDepthPostComponent(props: { post: Post, hide: () => vo
                   <h1>{post.title}</h1>
                   <Image onClick={(e) => { e.stopPropagation(); props.hide() }} className={postStyles['close-icon']} src="/img/close.svg" width="50" height="50" alt="close-placeholder" />
                 </div>
-                <h3>Made by: {post.author}</h3>
+                {/* <h3>Made by: {post.author}</h3> */}
               </div>
               <p>{post.body}</p>
               <div className={styles['tags-container']}>
@@ -28,7 +28,7 @@ export default function InDepthPostComponent(props: { post: Post, hide: () => vo
                   return <TagComponent tag={tag} key={index} />
                 })}
               </div>
-              <CommentSection comments={post.comments} />
+              <CommentSection comments={post.child_comments} />
             </div>
           </>
           :
