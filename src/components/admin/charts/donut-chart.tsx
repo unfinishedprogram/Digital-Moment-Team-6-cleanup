@@ -1,3 +1,4 @@
+import styles from '../../../../styles/charts.module.scss';
 import dynamic from 'next/dynamic'
 import React from 'react';
 
@@ -35,7 +36,7 @@ export default function Donut() {
   }
 
   return (
-    <div>
+    <div className={styles.chart}>
       <Chart 
         options={donut.options} 
         series={donut.series} 

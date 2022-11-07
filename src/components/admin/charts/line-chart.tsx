@@ -1,3 +1,4 @@
+import styles from '../../../../styles/charts.module.scss';
 import dynamic from 'next/dynamic'
 import React from 'react';
 
@@ -49,7 +50,7 @@ export default function Line() {
   };
   
   return (
-    <div>
+    <div className={styles.chart}>
       <Chart
         options={line.options}
         series={line.series}

@@ -1,6 +1,6 @@
 @import './theme.scss';
 
-.charts {
+.chartStack {
     display: flex;
     margin: $std-margin;
     padding: 4rem 0;
@@ -11,7 +11,7 @@
     align-items: center;
 }
 
-.charts > div {
+.chart {
     margin: 1rem;
     padding: 0.5rem;
     background: white;
