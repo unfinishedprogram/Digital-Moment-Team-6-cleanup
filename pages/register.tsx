@@ -1,17 +1,14 @@
 import Head from 'next/head'
 import * as React from 'react';
-import Api from '../src/api';
 import styles from '../styles/Home.module.scss'
 import input_styles from "../styles/input.module.scss"
-import  dropdown_styles from "../styles/dropdownSelect.module.scss"
-import {Formik, FormikHelpers, FormikProps, Form, Field, FieldProps} from 'formik';
+import { Formik, Form } from 'formik';
 import { strings } from '../src/localization/localization-register'
 import ButtonConfirm from '../src/components/general/button/button-confirm';
 import Checkbox from '../src/components/general/button/checkbox';
 import Link from 'next/link';
 import TagSelector from "../src/components/general/tagSelector"
-import Select from "react-select"
-let lang =['English', 'French', 'Spanish']
+let lang = ['English', 'French', 'Spanish']
 let pref = ["politics", "racism", "war"]
 const ageOptions = [
   { value: '11-13', label: '11-13' },
@@ -19,7 +16,7 @@ const ageOptions = [
   { value: '16-17', label: '16-17' },
 ]
 
-interface FormValues{
+interface FormValues {
   username: string;
   password: string;
   repeat: string;
@@ -37,7 +34,7 @@ let isSubmitting: boolean = false;
 const validate = (values: FormValues) => {
   const passwordRegex = RegExp("^(?=.*[A-Za-z])(?=.*\\d)(?=.*[@$!%*#?&])[A-Za-z\\d@$!%*#?&]{8,}$");
   const emailRegex = RegExp("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$");
-  const errors :{
+  const errors: {
     password?: string;
     repeat?: string;
     email?: string;
@@ -52,41 +49,41 @@ const validate = (values: FormValues) => {
     languages: undefined,
     age: undefined,
   };
-  
-  if(values.password && !passwordRegex.test(values.password)){
+
+  if (values.password && !passwordRegex.test(values.password)) {
     errors.password = strings.passwordError;
-  }else{
+  } else {
     delete errors.password
-  } 
-  if(values.repeat  &&  values.password != values.repeat ){
+  }
+  if (values.repeat && values.password != values.repeat) {
     errors.repeat = strings.repeatError;
-  }else{
+  } else {
     delete errors.repeat
-  } 
-  if(values.email && !emailRegex.test(values.email)){
+  }
+  if (values.email && !emailRegex.test(values.email)) {
     errors.email = strings.emailError;
-  }else{
+  } else {
     delete errors.email
-  } 
-  if(hasLangBeenSelected && values.languages.length == 0 || values.languages.length == 0 && isSubmitting ){      
+  }
+  if (hasLangBeenSelected && values.languages.length == 0 || values.languages.length == 0 && isSubmitting) {
     errors.languages = strings.requiredError;
-  }else{
+  } else {
     delete errors.languages
-  } 
-  if(hasPrefBeenSelected && values.preferences.length == 0 || values.preferences.length == 0 && isSubmitting ){
+  }
+  if (hasPrefBeenSelected && values.preferences.length == 0 || values.preferences.length == 0 && isSubmitting) {
     errors.preferences = strings.requiredError;
-  }else{
+  } else {
     delete errors.preferences
-  } 
-  if(hasAgeBeenSelected && !values.age || !values.age && isSubmitting){
+  }
+  if (hasAgeBeenSelected && !values.age || !values.age && isSubmitting) {
     errors.age = strings.requiredError;
-  }else{
+  } else {
     delete errors.age
-  } 
+  }
   return errors
 }
 
-export default function Register(){
+export default function Register() {
   const initialValues: FormValues = {
     username: "",
     email: "",
@@ -103,7 +100,7 @@ export default function Register(){
     setIsChecked(e.target.checked);
   };
 
-  return(
+  return (
     <div className={styles.container}>
       <Head>
         <title>Title</title>
@@ -113,7 +110,7 @@ export default function Register(){
       <main className={styles.main}>
         <h1>Register</h1>
         <Formik
-          initialValues={initialValues} 
+          initialValues={initialValues}
           validate={validate}
           onSubmit={(values, actions) => {
             actions.setSubmitting(false)
@@ -127,97 +124,98 @@ export default function Register(){
             // })            
           }}
         >
-          {({handleSubmit, handleChange, values, errors, validateForm}) =>(
+          {({ handleSubmit, handleChange, values, errors, validateForm }) => (
             <Form onSubmit={(e) => {
               e.preventDefault()
               isSubmitting = true;
               validateForm()
-              handleSubmit(e)}}
+              handleSubmit(e)
+            }}
             >
-              <input 
-                placeholder={strings.username} 
-                className={input_styles['text-input']} 
-                type="text" 
+              <input
+                placeholder={strings.username}
+                className={input_styles['text-input']}
+                type="text"
                 id="username"
-                name="username" 
-                onChange={handleChange} 
-                value={values.username} 
-                required 
+                name="username"
+                onChange={handleChange}
+                value={values.username}
+                required
               />
-              {errors.username ? <label htmlFor='username'>{errors.username}</label>: null}
-              <input 
+              {errors.username ? <label htmlFor='username'>{errors.username}</label> : null}
+              <input
                 placeholder={isChecked ? strings.emailAdult : strings.email}
-                className={input_styles['text-input']} 
+                className={input_styles['text-input']}
                 type="text"
                 id="email"
-                name="email" 
-                onChange={handleChange} 
-                value={values.email} 
-                required 
+                name="email"
+                onChange={handleChange}
+                value={values.email}
+                required
               />
-              {errors.email ? <label htmlFor='email'>{errors.email}</label>: null}
-              <input 
+              {errors.email ? <label htmlFor='email'>{errors.email}</label> : null}
+              <input
                 placeholder={strings.password}
-                className={input_styles['text-input']} 
+                className={input_styles['text-input']}
                 type="password"
                 id="password"
-                name="password" 
-                onChange={handleChange} 
-                value={values.password} 
-                required 
+                name="password"
+                onChange={handleChange}
+                value={values.password}
+                required
               />
-              {errors.password ? <label htmlFor='password'>{errors.password}</label>: null}
-              <input 
+              {errors.password ? <label htmlFor='password'>{errors.password}</label> : null}
+              <input
                 placeholder={strings.repeat}
-                className={input_styles['text-input']} 
+                className={input_styles['text-input']}
                 type="password"
                 id="repeat"
-                name="repeat" 
-                onChange={handleChange} 
-                value={values.repeat} 
-                required 
+                name="repeat"
+                onChange={handleChange}
+                value={values.repeat}
+                required
               />
-              {errors.repeat ? <label htmlFor='repeat'>{errors.repeat}</label>: null}
+              {errors.repeat ? <label htmlFor='repeat'>{errors.repeat}</label> : null}
               <Checkbox id="age" value={values.age} label='Are you under 16?' handleChange={handleChangeCheckBox} isChecked={isChecked}></Checkbox>
-              {errors.age ? <label htmlFor='age'>{errors.age}</label>: null}
-              <input 
-                placeholder={strings.location} 
-                className={input_styles['text-input']} 
-                type="text" 
-                id="location" 
-                name="location" 
-                onChange={handleChange} 
+              {errors.age ? <label htmlFor='age'>{errors.age}</label> : null}
+              <input
+                placeholder={strings.location}
+                className={input_styles['text-input']}
+                type="text"
+                id="location"
+                name="location"
+                onChange={handleChange}
                 value={values.location}
                 required
               />
-              {errors.location ? <label htmlFor='location'>{errors.location}</label>: null}
-              <TagSelector 
-                tags={lang} 
+              {errors.location ? <label htmlFor='location'>{errors.location}</label> : null}
+              <TagSelector
+                tags={lang}
                 placeholder={strings.languages}
-                instanceId="languages" 
+                instanceId="languages"
                 onChange={e => {
                   hasLangBeenSelected = true;
                   let langs: string[] = []
-                  e.forEach(el=> langs.push(el.value))
+                  e.forEach(el => langs.push(el.value))
                   values.languages = langs
                   validateForm()
                 }}
               />
-              {errors.languages ? <label htmlFor='languages'>{errors.languages}</label>: null}
-              <TagSelector 
+              {errors.languages ? <label htmlFor='languages'>{errors.languages}</label> : null}
+              <TagSelector
                 tags={pref}
                 placeholder={strings.preferences}
-                instanceId="pref" 
+                instanceId="pref"
                 name='pref'
                 onChange={e => {
                   hasPrefBeenSelected = true;
                   let prefs: string[] = []
-                  e.forEach(el=> prefs.push(el.value))
+                  e.forEach(el => prefs.push(el.value))
                   values.preferences = prefs
                   validateForm()
                 }}
               />
-              {errors.preferences ? <label htmlFor='pref'>{errors.preferences}</label>: null}
+              {errors.preferences ? <label htmlFor='pref'>{errors.preferences}</label> : null}
               <ButtonConfirm type='submit'>{strings.register}</ButtonConfirm>
             </Form>
           )}

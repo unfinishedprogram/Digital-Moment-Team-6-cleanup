@@ -2,12 +2,13 @@ import Head from 'next/head'
 import * as React from 'react';
 import styles from '../styles/Home.module.scss'
 import new_post_styles from "../styles/create-post.module.scss"
-import {Formik, Form,} from 'formik';
+import { Formik, Form, } from 'formik';
 import { strings } from '../src/localization/localization-create-post'
 import ButtonConfirm from '../src/components/general/button/button-confirm';
 import ButtonDanger from '../src/components/general/button/button-danger';
 import TagSelector from "../src/components/general/tagSelector"
-interface FormValues{
+import Link from 'next/link';
+interface FormValues {
   title: string;
   postBody: string;
   tags: string[];
@@ -15,14 +16,14 @@ interface FormValues{
 
 let tags = ["Racism", "Poverty", "War", "Food", "Climate Change", "Rights"]
 
-export default function CreatePost(){
+export default function CreatePost() {
   const initialValues: FormValues = {
     title: "",
     postBody: "",
     tags: [],
   }
   const [isSubmited, setIsSubmited] = React.useState<boolean>(false)
-  return(
+  return (
     <div className={styles.container}>
       <Head>
         <title>{strings.title}</title>
@@ -36,11 +37,11 @@ export default function CreatePost(){
           :
           <Formik
             initialValues={initialValues}
-            onSubmit={(values, actions) =>{
+            onSubmit={(values, actions) => {
               setIsSubmited(true);
             }}
           >
-            {({handleSubmit, handleChange, values}) =>(
+            {({ handleSubmit, handleChange, values }) => (
 
               <Form onSubmit={handleSubmit} className={new_post_styles.form}>
                 <input
@@ -69,7 +70,7 @@ export default function CreatePost(){
                   required
                 />
                 <div className='btn-container'>
-                  <ButtonDanger type='reset'>{strings.discard}</ButtonDanger>
+                  <Link href="/map"><ButtonDanger type={'reset'}>{strings.discard}</ButtonDanger></Link>
                   <ButtonConfirm type='submit'>{strings.post}</ButtonConfirm>
                 </div>
               </Form>

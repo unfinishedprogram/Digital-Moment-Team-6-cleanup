@@ -75,7 +75,7 @@ const Drawer: React.FunctionComponent<IDrawerProps> = props => {
     onTouchEnd={onTouchEnd}
   >
     <div className={styles['post-button-container']}>
-      <Link href="/create-post"><Image className={styles['post-button']} src="/img/add-button.svg" width="50" height="50" alt="add-post-placeholder"></Image></Link>
+      <Link href="/create-post"><Image className={styles['post-button']} src="/img/add-button.svg" width="42" height="42" alt="add-post-placeholder"></Image></Link>
     </div>
     <div ref={contentRef} className={styles.content}>
       {props.children}
