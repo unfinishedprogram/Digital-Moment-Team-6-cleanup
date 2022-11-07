@@ -51,16 +51,15 @@ const groupTags = async (posts: PostWithComments[]): Promise<ITagGroups> => {
 
 const mapTag = (tagGroup: ITagGroup): HTMLDivElement => {
   const elm = document.createElement("div");
-
+  console.log(tagGroup)
   if (!tagGroup) {
     elm.innerText = "This is a problem";
     return elm;
   }
 
-  for (let tag in tagGroup.tags) {
-    const tagElm = document.createElement("span");
-    tagElm.textContent = tag;
-    tagElm.classList.add("map-tag", tag);
+  for (let tag of tagGroup.tags) {
+    const tagElm = document.createElement("div");
+    tagElm.innerText = tag;
     elm.append(tagElm);
   }
 
@@ -81,7 +80,6 @@ const Map: React.FunctionComponent<IMapProps> = props => {
   useEffect(() => {
     groupTags(props.posts).then(groups => {
       setTagGroups(s => groups);
-
 
       console.log(groups);
       for (let locKey in { ...groups }) {
