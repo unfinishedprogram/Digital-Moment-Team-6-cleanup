@@ -1,5 +1,7 @@
 import * as pocket from "./pocket";
 
+export type Reaction =
+  pocket.ReactionsRecord;
 
 export type Tag =
   pocket.TagsRecord;
@@ -13,25 +15,27 @@ export type Post =
   & Omit<pocket.PostsRecord, "post_info" | "tags">
   & {
     "tags": Tag[],
-    "author": Profile
+    "author": Profile,
+    "reactions": Record<string, number>
   };
 
 export type Comment =
   Omit<pocket.PostInfosRecord, "author">
   & Omit<pocket.CommentsRecord, "post_info">
   & {
-    "author": Profile
+    "author": Profile,
+    "reactions": Record<string, number>
   };
 
 export type CommentWithComments =
   Omit<Comment, "parent_post_info">
   & {
-    "child_comments": CommentWithComments[]
+    "child_comments": CommentWithComments[],
   };
 
 export type PostWithComments =
   Post & {
-    "child_comments": CommentWithComments[]
+    "child_comments": CommentWithComments[],
   };
 
 export type Profile =

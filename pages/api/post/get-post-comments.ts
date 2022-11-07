@@ -1,6 +1,6 @@
 import Api from "../../../src/api";
 import { CommentWithComments, Post, PostWithComments } from "../../../src/lib/types/fullPocketTypes";
-import { CommentsRecord, PostInfosRecord, RecordIdString } from "../../../src/lib/types/pocket";
+import { CommentsRecord, RecordIdString } from "../../../src/lib/types/pocket";
 import { TypedGetEndpoint } from "../../../src/lib/types/request";
 import { BaseConverter } from "../../../src/lib/types/type-mapper";
 import pocketbase from "../../../src/pocketbase";
