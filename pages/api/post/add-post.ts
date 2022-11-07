@@ -5,7 +5,7 @@ import { getTagIds } from "../../../src/lib/types/type-mapper";
 import { RecordIdString } from "../../../src/lib/types/pocket";
 
 export type AddPostBodyParams =
-  Omit<Post, "author">
+  Omit<Post, "author" | "reactions">
   & {
     "author": RecordIdString
   };

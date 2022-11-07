@@ -1,11 +1,28 @@
 import React, { useEffect, useState } from 'react'
+import Api from '../src/api';
 import Drawer from '../src/components/drawer';
+import Explorer from '../src/components/explorer';
 
 import Map, { ITagGroup } from '../src/components/map';
+import { Post, PostWithComments } from '../src/lib/types/fullPocketTypes';
+import { BaseConverter } from '../src/lib/types/type-mapper';
+
+const fetchPostWithComments = async () => {
+  let posts = await Api.makeGetRequest("post/get-all-posts", {});
+  let withComments = posts!.map(async post => await Api.makeGetRequest("post/get-post-comments", { postId: (post as BaseConverter<Post>).id }));
+  return await Promise.all(withComments);
+}
 
 export default function MapPage() {
   const [height, setHeight] = useState(100);
   const [getTags, setTags] = useState<ITagGroup[]>([]);
+  const [posts, setPosts] = useState<PostWithComments[]>([]);
+
+  if (posts.length < 1) {
+    fetchPostWithComments().then(posts => {
+      setPosts(state => posts as PostWithComments[]);
+    })
+  }
 
   const drawerChange = (newState: "open" | "closed" | "half") => {
     setHeight({
@@ -25,9 +42,9 @@ export default function MapPage() {
   }
 
   return <>
-    <Map height={100} enabled tagClicked={onTagClicked} />
+    <Map height={100} posts={posts} enabled tagClicked={onTagClicked} />
     <Drawer stateChange={drawerChange} >
-      {getTags.map((tag, index) => <div key={index}>{JSON.stringify(tag)}</div>)}
+      <Explorer posts={posts}></Explorer>
     </Drawer>
   </>;
 }
