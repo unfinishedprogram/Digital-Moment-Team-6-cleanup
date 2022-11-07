@@ -1,10 +1,8 @@
 import Head from 'next/head'
 import * as React from 'react';
-import Api from '../src/api';
 import styles from '../styles/Home.module.scss'
-import input_styles from '../styles/input.module.scss'
 import new_post_styles from "../styles/create-post.module.scss"
-import {Formik, FormikHelpers, FormikProps, Form, Field, FieldProps} from 'formik';
+import {Formik, Form,} from 'formik';
 import { strings } from '../src/localization/localization-create-post'
 import ButtonConfirm from '../src/components/general/button/button-confirm';
 import ButtonDanger from '../src/components/general/button/button-danger';
@@ -14,6 +12,8 @@ interface FormValues{
   postBody: string;
   tags: string[];
 }
+
+let tags = ["Racism", "Poverty", "War", "Food", "Climate Change", "Rights"]
 
 export default function CreatePost(){
   const initialValues: FormValues = {
@@ -55,7 +55,7 @@ export default function CreatePost(){
                 <TagSelector
                   className={new_post_styles.tagSelector}
                   instanceId="tags"
-                  tags={["Stuff", "Your Mom", "your father"]}
+                  tags={tags}
                   placeholder={strings.tags}
                 />
                 <textarea
