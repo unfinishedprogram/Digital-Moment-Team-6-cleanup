@@ -1,29 +1,17 @@
 import dynamic from 'next/dynamic'
 import styles from '../../../styles/charts.module.scss';
+import Donut from './charts/donut-chart';
+import React from 'react';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
-import React from 'react';
-
-interface IDonut {
-  options: {
-    title: {
-      text: string;
-      style: {
-        fontSize: string;
-      }
-    },
-    name: string;
-    labels: string[];
-  };
-  series: number[];
-}
-
+// General Data interface used in chart series.
 interface IData {
-  name: string;
-  data: number[];
-}
+    name: string;
+    data: number[];
+  }
 
+// Interface for use with line chart.
 interface ILine {
   options: {
     title: {
@@ -36,6 +24,7 @@ interface ILine {
   series: IData[];
 }
 
+// Interface for use with bar chart.
 interface IBar {
   series: IData[];
   options: {
@@ -69,24 +58,11 @@ interface IBar {
   }
 }
 
-const titleSize: string = '14px';
-const colorPalette: string[] = ['#00D8B6','#008FFB',  '#FEB019', '#FF4560', '#775DD0'];
-
 export default function AdminData() {
+  // Constants used in chart options.
+  const titleSize: string = '14px';
+  const colorPalette: string[] = ['#00D8B6','#008FFB',  '#FEB019', '#FF4560', '#775DD0'];
 
-  let donut: IDonut = {
-    options: {
-      title: {
-        text: 'Amount of Tags per SDG',
-        style: {
-          fontSize: titleSize
-        }
-      },
-      name: "# of Tags per SDG",
-      labels: ['SDG 1', 'SDG 2', 'SDG 3', 'SDG 4', 'SDG 5']
-    },
-    series: [44, 55, 41, 17, 15]
-  }
 
   let line: ILine = {
     options: {
@@ -152,6 +128,7 @@ export default function AdminData() {
     }
   }
 
+  // Return react component containing a bar, line, and donut chart.
   return (
     <div className={styles.charts}>
       <div>
@@ -171,14 +148,7 @@ export default function AdminData() {
           width="340"
         />
       </div>
-      <div>
-        <Chart 
-          options={donut.options} 
-          series={donut.series} 
-          type="donut" 
-          width="340" 
-        />
-      </div>
+      <Donut/>
     </div>
   );
 }
