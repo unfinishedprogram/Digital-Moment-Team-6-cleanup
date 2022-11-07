@@ -20,17 +20,17 @@ export default function SettingsButton(props: SettingsButtonComponentProps) {
 
   return (
     <>
-    {isDisplayingSettings && (
-      <div className={styles.settingsModal}>
-        <TagSelector tags={props.tags} onSelect={(tag: string) => props.onFilterChange({filteredTags: [tag]})}/>
+      {isDisplayingSettings && (
+        <div className={styles.settingsModal}>
+          <TagSelector tags={props.tags} onSelect={(tag: string) => props.onFilterChange({filteredTags: [tag]})}/>
+        </div>
+
+
+      )}
+
+      <div className={styles.settingsIcon} onClick={onClick}>
+        <img src="/img/settings.svg"/>
       </div>
-
-
-    )}
-
-    <div className={styles.settingsIcon} onClick={onClick}>
-      <img src="/img/settings.svg"/>
-    </div>
     </>
   )
   
