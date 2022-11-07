@@ -5,6 +5,7 @@ import { AddPostBodyParams, AddPostReturnParams } from "../pages/api/post/add-po
 import { GetPostQueryParams, GetPostReturnParams } from "../pages/api/post/get-post";
 import { AddCommentBodyParams, AddCommentReturnParams } from "../pages/api/comment/add-comment";
 import { GetCommentQueryParams, GetCommentReturnParams } from "../pages/api/comment/get-comment";
+import { GetTagQueryParams, GetTagReturnParams } from "../pages/api/tag/get-tag";
 import { GetPostCommentsQueryParams, GetPostCommentsReturnParams } from "../pages/api/post/get-post-comments";
 import { GetAllPostsQueryParams, GetAllPostsReturnParams } from "../pages/api/post/get-all-posts";
 
@@ -18,10 +19,11 @@ interface IPostEndpoints {
 
 interface IGetEndpoints {
   "user/get-user-profile": EndpointHandler<GetUserQueryParams, GetUserReturnParams>
-  "post/get-all-posts": EndpointHandler<GetAllPostsQueryParams, GetAllPostsReturnParams>
-  "post/get-post-comments": EndpointHandler<GetPostCommentsQueryParams, GetPostCommentsReturnParams>
   "post/get-post": EndpointHandler<GetPostQueryParams, GetPostReturnParams>
+  "post/get-post-comments": EndpointHandler<GetPostCommentsQueryParams, GetPostCommentsReturnParams>
+  "post/get-all-posts": EndpointHandler<GetAllPostsQueryParams, GetAllPostsReturnParams>
   "comment/get-comment": EndpointHandler<GetCommentQueryParams, GetCommentReturnParams>
+  "tag/get-tag": EndpointHandler<GetTagQueryParams, GetTagReturnParams>
 }
 
 
