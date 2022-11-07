@@ -1,0 +1,30 @@
+.settingsIcon {
+  position: absolute;
+  right: 1rem;
+  top: 6rem;
+
+  padding: 0.5rem;
+  border-radius: 50%;
+
+  width:  3rem;
+  height: 3rem;
+
+  box-shadow: 0px 0px 0.2rem #0005;
+  background-color: #FFFA;
+  backdrop-filter: blur(4px);
+
+  img {
+    width: 100%;
+  }
+}
+
+.settingsModal {
+  position: absolute;
+  height: 100vh;
+  width: 66vw;
+  right: 0vw;
+  top: 0;
+  background-color: white;
+  z-index: 10001;
+}
+
