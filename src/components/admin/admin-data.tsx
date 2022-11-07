@@ -1,10 +1,9 @@
 import dynamic from 'next/dynamic'
-import styles from '../../styles/charts.module.scss';
+import styles from '../../../styles/charts.module.scss';
 
 const Chart = dynamic(() => import('react-apexcharts'), { ssr: false });
 
 import React from 'react';
-import ReactApexChart from 'react-apexcharts';
 
 interface IDonut {
   options: {
@@ -70,13 +69,10 @@ interface IBar {
   }
 }
 
-
-
-
 const titleSize: string = '14px';
 const colorPalette: string[] = ['#00D8B6','#008FFB',  '#FEB019', '#FF4560', '#775DD0'];
 
-export default function adminGeneral() {
+export default function AdminData() {
 
   let donut: IDonut = {
     options: {
@@ -158,7 +154,6 @@ export default function adminGeneral() {
 
   return (
     <div className={styles.charts}>
-      <h1>Data & Statistics</h1>
       <div>
         <Chart 
           options={bar.options} 
