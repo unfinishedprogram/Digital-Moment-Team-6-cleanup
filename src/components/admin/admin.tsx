@@ -1,6 +1,7 @@
 import { useState } from "react";
 import style from "../../../styles/admin.module.scss";
 import Footer, { PagesOptions } from "./footer";
+import PostValidationMenu from "./post-validation";
 import TagAssociation from "./tag-row";
 const SDGS = [
   "Poverty",
@@ -25,6 +26,16 @@ const TAGS = [
 
 export default function Admin() {
   const [currentPage, setCurrentPage] = useState<PagesOptions>(PagesOptions.Stats);
+  const [posts, setPosts] = useState([
+    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+    {title: "Hackathons are wacky", author: "Someone", body: "HAHAH I'M GOING INSANE"},
+  ]);
 
   return (
     <div className={style.adminWrapper}>
@@ -37,6 +48,10 @@ export default function Admin() {
         </div>
       )
       }
+
+      {currentPage == PagesOptions.Review && (
+        <PostValidationMenu post={posts}/>
+      )}
 
       <Footer selected={currentPage} onClick={(arg) => setCurrentPage(arg)}/>
 

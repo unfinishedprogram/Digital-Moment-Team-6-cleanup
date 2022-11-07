@@ -1,7 +1,8 @@
 import styles from "../../../styles/admin.module.scss"
 export enum PagesOptions {
   Stats,
-  Tags
+  Tags,
+  Review
 }
 
 type FooterProps = {
@@ -20,6 +21,10 @@ export default function Footer(props: FooterProps) {
       <button className={`${styles.entry} ${props.selected == PagesOptions.Tags ? styles.active : ""}`} onClick={() => props.onClick(PagesOptions.Tags)}>
         <img src="/img/tag.svg"/>
         <p> Tags </p>
+      </button>
+      <button className={`${styles.entry} ${props.selected == PagesOptions.Review ? styles.active : ""}`} onClick={() => props.onClick(PagesOptions.Review)}>
+        <img src="/img/writing.svg"/>
+        <p> Review </p>
       </button>
     </div>
   )
