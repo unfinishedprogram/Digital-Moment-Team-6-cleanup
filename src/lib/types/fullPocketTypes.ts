@@ -24,6 +24,17 @@ export type Comment =
     "author": Profile
   };
 
+export type CommentWithComments =
+  Omit<Comment, "parent_post_info">
+  & {
+    "child_comments": CommentWithComments[]
+  };
+
+export type PostWithComments =
+  Post & {
+    "child_comments": CommentWithComments[]
+  };
+
 export type Profile =
   Omit<pocket.ProfilesRecord, "userId" | "age_group" | "preferences" | "location">
   & {

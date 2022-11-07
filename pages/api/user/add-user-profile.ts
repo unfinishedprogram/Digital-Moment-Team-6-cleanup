@@ -31,7 +31,7 @@ const handler: TypedPostEndpoint<AddUserProfileParams, AddUserProfileReturns> = 
     );
     res.status(200).json({id: userRecord.id});
   } catch (error) {
-    res.status(404).json(undefined);
+    res.status(400).json(undefined);
   }
 }
 
