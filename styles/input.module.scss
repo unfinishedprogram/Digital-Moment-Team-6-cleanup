@@ -2,6 +2,7 @@
 
 .text-input {
     @include pill;
+    width: 100%;
 
     &:focus {
         background-color: white;
