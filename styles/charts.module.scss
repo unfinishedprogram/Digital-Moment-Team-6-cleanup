@@ -1,6 +1,16 @@
 @import './theme.scss';
 
 .charts {
+    display: flex;
     margin: $std-margin;
     padding: 4rem 0;
+    overflow: auto;
+    color: black;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+}
+
+.charts > div {
+    padding: 1rem;
 }
