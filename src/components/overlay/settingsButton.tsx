@@ -14,25 +14,28 @@ export type SettingsButtonComponentProps = {
 export default function SettingsButton(props: SettingsButtonComponentProps) {
   const [isDisplayingSettings, setIsDisplayingSettings] = useState(false);
 
-  const onClick = () => {
+  const clickHandler = () => {
     setIsDisplayingSettings(!isDisplayingSettings);
   }
 
   return (
     <>
       {isDisplayingSettings && (
-        <div className={styles.settingsModal}>
-          <TagSelector tags={props.tags} onSelect={(tag: string) => props.onFilterChange({filteredTags: [tag]})}/>
-        </div>
-
-
+        <>
+          <div className={styles.closeModal} onClick={clickHandler}>
+          </div>
+          <div className={styles.settingsModal}>
+            <h1>Filters</h1>
+            <TagSelector tags={props.tags} onSelect={(tag: string) => props.onFilterChange({ filteredTags: [tag] })} />
+          </div>
+        </>
       )}
 
-      <div className={styles.settingsIcon} onClick={onClick}>
-        <img src="/img/settings.svg"/>
+      <div className={styles.settingsIcon} onClick={clickHandler}>
+        <img src="/img/settings.svg" />
       </div>
     </>
   )
-  
+
 }
 
