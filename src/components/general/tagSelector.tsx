@@ -5,6 +5,7 @@ import style from "../../../styles/dropdownSelect.module.scss"
 interface ITagSelectProps {
   tags: string[],
   className?: string;
+  onSelect?: (p: any) => void;
 }
 
 export default function TagSelect(props: Props<{ value: string; label: string }, true> & ITagSelectProps) {
